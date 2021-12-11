@@ -18,6 +18,4 @@ public class HomeController {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         return "index";
     }
-
-
 }
