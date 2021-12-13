@@ -2,6 +2,7 @@ package com.roadtriprunner.RoadTripRunner.models;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.stream.Location;
 
 @Entity
@@ -10,9 +11,11 @@ public class Trip  extends AbstractEntity {
     private String tripName;
 
     @NotBlank
+    @NotNull
     private String startingLocation;
 
     @NotBlank
+    @NotNull
     private String endingLocation;
 
 //    private Enum detourDistance;
