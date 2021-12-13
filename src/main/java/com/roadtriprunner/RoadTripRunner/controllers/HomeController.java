@@ -2,6 +2,7 @@ package com.roadtriprunner.RoadTripRunner.controllers;
 
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
+import com.roadtriprunner.RoadTripRunner.models.DetourDistance;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class HomeController {
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip() );
+        model.addAttribute("detourDistances", DetourDistance.values());
         return "index";
     }
 

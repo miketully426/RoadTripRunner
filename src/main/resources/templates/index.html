@@ -23,6 +23,12 @@
         <br>
         <br>
         <label> Detour Radius:
+            <select th:field="${detourDistance.stringDetourDistance}">
+                <option th:each=" distance : ${detourDistances}"
+                        th:value="${distance}"
+                        th:text="${distance.displayDetourDistance}"
+                ></option>
+            </select>
         </label>
         <br>
         <br>

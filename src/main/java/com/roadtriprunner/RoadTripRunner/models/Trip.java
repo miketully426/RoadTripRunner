@@ -18,15 +18,16 @@ public class Trip  extends AbstractEntity {
     @NotNull
     private String endingLocation;
 
-//    private Enum detourDistance;
+    private DetourDistance detourDistance;
 
     public Trip() { }
 
-    public Trip(String tripName, String startingLocation, String endingLocation) {
+    public Trip(String tripName, String startingLocation, String endingLocation, DetourDistance detourDistance) {
+        this();
         this.tripName = tripName;
         this.startingLocation = startingLocation;
         this.endingLocation = endingLocation;
-//        this.detourDistance = detourDistance;
+        this.detourDistance = detourDistance;
     }
 
     public String getTripName() { return tripName; }
@@ -47,4 +48,8 @@ public class Trip  extends AbstractEntity {
     public void setEndingLocation(String endingLocation) {
         this.endingLocation = endingLocation;
     }
+
+    public DetourDistance getDetourDistance() { return detourDistance; }
+
+    public void setDetourDistance(DetourDistance detourDistance) { this.detourDistance = detourDistance; }
 }
