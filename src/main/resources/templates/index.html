@@ -7,16 +7,18 @@
     <h1>Welcome to RoadTrip Runner!</h1>
     <h3>Ready for your next adventure?  Enter your route here:</h3>
     <form id="destination-form" method="post">
-        <label>Name Your Trip
+        <label>Name Your Trip:
             <input th:field="${trip.tripName}">
         </label>
+        <br>
+        <br>
         <label th:for="startingLocation">Starting Location:
-            <input type="text" th:field="${trip.startingLocation}"/>
+            <input type="text" />
         </label>
         <br>
         <br>
         <label th:for="endingLocation"> Destination:
-            <input type="text" th:field="${trip.endingLocation}"/>
+            <input type="text" />
         </label>
         <br>
         <br>

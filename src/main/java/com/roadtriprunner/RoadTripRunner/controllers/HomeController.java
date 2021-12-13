@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+
 public class HomeController {
     @Autowired
     TripRepository tripRepository;
 
-    @GetMapping
+    @GetMapping("/")
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip() );
-        return "redirect:";
+        return "index";
     }
 
-    @PostMapping
+    @PostMapping("/")
     public String processRouteForm(@ModelAttribute Model model, Errors errors, Trip newTrip){
         //save a new trip
         if (errors.hasErrors()) {
