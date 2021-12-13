@@ -29,11 +29,15 @@ public class HomeController {
         //save a new trip
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
-            return "redirect:";
+            return "index";
         }
 
-        System.out.println("locations entered");
-        return "redirect";
+        tripRepository.save(newTrip);
+
+        System.out.println("Starting location: " + newTrip.getStartingLocation());
+        System.out.println("Ending location: " + newTrip.getEndingLocation());
+
+        return "index";
     }
 
 }

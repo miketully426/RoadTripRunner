@@ -29,4 +29,18 @@ public class Trip  extends AbstractEntity {
 
     public void setTripName(String tripName) { this.tripName = tripName; }
 
+    public String getStartingLocation() { return startingLocation;
+    }
+
+    public void setStartingLocation(String startingLocation) {
+        this.startingLocation = startingLocation;
+    }
+
+    public String getEndingLocation() {
+        return endingLocation;
+    }
+
+    public void setEndingLocation(String endingLocation) {
+        this.endingLocation = endingLocation;
+    }
 }
