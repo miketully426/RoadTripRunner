@@ -26,7 +26,7 @@ public class HomeController {
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip() );
-        model.addAttribute("detourDistances", DetourDistance.values());
+        model.addAttribute("stringDetourDistances", DetourDistance.values());
         return "index";
     }
 
