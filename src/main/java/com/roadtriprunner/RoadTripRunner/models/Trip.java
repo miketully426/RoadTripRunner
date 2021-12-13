@@ -6,6 +6,7 @@ import javax.xml.stream.Location;
 
 @Entity
 public class Trip  extends AbstractEntity {
+
     private String tripName;
 
     @NotBlank
