@@ -10,9 +10,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
-
+@RequestMapping
 public class HomeController {
     @Autowired
     TripRepository tripRepository;
@@ -25,7 +28,7 @@ public class HomeController {
     }
 
     @PostMapping("/")
-    public String processRouteForm(@ModelAttribute Model model, Errors errors, Trip newTrip){
+    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model){
         //save a new trip
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
@@ -37,7 +40,7 @@ public class HomeController {
         System.out.println("Starting location: " + newTrip.getStartingLocation());
         System.out.println("Ending location: " + newTrip.getEndingLocation());
 
-        return "index";
+        return "redirect:";
     }
 
 }
