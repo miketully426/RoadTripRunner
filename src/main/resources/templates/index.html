@@ -3,33 +3,34 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: pageHeader"></div>
+<div>
     <h1>Welcome to RoadTrip Runner!</h1>
     <h3>Ready for your next adventure?  Enter your route here:</h3>
     <form id="destination-form" method="post">
-    <label>Starting Location:
-        <input type="text">
-    </label>
-    <br>
-    <br>
-    <label> Destination:
-        <input type="text">
-    </label>
-    <br>
-    <br>
-    <label> Detour Radius:
-        <select>
-            <option />
-        </select>
-    </label>
-    <br>
-    <br>
-    <input type="submit" value="Begin!"/>
-    <br>
-    <br>
-        <p>Want to save your trips?  Click the Register button below</p>
-    <a class="form-link" >Register</a>
+        <label>Name Your Trip
+            <input th:field="${trip.tripName}">
+        </label>
+        <label th:for="startingLocation">Starting Location:
+            <input type="text" th:field="${trip.startingLocation}"/>
+        </label>
+        <br>
+        <br>
+        <label th:for="endingLocation"> Destination:
+            <input type="text" th:field="${trip.endingLocation}"/>
+        </label>
+        <br>
+        <br>
+        <label> Detour Radius:
+        </label>
+        <br>
+        <br>
+        <input type="submit" value="Begin!"/>
+        <br>
+        <br>
+            <p>Want to save your trips?  Click the Register button below</p>
+        <a class="form-link" >Register</a>
 
-</form>
+    </form>
 
 
 </div>
@@ -38,7 +39,5 @@
     <p>	Better Than Bezos &#169; 2022 </p>
 </footer>
 
-</body>
-</html>
 </body>
 </html>

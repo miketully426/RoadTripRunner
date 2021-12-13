@@ -1,5 +1,9 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import com.roadtriprunner.RoadTripRunner.data.TripRepository;
+import com.roadtriprunner.RoadTripRunner.data.UserRepository;
+import com.roadtriprunner.RoadTripRunner.models.Trip;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -9,14 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
+    @Autowired
+    TripRepository tripRepository;
+
     @GetMapping
-    public String displayRouteForm(Model model){
+    public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
+        model.addAttribute("trip", new Trip() );
         return "redirect:";
     }
 
     @PostMapping
-    public String processRouteForm(@ModelAttribute Model model, Errors errors){
+    public String processRouteForm(@ModelAttribute Model model, Errors errors, Trip newTrip){
+        //save a new trip
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "redirect:";
