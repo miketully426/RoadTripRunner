@@ -6,15 +6,17 @@ import javax.validation.constraints.NotNull;
 
 public class RegisterFormDTO extends LoginFormDTO {
 
+    @NotNull
+    @NotBlank(message="Please verify your password.")
     private String verifyPassword;
 
-    @NotBlank
+    @NotBlank(message="Please enter your name.")
     @NotNull
     private String name;
 
-    @NotBlank
+    @NotBlank(message="Please provide an email for the account.")
     @NotNull
-    @Email(message="Please enter a properly formatted email")
+    @Email(message="Please enter a properly formatted email.")
     private String email;
 
     public String getName() {

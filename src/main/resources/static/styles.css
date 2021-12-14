@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+#titleImg {
+ width: 400px;
+
+
+}
+
+#headerLink {
+
+    border: solid 2px black;
+    background-color: black;
+    font-size: 25px;
+    margin-left: 20px;
+    padding: 7px 15px 7px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+
+}
+#headerLink: hover{
+
+    font-weight:bold;
+    text-decoration:underline;
+
+    }
+
+#login {
+    color: black;
+    float: right;
+    padding: 5px 25px;
+}
+
+#login:hover{
+    font-weight: bold;
+}
+
+iframe {
+    margin: 20px;
+    float: left;
+}
+
+#home-form {
+    margin: 20px;
+    float: left;
+
+}
+
+
+.home-submit {
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    padding: 15px 40px 15px 40px;
+    border: solid 2px black;
+    border-radius: 3px;
+
+}
+
+
+#page-form {
+    margin: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.form-link {
+    color: black;
+}
+
+
+.submit {
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    padding: 15px 50px 15px 50px;
+    border: solid 2px black;
+    border-radius: 3px;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#error {
+color: red;
+}
+footer{
+    margin-top: auto;
+    text-align: center;
+}
