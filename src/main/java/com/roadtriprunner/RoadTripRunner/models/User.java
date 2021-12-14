@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class User extends AbstractEntity {
 
-    //create variable that represents password encryptor
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @NotBlank
@@ -22,7 +22,7 @@ public class User extends AbstractEntity {
     @Email
     private String email;
 
-    //add size here? or does reg/login do model binding do this for us?
+
     @NotNull
     @NotBlank
     private String username;
@@ -31,7 +31,7 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
-    //don't know if this is needed
+
     public String getUsername() {
         return username;
     }
@@ -47,7 +47,7 @@ public class User extends AbstractEntity {
     public User() {
     }
 
-    //method to verify password
+
     public boolean isPasswordMatching(String password) {
         return encoder.matches(password, pwHash);
     }
