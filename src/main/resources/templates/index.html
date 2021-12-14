@@ -2,16 +2,14 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <title>Display a Map</title>
+    <title>Display A Map</title>
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
 <script th:src="script.js"></script>
 </head>
 <body>
 <div id="map"></div>
 
-<script th:src="@{/polyfill.js}"></script>
-<script th:src="@{/markerclusterer.js}"></script>
-<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&callback=initMap&v=weekly'">
+<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&callback=initMap'">
 </script>
 
 
