@@ -41,5 +41,22 @@ public class TripController {
     }
 
 
+    @GetMapping("/trip")
+    public String displayASingleTrip(@RequestParam Integer tripId, Model model) {
+
+        Optional<Trip> result = tripRepository.findById(tripId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Oops! That trip doesn't exist yet!");
+        }
+        else {
+            Trip trip = result.get();
+            model.addAttribute("title", trip.getTripName());
+            model.addAttribute("trip", trip);
+        }
+        return "trips/trip";
+    }
+
+
 
 }

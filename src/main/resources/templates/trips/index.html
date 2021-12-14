@@ -13,6 +13,7 @@
     </thead>
     <tr th:each="trip : ${trips}">
         <td th:text="${trip.tripName}"></td>
+        <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
     </tr>
 </table>
 </body>
