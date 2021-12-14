@@ -1,9 +1,33 @@
 
 
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="https://www.thymeleaf.org/">-->
+<!--<head th:fragment="head">-->
+<!--    <a href="resources/static/styles.css"></a>-->
+<!--    <meta charset="UTF-8"/>-->
+<!--    <title>RoadTrip Runner</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:fragment = "pageHeader" class="wrapper">-->
+
+<!--    <div class="header">-->
+<!--        <a id="login" href="login.html">Login/Register</a>-->
+<!--        <a href="index.html" id="title">RoadTrip Runner</a>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <a href="#" class="headerLink">Your Saved Trips</a>-->
+<!--        <a href="plan-a-trip.html" class="headerLink">Plan a Trip</a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:fragment="head">
-    <a href="resources/static/styles.css"></a>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link th:href="@{/styles.css}" rel="stylesheet" type="text/css"></link>
     <meta charset="UTF-8"/>
     <title>RoadTrip Runner</title>
 </head>
@@ -11,13 +35,17 @@
 <div th:fragment = "pageHeader" class="wrapper">
 
     <div class="header">
-        <a id="login" href="login.html">Login/Register</a>
-        <a href="index.html" id="title">RoadTrip Runner</a>
+        <a id="login" th:href="@{/login}">Login/Register</a>
+        <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <a href="#" class="headerLink">Your Saved Trips</a>
-        <a href="plan-a-trip.html" class="headerLink">Plan a Trip</a>
+        <a id="headerLink">Your Saved Trips</a>
+        <a id="headerLink">Plan a Trip</a>
     </div>
 </div>
+
+<footer th:fragment="footer">
+    <p>	Better Than Bezos &#169; 2022 </p>
+</footer>
 </body>
-</html>
+</html>>
