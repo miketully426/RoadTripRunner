@@ -3,7 +3,6 @@ package com.roadtriprunner.RoadTripRunner.models;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.xml.stream.Location;
 
 @Entity
 public class Trip  extends AbstractEntity {
@@ -18,16 +17,16 @@ public class Trip  extends AbstractEntity {
     @NotNull
     private String endingLocation;
 
-    private DetourDistance stringDetourDistance;
+    private DetourRadius detourRadius;
 
     public Trip() { }
 
-    public Trip(String tripName, String startingLocation, String endingLocation, DetourDistance stringDetourDistance) {
+    public Trip(String tripName, String startingLocation, String endingLocation, DetourRadius detourRadius) {
         this();
         this.tripName = tripName;
         this.startingLocation = startingLocation;
         this.endingLocation = endingLocation;
-        this.stringDetourDistance = stringDetourDistance;
+        this.detourRadius = detourRadius;
     }
 
     public String getTripName() { return tripName; }
@@ -49,11 +48,7 @@ public class Trip  extends AbstractEntity {
         this.endingLocation = endingLocation;
     }
 
-    public DetourDistance getStringDetourDistance() {
-        return stringDetourDistance;
-    }
-
-    public void setStringDetourDistance(DetourDistance stringDetourDistance) {
-        this.stringDetourDistance = stringDetourDistance;
+    public DetourRadius getDetourRadius() {
+        return detourRadius;
     }
 }
