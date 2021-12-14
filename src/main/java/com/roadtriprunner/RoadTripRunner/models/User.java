@@ -13,11 +13,11 @@ public class User extends AbstractEntity {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    @NotBlank(message="Please enter your name")
+    @NotBlank
     @NotNull
     private String name;
 
-    @NotBlank(message="Please enter an email")
+    @NotBlank
     @NotNull
     @Email
     private String email;
