@@ -10,10 +10,10 @@
         <h3 th:field="${itineraryHeader}">Itinerary</h3>
         <div class="itinerary-stops">
             <h5>Starting: </h5>
-                <p th:field="${trip.startingLocation}"></p>
-            <h5>Stops</h5>
-            <h5>Destination</h5>
-                <p th:field="${trip.endingLocation}"></p>
+                <p th:text="${trip.startingLocation}"></p>
+            <h5>Stops: </h5>
+            <h5>Destination: </h5>
+                <p th:text="${trip.endingLocation}"></p>
         </div>
 
     </div>

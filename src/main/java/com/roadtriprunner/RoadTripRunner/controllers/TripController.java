@@ -33,7 +33,8 @@ public class TripController {
                 model.addAttribute("title", "Oops! That trip doesn't exist yet!");
             }
             else {
-                model.addAttribute("title", "nothing here yet!");
+                Trip trip = result.get();
+                model.addAttribute("title", trip.getTripName());
             }
         }
 
