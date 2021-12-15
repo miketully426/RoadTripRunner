@@ -1,26 +1,21 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
 public enum DetourRadius {
-    FIVE_MILES (5, "5 miles"),
-    TWENTY_FIVE_MILES (25, "25 miles"),
-    FIFTY_MILES (50, "50 miles"),
-    ONE_HUNDRED_MILES (100, "100 miles"),
-    ONE_HUNDRED_FIFTY_PLUS (150, "150+ miles");
+    FIVE_MILES (5),
+    TWENTY_FIVE_MILES (25),
+    FIFTY_MILES (50),
+    ONE_HUNDRED_MILES (100),
+    ONE_HUNDRED_FIFTY_PLUS (150);
 
-    private final int radius;
-    private String stringDetourRadius;
+    private final int intRadius;
 
 
-    DetourRadius(int radius, String stringDetourRadius) {
-        this.radius = radius;
-        this.stringDetourRadius= stringDetourRadius;
+    DetourRadius(int intRadius) {
+        this.intRadius = intRadius;
     }
 
-    public int getRadius() {
-        return radius;
+    public int getIntRadius() {
+        return intRadius;
     }
 
-    public String getStringDetourRadius() {
-        return stringDetourRadius;
-    }
 }

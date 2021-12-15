@@ -8,16 +8,13 @@
     width: 100%;
 }
 
-#title {
- font-size: 60px;
- margin: 20px;
- text-decoration: none;
- color: black;
+#titleImg {
+ width: 400px;
+
 
 }
 
-.headerLink {
-
+#headerLink {
     border: solid 2px black;
     background-color: black;
     font-size: 25px;
@@ -94,9 +91,14 @@ body{
     flex-direction: column;
 }
 
+#error {
+color: red;
+}
+
 footer{
     margin-top: auto;
     text-align: center;
 }
+
 
 

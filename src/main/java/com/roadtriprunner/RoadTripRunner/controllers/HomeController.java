@@ -24,7 +24,7 @@ public class HomeController {
     @GetMapping("/")
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
-        model.addAttribute("detourRadiuses", DetourRadius.values());
+        model.addAttribute("detourRadii", DetourRadius.values());
         model.addAttribute("trip", new Trip() );
 
 
