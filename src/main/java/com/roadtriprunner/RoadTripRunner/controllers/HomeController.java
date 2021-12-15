@@ -1,7 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
-import com.roadtriprunner.RoadTripRunner.models.DetourRadius;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,6 @@ public class HomeController {
     @GetMapping("/")
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
-        model.addAttribute("detourRadii", DetourRadius.values());
-        System.out.println(DetourRadius.values());
         model.addAttribute("trip", new Trip() );
 
 
@@ -42,11 +39,6 @@ public class HomeController {
         }
 
         tripRepository.save(newTrip);
-
-        System.out.println("Detour Values:" + newTrip.getDetourRadius());
-        System.out.println("Starting location: " + newTrip.getStartingLocation());
-        System.out.println("Ending location: " + newTrip.getEndingLocation());
-
         return "redirect:";
     }
 

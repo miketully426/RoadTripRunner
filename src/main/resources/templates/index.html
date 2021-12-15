@@ -23,12 +23,7 @@
         <br>
         <br>
         <label> Detour Radius in Miles:
-            <select th:field="${trip.detourRadius}">
-                <option th:each="detourRadius : ${detourRadii}"
-                        th:text="${detourRadius}"
-                        th:value="${detourRadius.stringDetourRadius}"
-                ></option>
-            </select>
+            <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="Number Of Miles">
         </label>
         <br>
         <br>

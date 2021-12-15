@@ -1,6 +1,10 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -9,19 +13,21 @@ public class Trip  extends AbstractEntity {
 
     private String tripName;
 
-    @NotBlank
+    @NotBlank(message = "Starting location is required.")
     @NotNull
     private String startingLocation;
 
-    @NotBlank
+    @NotBlank(message="Ending location is required.")
     @NotNull
     private String endingLocation;
 
-    private DetourRadius detourRadius;
+    @Min(0)
+    @Max(150)
+    private Integer detourRadius;
 
     public Trip() { }
 
-    public Trip(String tripName, String startingLocation, String endingLocation, DetourRadius detourRadius) {
+    public Trip(String tripName, String startingLocation, String endingLocation, Integer detourRadius) {
         this();
         this.tripName = tripName;
         this.startingLocation = startingLocation;
@@ -48,8 +54,11 @@ public class Trip  extends AbstractEntity {
         this.endingLocation = endingLocation;
     }
 
-    public DetourRadius getDetourRadius() {
-
+    public Integer getDetourRadius() {
         return detourRadius;
+    }
+
+    public void setDetourRadius(Integer detourRadius) {
+        this.detourRadius = detourRadius;
     }
 }
