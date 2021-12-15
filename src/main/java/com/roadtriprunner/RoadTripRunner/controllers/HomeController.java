@@ -13,9 +13,9 @@ public class HomeController {
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
-    @GetMapping
+    @GetMapping("/map")
     public String index(Model model) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
-        return "index";
+        return "maps/mapDisplay";
     }
 }
