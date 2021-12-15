@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.models.DetourRadius;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping
+@RequestMapping("/")
 public class HomeController {
 
     @Autowired
@@ -43,6 +44,16 @@ public class HomeController {
         System.out.println("Ending location: " + newTrip.getEndingLocation());
 
         return "redirect:";
+    }
+
+    @Value("${gmapsApiKey}")
+    private String gmapsApiKey;
+
+
+    @GetMapping
+    public String index(Model model) {
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
+        return "index";
     }
 
 }
