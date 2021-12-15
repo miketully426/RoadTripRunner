@@ -49,6 +49,7 @@ public class Trip  extends AbstractEntity {
     }
 
     public DetourRadius getDetourRadius() {
+
         return detourRadius;
     }
 }

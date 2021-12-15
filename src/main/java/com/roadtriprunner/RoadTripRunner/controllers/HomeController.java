@@ -25,6 +25,7 @@ public class HomeController {
     public String displayTripForm(Model model){
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("detourRadii", DetourRadius.values());
+        System.out.println(DetourRadius.values());
         model.addAttribute("trip", new Trip() );
 
 
@@ -42,6 +43,7 @@ public class HomeController {
 
         tripRepository.save(newTrip);
 
+        System.out.println("Detour Values:" + newTrip.getDetourRadius());
         System.out.println("Starting location: " + newTrip.getStartingLocation());
         System.out.println("Ending location: " + newTrip.getEndingLocation());
 
