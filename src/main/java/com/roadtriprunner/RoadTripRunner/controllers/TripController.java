@@ -21,20 +21,9 @@ public class TripController {
 
 
     @GetMapping("")
-    public String displayAllTrips(@RequestParam(required=false) Integer tripId, Model model) {
-        if (tripId == null) {
+    public String displayAllTrips(Model model) {
             model.addAttribute("title", "Your saved trips");
             model.addAttribute("trips", tripRepository.findAll());
-        } else {
-            Optional<Trip> possibleTrip = tripRepository.findById(tripId);
-            if (possibleTrip.isEmpty()) {
-                model.addAttribute("title", "Oops! That trip doesn't exist yet!");
-            } else {
-                Trip trip = possibleTrip.get();
-                model.addAttribute("title", trip.getTripName());
-            }
-        }
-
         return "trips/index";
     }
 
