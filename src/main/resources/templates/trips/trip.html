@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<div class="itinerary-box">
+    <h3 th:field="${itineraryHeader}">Itinerary</h3>
+    <div class="itinerary-stops">
+        <h5>Starting: </h5>
+        <p th:text="${trip.startingLocation}"></p>
+        <h5>Stops: </h5>
+        <h5>Destination: </h5>
+        <p th:text="${trip.endingLocation}"></p>
+    </div>
+
+</div>
+</body>
+</html>

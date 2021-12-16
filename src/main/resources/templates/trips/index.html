@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<table class="all-trips">
+    <thead>
+    <tr>
+        <th>Trip Name</th>
+    </tr>
+    </thead>
+    <tr th:each="trip : ${trips}">
+        <td th:text="${trip.tripName}"></td>
+        <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
+    </tr>
+</table>
+</body>
+</html>
