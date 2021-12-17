@@ -14,7 +14,10 @@
 }
 
 #headerLink {
+<<<<<<< HEAD
+=======
 
+>>>>>>> @{-1}
     border: solid 2px black;
     background-color: black;
     font-size: 25px;
@@ -65,6 +68,9 @@ iframe {
 }
 
 
+#destination-form {
+    margin: 100px;
+    text-align: left;
 #page-form {
     margin: 100px;
     text-align: center;
