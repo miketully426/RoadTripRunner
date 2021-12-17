@@ -11,20 +11,28 @@
             <input th:field="${trip.tripName}" th:value="${trip.tripName}">
         </label>
         <br>
+        <p class="error" th:errors="${trip.tripName}"></p>
+        <br>
         <br>
         <label th:for="startingLocation">Starting Location:
             <input type="text" th:field="${trip.startingLocation}" th:value="${trip.startingLocation}">
         </label>
+        <br>
+        <p class="error" th:errors="${trip.startingLocation}"></p>
         <br>
         <br>
         <label th:for="endingLocation"> Destination:
             <input type="text" th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
         </label>
         <br>
+        <p class="error" th:errors="${trip.endingLocation}"></p>
+        <br>
         <br>
         <label> Detour Radius in Miles:
-            <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="Number Of Miles">
+            <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">
         </label>
+        <br>
+        <p class="error" th:errors="${trip.detourRadius}"></p>
         <br>
         <br>
         <input type="submit" value="Begin!"/>

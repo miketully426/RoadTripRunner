@@ -19,6 +19,7 @@ public class Trip  extends AbstractEntity {
     @NotNull
     private String endingLocation;
 
+
     @Min(0)
     @Max(150)
     private Integer detourRadius;
