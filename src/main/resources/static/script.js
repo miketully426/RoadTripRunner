@@ -1,9 +1,13 @@
+let centerLatitude = 41.85;
+let centerLongitude = -87.65;
+let centerZoom = 7;
+
 function initMap() {
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 7,
-    center: { lat: 41.85, lng: -87.65 },
+    zoom: centerZoom,
+    center: { lat: centerLatitude, lng: centerLongitude },
   });
 
   directionsRenderer.setMap(map);
