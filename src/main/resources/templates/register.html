@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-</head>
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: pageHeader"></header>
 <body>
 
 <header>
@@ -41,6 +42,8 @@
 
     <input type="submit" value="Register" />
 </form>
+
+<footer th:replace="fragments :: footer"></footer>
 
 </body>
 </html>

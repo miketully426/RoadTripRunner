@@ -8,7 +8,7 @@
 }
 
 #titleImg {
- width: 400px;
+    width: 400px;
 }
 
 #headerLink {
@@ -21,6 +21,7 @@
     text-decoration: none;
     border-radius: 3px;
 }
+
 #headerLink: hover{
     font-weight:bold;
     text-decoration:underline;
@@ -46,7 +47,6 @@ iframe {
     float: left;
 }
 
-
 .home-submit {
     font-size: 20px;
     background-color: black;
@@ -54,6 +54,11 @@ iframe {
     padding: 15px 40px 15px 40px;
     border: solid 2px black;
     border-radius: 3px;
+}
+
+#destination-form {
+    margin: 100px;
+    text-align: left;
 }
 
 #page-form {
@@ -82,35 +87,35 @@ body {
 }
 
 #error {
-color: red;
+    color: red;
 }
 
-footer{
+footer {
     margin-top: auto;
     text-align: center;
 }
 
 #map {
- height: 100%;
+    height: 100%;
 }
 
 html,
 body {
- height: 100%;
- margin: 0;
- padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: "Roboto", "sans-serif";
-  line-height: 30px;
-  padding-left: 10px;
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: "Roboto", "sans-serif";
+    line-height: 30px;
+    padding-left: 10px;
 }
