@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <header th:replace="fragments :: pageHeader"></header>
+
+        <br>
+        <br>
+
+        <table class="all-trips">
+            <thead>
+            <tr>
+                <th>Trip Name</th>
+            </tr>
+            </thead>
+
+            <tr th:each="trip : ${trips}">
+                <td th:text="${trip.tripName}"></td>
+                <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
+            </tr>
+        </table>
+
+        <footer th:replace="fragments :: footer"></footer>
+
+    </body>
+</html>
