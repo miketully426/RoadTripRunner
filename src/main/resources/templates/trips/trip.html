@@ -4,8 +4,11 @@
     <body>
     <header th:replace="fragments :: pageHeader"></header>
 
+    <br>
+    <br>
+
     <div class="itinerary-box">
-        <h3 th:text="${itineraryHeader}">Itinerary</h3>
+        <h3 th:text="${trip.tripName}">Itinerary</h3>
         <div class="itinerary-stops">
             <h5>Starting: </h5>
             <p th:text="${trip.startingLocation}"></p>
@@ -14,6 +17,8 @@
             <p th:text="${trip.endingLocation}"></p>
         </div>
     </div>
+
+    <br>
 
     <footer th:replace="fragments :: footer"></footer>
     </body>
