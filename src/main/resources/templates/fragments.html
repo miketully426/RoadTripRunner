@@ -15,8 +15,8 @@
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <a id="headerLink">Your Saved Trips</a>
-        <a id="headerLink">Plan a Trip</a>
+        <a th:href = "@{/trips}" id="headerLink">Your Saved Trips</a>
+        <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
     </div>
 </div>
 
