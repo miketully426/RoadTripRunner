@@ -22,10 +22,10 @@ function initMap() {
   document.getElementById("end").addEventListener("change", onChangeHandler);
 
 //  http request searching for querytext of 'National Parks' and will return just the name
-//  let request = {
-//    query: "National Parks",
-//    fields: ["name", "geometry"]
-//  };
+  let request = {
+    query: "National Parks",
+    fields: ["name", "geometry"]
+  };
 
    const placesService = new google.maps.places.PlacesService(map);
 
@@ -45,7 +45,7 @@ function createMarker(place) {
   if (!place.geometry || !place.geometry.location) return;
 
   const marker = new google.maps.Marker({
-    map,
+    map: map,
     position: place.geometry.location,
   });
 
