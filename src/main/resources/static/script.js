@@ -1,6 +1,6 @@
-let centerLatitude = 41.85;
-let centerLongitude = -87.65;
-let centerZoom = 7;
+let centerLatitude = 37.85;
+let centerLongitude = -97.65;
+let centerZoom = 5;
 
 function initMap() {
   const directionsService = new google.maps.DirectionsService();
@@ -9,6 +9,7 @@ function initMap() {
     zoom: centerZoom,
     center: { lat: centerLatitude, lng: centerLongitude },
   });
+  const placesService = new google.maps.places.PlacesService(map);
 
   directionsRenderer.setMap(map);
 
@@ -19,6 +20,15 @@ function initMap() {
   document.getElementById("start").addEventListener("change", onChangeHandler);
   document.getElementById("end").addEventListener("change", onChangeHandler);
 }
+
+//const displayNationalParksRequest = {
+//    location: document.getElementById("map");
+//    types: [ park ]
+//}
+
+let https = require("https");
+
+let
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   directionsService

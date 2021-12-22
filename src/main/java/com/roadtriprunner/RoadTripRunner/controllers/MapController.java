@@ -1,0 +1,7 @@
+package com.roadtriprunner.RoadTripRunner.controllers;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MapController {
+}

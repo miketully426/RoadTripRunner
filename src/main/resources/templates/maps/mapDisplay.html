@@ -46,7 +46,7 @@
 <!--        async-->
 <!--&gt;</script>-->
 
-<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&callback=initMap'">
+<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
 </script>
 </body>
 <footer th:replace="fragments :: footer"></footer>
