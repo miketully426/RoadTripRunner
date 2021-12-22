@@ -23,9 +23,6 @@ public class HomeController {
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
-    @Value("${natParksApiKey}")
-    private String natParksApiKey;
-
     @GetMapping("/")
     public String displayTripForm(Model model) {
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
@@ -36,7 +33,6 @@ public class HomeController {
     @GetMapping("/map")
     public String index(Model model) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
-        model.addAttribute("natParksApiKey", natParksApiKey);
         return "maps/mapDisplay";
     }
 

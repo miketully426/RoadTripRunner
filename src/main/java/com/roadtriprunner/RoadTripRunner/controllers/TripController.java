@@ -19,7 +19,6 @@ public class TripController {
     @Autowired
     TripRepository tripRepository;
 
-
     @GetMapping("")
     public String displayAllTrips(Model model) {
             model.addAttribute("title", "Your saved trips");

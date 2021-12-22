@@ -42,7 +42,11 @@
 
 <script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
 </script>
-<script async th:src="'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=' +${natParksApiKey}"></script>
+
+<!--<script async th:src="'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name,geometry'"></script>-->
+<script async th:src="'https://maps.googleapis.com/maps/api/place/textsearch/json?query=park&location=41,-87&radius=5000&region=us&key='+ ${gmapsApiKey}"></script>
+<!--line 47's direct call to the API gets blocked because of Cross-Origin Read Blocking-->
+<!--NOTE: the JavaScript call makes a json call request and, looking at Inspect, it appears that the json request is successful but does not display because of "InvalidValueError: setMap is not an instance of Map"-->
 
 </body>
 <footer th:replace="fragments :: footer"></footer>
