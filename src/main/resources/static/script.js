@@ -36,8 +36,8 @@ function initMap() {
   //  http request searching for querytext of 'National Parks' and will return just the name
 //  query text searches return all fields; if want only limited fields, use "find place" and input search instead
     let request = {
-        input: "amusement_park", //using input and amusement_park returns the json listing; setMap is blocking it
-//        query: "National Park", //should this be input and park?
+//        input: "amusement_park", //using input and amusement_park returns the json listing; setMap is blocking it
+        query: "National Park", //should this be input and park?
         fields: ["name", "geometry"] //should this be geometry.location for query search and name, geometry for input search
 //        json field return geometry:location:lat lng
     };

@@ -30,6 +30,9 @@ public class HomeController {
         return "index";
     }
 
+//    json example here: https://stackoverflow.com/questions/57247470/how-to-load-data-from-a-json-using-thymeleaf-template
+
+
     @GetMapping("/map")
     public String index(Model model) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
