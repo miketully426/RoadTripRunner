@@ -1,5 +1,7 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/")
@@ -46,6 +49,28 @@ public class HomeController {
         return "redirect:";
     }
 
+    @RequestMapping("/map")
+    public String displayNationalParkMarker(Model model) {
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
+
+
+        ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
+//        JSONArray jArray = (JSONArray)jsonObject;
+
+
+        model.addAttribute("listOfNationalParks", "listOfNationalParks");
+        return "/map/mapDisplay";
+    }
+
 
 
 }
+
+
+//    ArrayList<String> listdata = new ArrayList<String>();
+//    JSONArray jArray = (JSONArray)jsonObject;
+//        if (jArray != null) {
+//                for (int i=0;i<jArray.length();i++){
+//        listdata.add(jArray.getString(i));
+//        }
+//        }
