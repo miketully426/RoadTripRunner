@@ -32,8 +32,12 @@ function initMap() {
 
    const placesService = new google.maps.places.PlacesService(map);
 
+//created jsonObject inside and outside of
    service = new google.maps.places.PlacesService(map);
    service.findPlaceFromQuery(request, (results, status) => {
+//     let jsonObject = JSON.parse(results);
+//     console.log(jsonObject[0]);
+    console.log(results);
      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
        for (let i = 0; i < results.length; i++) {
          createMarker(results[i]);
