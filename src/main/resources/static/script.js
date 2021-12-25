@@ -10,8 +10,8 @@ var map;
 
 
 function initMap() {
-//  const directionsService = new google.maps.DirectionsService();
-//  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
 //  displayUSA = new google.maps.LtLng(37.85, -97);
 //  const infoWindow = new google.maps.InfoWindow();
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -19,14 +19,14 @@ function initMap() {
     center: { lat: centerLatitude, lng: centerLongitude },
   });
 
-//  directionsRenderer.setMap(map);
+  directionsRenderer.setMap(map);
 
-//  const onChangeHandler = function () {
-//    calculateAndDisplayRoute(directionsService, directionsRenderer);
-//  };
-//
-//  document.getElementById("start").addEventListener("change", onChangeHandler);
-//  document.getElementById("end").addEventListener("change", onChangeHandler);
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+
+  document.getElementById("start").addEventListener("change", onChangeHandler);
+  document.getElementById("end").addEventListener("change", onChangeHandler);
 
 //  http request searching for querytext of 'National Parks' and will return just the name
   let request = {
@@ -77,20 +77,20 @@ function createMarker(place) {
 }
 
 
-//function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-//  directionsService
-//    .route({
-//      origin: {
-//        query: document.getElementById("start").value,
-//      },
-//      destination: {
-//        query: document.getElementById("end").value,
-//      },
-//      travelMode: google.maps.TravelMode.DRIVING,
-//    })
-//    .then((response) => {
-//      directionsRenderer.setDirections(response);
-//    })
-//    .catch((e) => window.alert("Directions request failed due to " + status));
-//}
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  directionsService
+    .route({
+      origin: {
+        query: document.getElementById("start").value,
+      },
+      destination: {
+        query: document.getElementById("end").value,
+      },
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+    })
+    .catch((e) => window.alert("Directions request failed due to " + status));
+}
 
