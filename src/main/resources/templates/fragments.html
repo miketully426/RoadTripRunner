@@ -12,7 +12,7 @@
 
     <div class="header">
         <a id="login" th:href="@{/login}">Login/Register</a>
-        <a id="logout" th:href="@{/login}">Logout</a>
+        <a id="logout" th:href="@{/logout}" th:text = "${logout}"></a>
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>

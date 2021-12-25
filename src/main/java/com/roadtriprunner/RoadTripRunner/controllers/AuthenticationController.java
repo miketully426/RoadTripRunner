@@ -122,6 +122,7 @@ public class AuthenticationController {
             return "login";
         }
 
+        model.addAttribute("logout", "Logout");
         setUserInSession(request.getSession(), theUser);
 
 
