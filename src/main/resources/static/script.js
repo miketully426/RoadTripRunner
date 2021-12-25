@@ -37,3 +37,11 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
+function loginHidden(){
+document.getElementById("login").style.visibility = "hidden";
+}
+
+function logoutVisible(){
+document.getElementById("logout").style.visibility = "visible";
+}
+

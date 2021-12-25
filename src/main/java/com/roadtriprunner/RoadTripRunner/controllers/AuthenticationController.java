@@ -1,6 +1,5 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.LoginFormDTO;
@@ -10,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -96,10 +95,11 @@ public class AuthenticationController {
 
 }
 
+
     @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
-                                   Model model) {
+                                   Model model) throws IOException, ScriptException, NoSuchMethodException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
@@ -123,6 +123,7 @@ public class AuthenticationController {
         }
 
         setUserInSession(request.getSession(), theUser);
+
 
         return "redirect:";
     }
