@@ -66,21 +66,26 @@ https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multipl
            const marker = new google.maps.Marker({
              map: map,
              position: jsonObject[i].geometry.location,
+             title: jsonObject[i].name,
            });
 
-           google.maps.event.addListener(marker, "click", () => {
-                infoWindow.setContent(jsonObject[i].name || "");
-                infoWindow.open(map);
-           });
+           let infoWindowDisplayText = "<h1>National Park</h1>";
+
+           marker.addListener("click", () => {
+                infoWindow.setContent(jsonObject[i].name || infoWindowDisplayText);
+                infoWindow.open({
+                    anchor: marker,
+                    map });
+                });
+           }
        }
-//       infoWindow.open(map);
 
         //call window function to display query
 //       }
 //       map.setCenter(jsonObject[0].geometry.location);
 //     }
 
-      }
+//      }
 
    });
 }
