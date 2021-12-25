@@ -1,8 +1,12 @@
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
-let centerZoom = 5;
+let centerZoom = 4;
 let displayUSA;
 var map;
+
+// displays center of US
+// zoom of 5
+
 
 
 function initMap() {
@@ -26,15 +30,19 @@ function initMap() {
 
 //  http request searching for querytext of 'National Parks' and will return just the name
   let request = {
-    query: "National Parks",
+//    input: "national park"
+    query: "'us national park'",
     fields: ["name", "geometry.location"]
+
+    //either input OR query + fields works.
   };
 
    const placesService = new google.maps.places.PlacesService(map);
 
 //created jsonObject inside and outside of
    service = new google.maps.places.PlacesService(map);
-   service.findPlaceFromQuery(request, (results, status) => {
+//   service.findPlaceFromQuery
+   service.textSearch(request, (results, status) => {
      let jsonString = JSON.stringify(results);
      let jsonObject = JSON.parse(jsonString);
      console.log(jsonObject[0]);
@@ -44,8 +52,9 @@ function initMap() {
              map: map,
              position: jsonObject[i].geometry.location,
            });
+        //call window function to display query
        }
-       map.setCenter(jsonObject[0].geometry.location);
+//       map.setCenter(jsonObject[0].geometry.location);
      }
    });
 }
@@ -61,10 +70,10 @@ function createMarker(place) {
     position: place.geometry.location,
   });
 
-//  google.maps.event.addListener(marker, "click", () => {
-//    infoWindow.setContent(place.name || "");
-//    infoWindow.open(map);
-//  });
+   google.maps.event.addListener(marker, "click", () => {
+     infoWindow.setContent(place.name || "");
+     infoWindow.open(map);
+     });
 }
 
 

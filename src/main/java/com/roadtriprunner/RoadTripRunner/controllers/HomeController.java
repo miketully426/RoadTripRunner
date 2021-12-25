@@ -49,18 +49,18 @@ public class HomeController {
         return "redirect:";
     }
 
-    @RequestMapping("/map")
-    public String displayNationalParkMarker(Model model) {
-        model.addAttribute("gmapsApiKey", gmapsApiKey);
-
-
-        ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
-//        JSONArray jArray = (JSONArray)jsonObject;
-
-
-        model.addAttribute("listOfNationalParks", "listOfNationalParks");
-        return "/maps/mapDisplay";
-    }
+//    @RequestMapping("/map")
+//    public String displayNationalParkMarker(Model model) {
+//        model.addAttribute("gmapsApiKey", gmapsApiKey);
+//
+//
+//        ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
+////        JSONArray jArray = (JSONArray)jsonObject;
+//
+//
+//        model.addAttribute("listOfNationalParks", "listOfNationalParks");
+//        return "/maps/mapDisplay";
+//    }
 
 
 
