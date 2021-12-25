@@ -59,7 +59,7 @@ public class HomeController {
 
 
         model.addAttribute("listOfNationalParks", "listOfNationalParks");
-        return "/map/mapDisplay";
+        return "/maps/mapDisplay";
     }
 
 
