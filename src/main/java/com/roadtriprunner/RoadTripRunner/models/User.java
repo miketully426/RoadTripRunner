@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
+import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Data
 @Entity
 public class User extends AbstractEntity {
 
@@ -33,15 +35,16 @@ public class User extends AbstractEntity {
     private String pwHash;
 
 
-    public String getUsername() {
-        return username;
-    }
-
     public User(String name, String email, String username, String password) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.pwHash = encoder.encode(password);
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.pwHash = password;
     }
 
     public User() {

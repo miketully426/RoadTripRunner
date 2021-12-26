@@ -54,9 +54,10 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/register-success")
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request, Model model) {
+                                          Errors errors, HttpServletRequest request,
+                                          Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
@@ -66,8 +67,7 @@ public class AuthenticationController {
         User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists",
-                    "A user with that username already exists");
+            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             model.addAttribute("title", "Register");
             return "register";
         }
@@ -75,17 +75,16 @@ public class AuthenticationController {
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch",
-                    "Passwords do not match");
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             model.addAttribute("title", "Register");
             return "register";
         }
 
-        User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
+        setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
-
+        return "register-success";
     }
 
     @GetMapping("/login")
