@@ -54,7 +54,7 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping("/register-success")
+    @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
                                           Errors errors, HttpServletRequest request,
                                           Model model) {
@@ -84,7 +84,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "register-success";
+        return "redirect:";
     }
 
     @GetMapping("/login")
