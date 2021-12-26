@@ -2,11 +2,13 @@ package com.roadtriprunner.RoadTripRunner.models;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User extends AbstractEntity {
@@ -46,6 +48,7 @@ public class User extends AbstractEntity {
 
     public User() {
     }
+
 
     public boolean isPasswordMatching(String password) {
         return encoder.matches(password, pwHash);
