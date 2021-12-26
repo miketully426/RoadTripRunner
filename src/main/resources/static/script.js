@@ -33,6 +33,7 @@ function initMap() {
      let jsonString = JSON.stringify(results);
      let jsonObject = JSON.parse(jsonString);
      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+     console.log(jsonObject[10]);
 
        for (let i = 0; i < jsonObject.length; i++) {
            const marker = new google.maps.Marker({
@@ -41,18 +42,17 @@ function initMap() {
              title: jsonObject[i].name,
            });
 
-           let infoWindowDisplayText = "National Park";
+           let infoWindowDefaultText = "National Park";
+           let infoWindowMarkerText = "<b>"+`${jsonObject[i].name}`+"</b>" + "<br>" + `${jsonObject[i].formatted_address}` + "<br>" + `User Rating: ${jsonObject[i].rating}`;
 
            marker.addListener("click", () => {
-                infoWindow.setContent(jsonObject[i].name || infoWindowDisplayText);
+                infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
                 infoWindow.open({
                     anchor: marker,
                     map });
                 });
            }
        }
-
-
    });
 }
 
