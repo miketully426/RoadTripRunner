@@ -1,17 +1,16 @@
+var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
-var map;
-
 
 function initMap() {
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const infoWindow = new google.maps.InfoWindow();
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: centerZoom,
-        center: { lat: centerLatitude, lng: centerLongitude },
-    });
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: centerZoom,
+    center: { lat: centerLatitude, lng: centerLongitude },
+  });
 
   directionsRenderer.setMap(map);
 
@@ -46,13 +45,13 @@ function initMap() {
            let infoWindowMarkerText = "<b>"+`${jsonObject[i].name}`+"</b>" + "<br>" + `${jsonObject[i].formatted_address}` + "<br>" + `User Rating: ${jsonObject[i].rating}`;
 
            marker.addListener("click", () => {
-                infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
-                infoWindow.open({
-                    anchor: marker,
-                    map });
-                });
-           }
+             infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
+             infoWindow.open({
+                anchor: marker,
+                map });
+           });
        }
+     }
    });
 }
 
@@ -72,4 +71,3 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     })
     .catch((e) => window.alert("Directions request failed due to " + status));
 }
-

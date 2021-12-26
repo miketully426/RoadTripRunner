@@ -48,29 +48,4 @@ public class HomeController {
         tripRepository.save(newTrip);
         return "redirect:";
     }
-
-//    @RequestMapping("/map")
-//    public String displayNationalParkMarker(Model model) {
-//        model.addAttribute("gmapsApiKey", gmapsApiKey);
-//
-//
-//        ArrayList<JSONObject> listdata = new ArrayList<JSONObject>();
-////        JSONArray jArray = (JSONArray)jsonObject;
-//
-//
-//        model.addAttribute("listOfNationalParks", "listOfNationalParks");
-//        return "/maps/mapDisplay";
-//    }
-
-
-
 }
-
-
-//    ArrayList<String> listdata = new ArrayList<String>();
-//    JSONArray jArray = (JSONArray)jsonObject;
-//        if (jArray != null) {
-//                for (int i=0;i<jArray.length();i++){
-//        listdata.add(jArray.getString(i));
-//        }
-//        }

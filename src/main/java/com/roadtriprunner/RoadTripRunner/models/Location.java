@@ -1,9 +1,7 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-@JsonIgnoreProperties //this tells json to ignore non-matching fields
 public class Location {
 
     private double latitude;
