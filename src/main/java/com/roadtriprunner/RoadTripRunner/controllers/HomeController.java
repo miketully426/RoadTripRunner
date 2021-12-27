@@ -11,9 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
 import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -21,22 +20,28 @@ public class HomeController {
     @Autowired
     TripRepository tripRepository;
 
-    @GetMapping("/")
-    public String displayTripForm(Model model){
-        model.addAttribute("title", "Enter Your Starting and Ending Locations");
-        model.addAttribute("trip", new Trip() );
+    @Value("${gmapsApiKey}")
+    private String gmapsApiKey;
 
+    @GetMapping("/")
+    public String displayTripForm(Model model) {
+        model.addAttribute("title", "Enter Your Starting and Ending Locations");
+        model.addAttribute("trip", new Trip());
         return "index";
+    }
+
+    @GetMapping("/map")
+    public String index(Model model) {
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
+        return "maps/mapDisplay";
     }
 
     @PostMapping("/")
     public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model){
-        //save a new trip
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-
         tripRepository.save(newTrip);
         return "redirect:";
     }
