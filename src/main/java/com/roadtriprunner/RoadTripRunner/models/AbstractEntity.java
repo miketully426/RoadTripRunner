@@ -1,6 +1,6 @@
 
 package com.roadtriprunner.RoadTripRunner.models;
-import lombok.Data;
+//import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
