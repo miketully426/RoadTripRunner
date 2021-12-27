@@ -11,6 +11,17 @@ function initMap() {
     zoom: centerZoom,
     center: { lat: centerLatitude, lng: centerLongitude },
   });
+  const startInput = document.getElementById("start_autocomplete");
+  const endInput = document.getElementById("end_autocomplete");
+  const submit = document.getElementById("submit");
+  const startAutocomplete = new google.maps.places.Autocomplete(startInput);
+
+  startAutocomplete.setFields(["place_id"]);
+
+  const
+
+
+  new AutocompleteDirectionsHandler(map)
 
   directionsRenderer.setMap(map);
 
@@ -21,12 +32,19 @@ function initMap() {
   document.getElementById("start").addEventListener("change", onChangeHandler);
   document.getElementById("end").addEventListener("change", onChangeHandler);
 
-  const onPlaceChanged = function (){
-    initStartAndEndDestinationAutocomplete ();
-  }
+//  const initAutocomplete = function () {
+//    initAutocomplete();
+  };
 
-  document.getElementById("start_autocomplete").addEventListener("placeChanged", onPlaceChanged);
-  document.getElementById("end_autocomplete").addEventListener("placeChanged", onPlaceChanged)
+
+
+
+//  const onPlaceChanged = function (){
+//    initStartAndEndDestinationAutocomplete ();
+//  }
+//
+  document.getElementById("start_autocomplete").addEventListener("autocomplete", initAutocomplete);
+  document.getElementById("end_autocomplete").addEventListener("autocomplete", initAutocomplete)
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -62,13 +80,15 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
 //
 //}
+//function initAutocomplete(){
+//    var options = {
+//        types: ['(cities']
+//    }
+//
+//    var input1 = document.getElementById("start_autocomplete");
+//    var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+//
+//    var input2 = document.getElementById("end_autocomplete");
+//    var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+//}
 
-var options = {
-    types: ['(cities']
-}
-
-var input1 = document.getElementByID("start_autocomplete");
-var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-
-var input2 = document.getElementByID("end_autocomplete");
-var autocomplete2 = new google.maps.places.Autocomplete(input2, options);

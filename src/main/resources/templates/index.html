@@ -8,7 +8,7 @@
     <div>
         <h1>Welcome to RoadTrip Runner!</h1>
 
-        <iframe width="600" height="400" src="https://maps.googleapis.com/maps/api/js?key=${gmapsApiKey}&libraries=places&callback=initMap" title="googleMap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>Map Here</iframe>
+        <iframe width="600" height="400" th:src=" 'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&library=places&callback=initMap' " title="googleMap" frameborder="0" >Map Here</iframe>
 
         <h3>Ready for your next adventure?  Enter your route here:</h3>
         <form id="destination-form" method="post">
@@ -35,17 +35,18 @@
                 </label>
             <br>
             <br>
-            <input type="submit" value="Begin!"/>
+            <input id= "submit" type="submit" value="Begin!"/>
             <br>
             <br>
                 <p>Want to save your trips?  Click the Register button below.</p>
             <a th:href="@{/register}" class="form-link">Register</a>
         </form>
     </div>
-    <script async
-            src="https://maps.googleapis.com/maps/api/js?key=${gmapsApiKey}&libraries=places&callback=initMap">
-
+    <div id="map"></div>
+    <script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&library=places&callback=initMap'">
     </script>
+
+
 </body>
 <footer th:replace="fragments :: footer"></footer>
 </html>
