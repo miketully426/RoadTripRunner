@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
+<br>
+<br>
 <body>
     <header th:replace="fragments :: pageHeader"></header>
     <div>
         <h1>Welcome to RoadTrip Runner!</h1>
 
-        <iframe width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="600" height="400" src="https://maps.googleapis.com/maps/api/js?key=${gmapsApiKey}&libraries=places&callback=initMap" title="googleMap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>Map Here</iframe>
 
         <h3>Ready for your next adventure?  Enter your route here:</h3>
         <form id="destination-form" method="post">
@@ -15,19 +17,22 @@
             </label>
             <br>
             <br>
-            <label th:for="startingLocation">Starting Location:
-                <input id="start_autocomplete" type="text" placeholder="Start" th:field="${trip.startingLocation}" th:value="${trip.startingLocation}">
-            </label>
-            <br>
-            <br>
-            <label th:for="endingLocation"> Destination:
-                <input id="end_autocomplete" type="text" placeholder="End" th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
-            </label>
-            <br>
-            <br>
-            <label> Detour Radius in Miles:
-                <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="Number Of Miles">
-            </label>
+            <div id = "autocomplete">
+<!--                need an api call available here because we are calling on api to do autocomplete-->
+                <label id="start_autocomplete" th:for="startingLocation">Starting Location:
+                    <input type="text" placeholder="Start" th:field="${trip.startingLocation}" th:value="${trip.startingLocation}">
+                </label>
+                <br>
+                <br>
+                <label id = "end_autocomplete" th:for="endingLocation"> Destination:
+                    <input type="text" placeholder="End" th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
+                </label>
+            </div>
+                <br>
+                <br>
+                <label> Detour Radius in Miles:
+                    <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="Number Of Miles">
+                </label>
             <br>
             <br>
             <input type="submit" value="Begin!"/>
@@ -37,14 +42,9 @@
             <a th:href="@{/register}" class="form-link">Register</a>
         </form>
     </div>
-    <script>
-        function activateStartPlacesSearch(){
-            let input =  document.getElementById('start_autocomplete');
-            let autocomplete = new google.maps.places.Autocomplete(input);
-        }
-    </script>
     <script async
-            src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap' ">
+            src="https://maps.googleapis.com/maps/api/js?key=${gmapsApiKey}&libraries=places&callback=initMap">
+
     </script>
 </body>
 <footer th:replace="fragments :: footer"></footer>
