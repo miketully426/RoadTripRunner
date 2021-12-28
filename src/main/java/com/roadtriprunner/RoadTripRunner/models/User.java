@@ -29,9 +29,6 @@ public class User extends AbstractEntity {
     @Size(min=5, max=25, message="Invalid username. Must be between 5 and 25 characters.")
     private String username;
 
-    @NotBlank(message="Please enter a unique password")
-    @NotNull
-    @Size(min=8, max=40, message="Invalid password. Must be between 8 and 40 characters.")
     private String pwHash;
 
 
@@ -53,6 +50,5 @@ public class User extends AbstractEntity {
     public boolean isPasswordMatching(String password) {
         return encoder.matches(password, pwHash);
     }
-
 
 }

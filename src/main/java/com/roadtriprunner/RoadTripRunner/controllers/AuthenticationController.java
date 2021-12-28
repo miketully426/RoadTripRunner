@@ -1,6 +1,5 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-//import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.LoginFormDTO;
@@ -21,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 public class AuthenticationController {
+
     @Autowired
     UserRepository userRepository;
 
@@ -45,14 +45,12 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "register";
     }
-
 
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
@@ -80,9 +78,10 @@ public class AuthenticationController {
             return "register";
         }
 
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(),
+                                registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
-//        setUserInSession(request.getSession(), newUser);
+        setUserInSession(request.getSession(), newUser);
 
         return "redirect:";
     }
@@ -92,7 +91,6 @@ public class AuthenticationController {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
         return "login";
-
 }
 
     @PostMapping("/login")
