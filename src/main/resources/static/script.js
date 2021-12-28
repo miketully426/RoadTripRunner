@@ -21,10 +21,10 @@ function initMap() {
     componentRestrictions: {'country': ['us']},
     fields: ['geometry', 'name', 'formatted_address'] //is there anything else we need? we'll want to create a location object with this info
    });
-
    //need to handle when a user hits enter upon finding selected place
    //event listener for when a place is selected? it doesn't seem needed
    //event listener for button click
+
 
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
