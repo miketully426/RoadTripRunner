@@ -1,3 +1,4 @@
+
 var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
@@ -76,29 +77,29 @@ function initMap() {
        }
      }
    });
+
 }
 
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  directionsService
+    .route({
+      origin: {
+        query: document.getElementById("start").value,
+      },
+      destination: {
+        query: document.getElementById("end").value,
+      },
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+    })
+    .catch((e) => window.alert("Directions request failed due to " + status));
+}
 
+let submitHandler = function (event){
+       event.preventDefault();
+   }
 
-
-
-
-
-
-
-//function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-//  directionsService
-//    .route({
-//      origin: {
-//        query: document.getElementById("start").value,
-//      },
-//      destination: {
-//        query: document.getElementById("end").value,
-//      },
-//      travelMode: google.maps.TravelMode.DRIVING,
-//    })
-//    .then((response) => {
-//      directionsRenderer.setDirections(response);
-//    })
-//    .catch((e) => window.alert("Directions request failed due to " + status));
-//}
+   let form = document.getElementById("destination-form");
+   form.addEventListener("submit", submitHandler, true)

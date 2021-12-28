@@ -59,6 +59,7 @@ iframe {
 
 #destination-form {
     flex: 1;
+    flex-direction: column;
     margin: 20px;
     text-align: left;
     height: 100%
@@ -83,8 +84,6 @@ iframe {
     padding: 5px 20px 5px 20px;
     border: solid 2px black;
     border-radius: 3px;
-    justify-content: center;
-
 }
 
 body {
