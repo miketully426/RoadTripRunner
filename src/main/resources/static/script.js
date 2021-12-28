@@ -2,14 +2,29 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
+//var originInput; //element for the dom (what user types in startingLocation)
+//var origin; //autocomplete object for originInput
+//var destinationInput;
+//var destination;
 
 function initMap() {
-   var input = document.getElementById("input");
-   var autocomplete = new google.maps.places.Autocomplete(input,
+   //autocomplete creation below. could this be a function that is called first in initmap? to do so, would need to declare variables at top?
+   var originInput = document.getElementById("originInput");
+   var origin = new google.maps.places.Autocomplete(originInput,
    {
      componentRestrictions: {'country': ['us']},
-     fields: ['geometry', 'name']
+     fields: ['geometry', 'name', 'formatted_address']
    });
+   var destinationInput = document.getElementById("destinationInput");
+   var destination = new google.maps.places.Autocomplete(destinationInput,
+   {
+    componentRestrictions: {'country': ['us']},
+    fields: ['geometry', 'name', 'formatted_address'] //is there anything else we need? we'll want to create a location object with this info
+   });
+
+   //need to handle when a user hits enter upon finding selected place
+   //event listener for when a place is selected? it doesn't seem needed
+   //event listener for button click
 
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -20,6 +35,7 @@ function initMap() {
   });
 
 //  directionsRenderer.setMap(map);
+
 //  const onChangeHandler = function () {
 //    calculateAndDisplayRoute(directionsService, directionsRenderer);
 //  };

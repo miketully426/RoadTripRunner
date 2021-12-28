@@ -17,20 +17,20 @@
         <p class="error" th:errors="${trip.tripName}"></p>
         <br>
         <br>
-<!--        th:for="startingLocation"-->
-        <label>Starting Location:
-            <input type="text" id="input" placeholder="Please enter your starting location">
+
+        <label th:for="startingLocation">Starting Location:
+            <input type="text" id="originInput" placeholder="starting from...">
         </label>
 <!--        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above-->
-
-
-
         <br>
         <p class="error" th:errors="${trip.startingLocation}"></p>
+
         <br>
         <br>
+
+
         <label th:for="endingLocation"> Destination:
-            <input type="text" th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
+            <input type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
         </label>
         <br>
         <p class="error" th:errors="${trip.endingLocation}"></p>
