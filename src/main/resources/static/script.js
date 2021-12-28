@@ -6,24 +6,39 @@ let centerZoom = 4;
 //var origin; //autocomplete object for originInput
 //var destinationInput;
 //var destination;
+let autocompleteRequest =
+{
+  componentRestrictions: {'country': ['us']},
+  fields: ['geometry', 'name', 'formatted_address']
+}
 
 function initMap() {
-   //autocomplete creation below. could this be a function that is called first in initmap? to do so, would need to declare variables at top?
-   var originInput = document.getElementById("originInput");
-   var origin = new google.maps.places.Autocomplete(originInput,
-   {
-     componentRestrictions: {'country': ['us']},
-     fields: ['geometry', 'name', 'formatted_address']
-   });
-   var destinationInput = document.getElementById("destinationInput");
-   var destination = new google.maps.places.Autocomplete(destinationInput,
-   {
-    componentRestrictions: {'country': ['us']},
-    fields: ['geometry', 'name', 'formatted_address'] //is there anything else we need? we'll want to create a location object with this info
-   });
-   //need to handle when a user hits enter upon finding selected place
-   //event listener for when a place is selected? it doesn't seem needed
-   //event listener for button click
+//   var originInput = document.getElementById("originInput");
+//   var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+//   var destinationInput = document.getElementById("destinationInput");
+//   var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+//   var originPlace;
+//
+//
+//
+//   origin.addEventListener("placed_changed", () => {
+//     originPlace = origin.getPlace();
+//   });
+//
+//   let jsonAutocomplete = JSON.stringify(originPlace);
+//   console.log(jsonAutocomplete);
+//   let jsonAutoObject = JSON.parse(jsonAutocomplete);
+//
+//   if (jsonAutocomplete === "undefined") {
+//     console.log("OOPS!");
+//   }
+//
+//   if (jsonAutoObject === "undefined") {
+//     console.log("parsed isn't working");
+//   }
+
+
+
 
 
   const directionsService = new google.maps.DirectionsService();
@@ -35,13 +50,13 @@ function initMap() {
   });
 
 //  directionsRenderer.setMap(map);
-
+//
 //  const onChangeHandler = function () {
 //    calculateAndDisplayRoute(directionsService, directionsRenderer);
 //  };
 //
-//  document.getElementById("start").addEventListener("change", onChangeHandler);
-//  document.getElementById("end").addEventListener("change", onChangeHandler);
+//  originInput.addEventListener("change", onChangeHandler);
+//  destinationInput.addEventListener("change", onChangeHandler);
 
   let request = {
     query: "'US national park'",
@@ -80,8 +95,20 @@ function initMap() {
 
 
 
-
-
+function autocompleteInput() {
+   var originInput = document.getElementById("originInput");
+   var origin = new google.maps.places.Autocomplete(originInput,
+   {
+     componentRestrictions: {'country': ['us']},
+     fields: ['geometry', 'name', 'formatted_address']
+   });
+   var destinationInput = document.getElementById("destinationInput");
+   var destination = new google.maps.places.Autocomplete(destinationInput,
+   {
+    componentRestrictions: {'country': ['us']},
+    fields: ['geometry', 'name', 'formatted_address']
+   });
+}
 
 
 
@@ -90,10 +117,10 @@ function initMap() {
 //  directionsService
 //    .route({
 //      origin: {
-//        query: document.getElementById("start").value,
+//        query: originInput.value,
 //      },
 //      destination: {
-//        query: document.getElementById("end").value,
+//        query: originInput.value,
 //      },
 //      travelMode: google.maps.TravelMode.DRIVING,
 //    })

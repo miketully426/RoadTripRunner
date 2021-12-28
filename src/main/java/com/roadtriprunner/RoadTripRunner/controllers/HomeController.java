@@ -43,7 +43,7 @@ public class HomeController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-        tripRepository.save(newTrip);
+//        tripRepository.save(newTrip);
         return "redirect:";
     }
 
