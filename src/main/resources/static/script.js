@@ -1,4 +1,6 @@
 var map;
+var service;
+var infoWindow;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
