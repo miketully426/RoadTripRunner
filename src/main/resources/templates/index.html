@@ -9,38 +9,32 @@
                         <form id="destination-form" method="post">
                             <h3>Ready for your next adventure?  Enter your route here:</h3>
                             <br>
-                            <br>
                             <label>Name Your Trip:
-                                <input th:field="${trip.tripName}" th:value="${trip.tripName}">
+                                <input class="input" type="text" th:field="${trip.tripName}" th:value="${trip.tripName}">
                             </label>
                             <br>
                             <p class="error" th:errors="${trip.tripName}"></p>
                             <br>
-                            <br>
                             <label th:for="startingLocation">Starting Location:
-                                <input type="text" id="originInput" placeholder="starting from...">
+                                <input class="input" type="text" id="originInput" placeholder="starting from...">
                             </label>
                     <!--        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above-->
                             <br>
                             <p class="error" th:errors="${trip.startingLocation}"></p>
                             <br>
-                            <br>
                             <label th:for="endingLocation"> Destination:
-                                <input type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
+                                <input class="input" type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
                             </label>
                             <br>
                             <p class="error" th:errors="${trip.endingLocation}"></p>
                             <br>
-                            <br>
                             <label> Detour Radius in Miles:
-                                <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">
+                                <input class="input" type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">
                             </label>
                             <br>
                             <p class="error" th:errors="${trip.detourRadius}"></p>
                             <br>
-                            <br>
-                            <input type="submit" value="Begin!"/>
-                            <br>
+                            <input class="submit" type="submit" value="Begin!"/>
                             <br>
                                 <p>Want to save your trips?  Click the Register button below.</p>
                             <a th:href="@{/register}" class="form-link">Register</a>
