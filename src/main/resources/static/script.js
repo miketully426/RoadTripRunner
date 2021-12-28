@@ -11,17 +11,17 @@ function initMap() {
     zoom: centerZoom,
     center: { lat: centerLatitude, lng: centerLongitude },
   });
-  const startInput = document.getElementById("start_autocomplete");
-  const endInput = document.getElementById("end_autocomplete");
-  const submit = document.getElementById("submit");
-  const startAutocomplete = new google.maps.places.Autocomplete(startInput);
-
-  startAutocomplete.setFields(["place_id"]);
-
-  const
-
-
-  new AutocompleteDirectionsHandler(map)
+//  const startInput = document.getElementById("start_autocomplete");
+//  const endInput = document.getElementById("end_autocomplete");
+//  const submit = document.getElementById("submit");
+//  const startAutocomplete = new google.maps.places.Autocomplete(startInput);
+//
+//  startAutocomplete.setFields(["place_id"]);
+//
+//  const
+//
+//
+//  new AutocompleteDirectionsHandler(map)
 
   directionsRenderer.setMap(map);
 
@@ -34,18 +34,16 @@ function initMap() {
 
 //  const initAutocomplete = function () {
 //    initAutocomplete();
-  };
+//  };
+
+  const onPlaceChanged = function (){
+    initStartAndEndDestinationAutocomplete ();
+
+   document.getElementById("start_autocomplete").addEventListener("place_changed", onPlaceChanged);
+   document.getElementById("end_autocomplete").addEventListener("place_changed", onPlaceChanged);
+  }
 
 
-
-
-//  const onPlaceChanged = function (){
-//    initStartAndEndDestinationAutocomplete ();
-//  }
-//
-  document.getElementById("start_autocomplete").addEventListener("autocomplete", initAutocomplete);
-  document.getElementById("end_autocomplete").addEventListener("autocomplete", initAutocomplete)
-}
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   directionsService
@@ -65,21 +63,22 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 }
 
 
-//function initStartAndEndDestinationAutocomplete() {
-//    //everytime you autocomplete some thing you get a place object
-//    //takes in two parameters- 1.  id element from form  2.  object that takes options for autocomplete
-//    autocomplete = new google.maps.places.Autocomplete (
-//        document.getElementById('autocomplete'),
-//        {
-//            types: ['national park', 'address'],
-//            //component restrictions restricts search to a specific  country and makes search easier
-//            componentRestrictions: { 'country' : ['us']},
-//            //geometry- geolocation of your house, properly fomatted address, etc.
-//            fields: ['place_id', 'geometry', 'name']
-//        });
-
-//
-//}
+function initStartAndEndDestinationAutocomplete() {
+    //everytime you autocomplete some thing you get a place object
+    //takes in two parameters- 1.  id element from form  2.  object that takes options for autocomplete
+    autocomplete = new google.maps.places.Autocomplete (
+        document.getElementById('autocomplete'),
+        {
+            types: ['national park', 'address'],
+            //component restrictions restricts search to a specific  country and makes search easier
+            componentRestrictions: { 'country' : ['us']},
+            //geometry- geolocation of your house, properly fomatted address, etc.
+            fields: ['place_id', 'geometry', 'name']
+        });
+    autocomplete.addEventListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        });
+}
 //function initAutocomplete(){
 //    var options = {
 //        types: ['(cities']
