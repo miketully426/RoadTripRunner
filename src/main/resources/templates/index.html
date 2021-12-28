@@ -17,15 +17,20 @@
         <p class="error" th:errors="${trip.tripName}"></p>
         <br>
         <br>
+
         <label th:for="startingLocation">Starting Location:
-            <input type="text" th:field="${trip.startingLocation}" th:value="${trip.startingLocation}">
+            <input type="text" id="originInput" placeholder="starting from...">
         </label>
+        <!--        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above-->
         <br>
         <p class="error" th:errors="${trip.startingLocation}"></p>
+
         <br>
         <br>
+
+
         <label th:for="endingLocation"> Destination:
-            <input type="text" th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
+            <input type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
         </label>
         <br>
         <p class="error" th:errors="${trip.endingLocation}"></p>
@@ -41,16 +46,17 @@
         <input type="submit" value="Begin!"/>
         <br>
         <br>
-            <p>Want to save your trips?  Click the Register button below.</p>
+        <p>Want to save your trips?  Click the Register button below.</p>
         <a th:href="@{/register}" class="form-link">Register</a>
 
     </form>
 
 
 </div>
+<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
+</script>
 
-
-    <footer th:replace="fragments :: footer"></footer>
+<footer th:replace="fragments :: footer"></footer>
 
 </body>
 </html>
