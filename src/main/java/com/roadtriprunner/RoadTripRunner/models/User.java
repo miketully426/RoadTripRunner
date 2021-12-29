@@ -34,6 +34,15 @@ public class User extends AbstractEntity {
     @Size(min=8, max=40, message="Invalid password. Must be between 8 and 40 characters.")
     private String pwHash;
 
+    private Boolean UserInSession = false;
+
+    public Boolean getUserInSession() {
+        return UserInSession;
+    }
+
+    public void setUserInSession(Boolean userInSession) {
+        UserInSession = userInSession;
+    }
 
     public String getUsername() {
         return username;

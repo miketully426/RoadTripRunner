@@ -80,15 +80,15 @@ public class AuthenticationController {
             return "register";
         }
 
-        User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        userRepository.save(newUser);
+        User theUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        userRepository.save(theUser);
 
         return "redirect:";
 
     }
 
     @GetMapping("/login")
-    public String renderLoginForm(Model model) {
+    public String renderLoginForm(Model model, User theUser) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
         return "login";
@@ -99,16 +99,16 @@ public class AuthenticationController {
     @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
-                                   Model model) throws IOException, ScriptException, NoSuchMethodException {
+                                   Model model, User theUser) throws IOException, ScriptException, NoSuchMethodException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
             return "login";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
 
-        if (theUser == null) {
+        if (user == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Log In");
             return "login";
@@ -116,7 +116,7 @@ public class AuthenticationController {
 
         String password = loginFormDTO.getPassword();
 
-        if (!theUser.isPasswordMatching(password)) {
+        if (!user.isPasswordMatching(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
             return "login";
@@ -124,14 +124,17 @@ public class AuthenticationController {
 
         model.addAttribute("logout", "Logout");
         setUserInSession(request.getSession(), theUser);
+        theUser.setUserInSession(true);
+        model.addAttribute("isUserInSession", theUser.getUserInSession());
 
-
-        return "redirect:";
+        return "trips/index";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request, Model model, User theUser){
         request.getSession().invalidate();
+        theUser.setUserInSession(false);
+        model.addAttribute("isUserInSession", theUser.getUserInSession());
         return "redirect:/login";
     }
 

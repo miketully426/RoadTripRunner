@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import com.roadtriprunner.RoadTripRunner.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +24,19 @@ public class HomeController {
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
+
     @GetMapping("/")
-    public String displayTripForm(Model model) {
+    public String displayTripForm(Model model, User theUser) {
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip());
+        model.addAttribute("isUserInSession", theUser.getUserInSession());
         return "index";
     }
 
     @GetMapping("/map")
-    public String index(Model model) {
+    public String index(Model model, User theUser) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
+        model.addAttribute("isUserInSession", theUser.getUserInSession());
         return "maps/mapDisplay";
     }
 

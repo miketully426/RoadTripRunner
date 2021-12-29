@@ -10,9 +10,12 @@
 <body>
 <div th:fragment = "pageHeader" class="wrapper">
 
+
     <div class="header">
-        <a id="login" th:href="@{/login}">Login/Register</a>
-        <a id="login" th:href="@{/logout}">Logout</a>
+        <div th:switch="${isUserInSession}">
+            <a th:case="${true}"id="login" th:href="@{/logout}">Logout</a>
+            <a th:case="*" id="login" th:href="@{/login}">Login</a>
+        </div>
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
@@ -23,6 +26,7 @@
 
 <footer th:fragment="footer">
     <p>	Better Than Bezos &#169; 2022 </p>
+    <p th:text = "${testing}">Don't Panic</p>
 </footer>
 </body>
 </html>
