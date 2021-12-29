@@ -15,12 +15,23 @@
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <a th:href = "@{/trips}" id="headerLink">My Saved Trips></a>
+        <a th:href = "@{/trips}" id="headerLink" th:onclick="redirectFunction()">My Saved Trips</a>
         <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
         <br>
         <br>
     </div>
 </div>
+
+<script type="text/javascript">
+        function redirectFunction() {
+            var link = document.querySelector("a");
+            link.getAttribute("href");
+            link.setAttribute("href",
+                "https://www.geeksforgeeks.org");
+            link.textContent = "Go to GeeksforGeeks";
+        }
+    </script>
+
 
 <footer th:fragment="footer">
     <p>	Better Than Bezos &#169; 2022 </p>
