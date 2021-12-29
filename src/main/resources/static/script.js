@@ -13,16 +13,11 @@ let autocompleteRequest =
 }
 
 function initMap() {
-   const map = new google.maps.Map(document.getElementById("map"), {
-     zoom: centerZoom,
-     center: { lat: centerLatitude, lng: centerLongitude },
-   });
    var originInput = document.getElementById("originInput");
    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
    var destinationInput = document.getElementById("destinationInput");
    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
    var originPlace;
-
 
 
    google.maps.event.addListener(origin, "place_changed", () => {
@@ -35,7 +30,7 @@ function initMap() {
 //     originPlace = origin.getPlace();
 //   });
 //
-//   console.log(originPlace.name);
+   console.log(originPlace.name);
 //
 //   let jsonAutocomplete = JSON.stringify(originPlace);
 //   console.log(jsonAutocomplete);
@@ -50,7 +45,10 @@ function initMap() {
 //   }
 
 
-
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: centerZoom,
+    center: { lat: centerLatitude, lng: centerLongitude },
+  });
 
 
   const directionsService = new google.maps.DirectionsService();
