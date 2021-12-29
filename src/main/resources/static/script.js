@@ -97,11 +97,34 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
+//
 window.addEventListener("load", function() {
-         let form = document.getElementById("destination-form");
-         form.addEventListener("submit", function(event) {
+         let input = document.getElementById("originInput");
+         google.maps.event.addDomListener(input, "keydown", function(event) {
+         if (event.keyCode === 13){
            event.preventDefault();
+           //document.getElementById("submitBtn").click();
+           }
+           console.log("This form is working")
          });
       });
+
+//      let input = document.getElementById("originInput");
+//
+//      input.addEventListener("keydown", function(event) {
+//           if (event.keyCode === 13){
+//             event.preventDefault();
+//             document.getElementById("submitBtn").click();
+//             }
+//      });
+
+//var inputText = document.getElementById("inputField");
+//   inputText.addEventListener("keyup", function(event) {
+//      if (event.keyCode === 13) {
+//         event.preventDefault();
+//         document.getElementById("alertBtn").click();
+//      }
+//   });
+      //add event listener to button that allows for form to be submitted when clicked
 
 
