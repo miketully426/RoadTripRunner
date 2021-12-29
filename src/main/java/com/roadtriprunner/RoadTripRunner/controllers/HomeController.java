@@ -1,6 +1,5 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-import com.roadtriprunner.RoadTripRunner.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

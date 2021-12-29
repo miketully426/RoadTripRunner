@@ -15,9 +15,7 @@
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <div sec:authorize="hasRole('USER')">Text visible to user.
         <a th:href = "@{/trips}" id="headerLink">My Saved Trips></a>
-        </div>
         <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
         <br>
         <br>
