@@ -2,13 +2,12 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
-//var originInput; //element for the dom (what user types in startingLocation)
-//var origin; //autocomplete object for originInput
-//var destinationInput;
-//var destination;
 
-//look into creating function for collecting autocomplete data
+
+
 function getAutocompleteData() {
+
+//might eventually want to add placeId as a field... TBD
  let autocompleteRequest =
   {
    componentRestrictions: {'country': ['us']},
@@ -20,35 +19,45 @@ function getAutocompleteData() {
    var destinationInput = document.getElementById("destinationInput");
    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
    var originPlace;
+   var jsonAutocompleteOrigin;
+   var jsonAutoObjectOrigin;
+   var jsonAutocompleteDestination;
+   var jsonAutoObjectDestination;
 
-   //declaring origin as an extension of the MVC Object class. may not be necessary
+   //declaring origin as an extension of the MVC Object class. likely unnecessary, TEST!
    origin.prototype = new google.maps.MVCObject();
 
 
-//   google.maps.event.addListener(origin, "place_changed", () => {
-//     var originPlace = origin.getPlace();
-//   });
 
+/*  - .addListener is a MVCObject method. It takes the event "place_changed", which is the
+      only option for the autocomplete object. (autocomplete extends MVCObject)
+    - will need to add logic in here to bind jsonobject to model if user is logged in  */
 
-// .addListener is a MVCObject method. It takes the event "place_changed", which is the
-// only option for the autocomplete object. (autocomplete extends MVCObject)
    origin.addListener("place_changed", () => {
-     let originSelected = origin.getPlace();
-     let jsonAutocomplete = JSON.stringify(originSelected);
-     let jsonAutoObject = JSON.parse(jsonAutocomplete);
-     let name = origin.get(jsonAutoObject.name);
-     window.alert("The name is " + name + "!")
+     const originSelected = origin.getPlace();
+
+     if (!originSelected.name) {
+       window.alert("Yikes! We can't process that location. Please try another");
+     }
+
+     jsonAutocompleteOrigin = JSON.stringify(originSelected);
+     jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+     console.log(jsonAutoObjectOrigin)
    });
 
-//   origin.addDomListener(originInput, "click", () => {
-//     window.alert("Input has been changed!");
-//   });
+   destination.addListener("place_changed", () => {
+     const destinationSelected = destination.getPlace();
 
-//     originPlace = origin.getPlace();
-//     let jsonAutocomplete = JSON.stringify(originPlace);
-//     let jsonAutoObject = JSON.parse(jsonAutocomplete);
-//   console.log(origin);
-//   console.log(jsonAutoObject);
+     if (!destinationSelected.name) {
+       window.alert("Yikes! We can't process that location. Please try another.");
+     }
+
+     const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+     const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+     console.log(jsonAutoObjectDestination);
+   });
+
+
 }
 
 
