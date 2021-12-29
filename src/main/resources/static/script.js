@@ -6,31 +6,57 @@ let centerZoom = 4;
 //var origin; //autocomplete object for originInput
 //var destinationInput;
 //var destination;
-let autocompleteRequest =
-{
-  componentRestrictions: {'country': ['us']},
-  fields: ['geometry', 'name', 'formatted_address']
-}
 
-function initMap() {
+//look into creating function for collecting autocomplete data
+function getAutocompleteData() {
+ let autocompleteRequest =
+  {
+   componentRestrictions: {'country': ['us']},
+   fields: ['geometry', 'name', 'formatted_address']
+  }
+
    var originInput = document.getElementById("originInput");
    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
    var destinationInput = document.getElementById("destinationInput");
    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
    var originPlace;
 
+   //declaring origin as an extension of the MVC Object class. may not be necessary
+   origin.prototype = new google.maps.MVCObject();
 
-   google.maps.event.addListener(origin, "place_changed", () => {
-     var originPlace = origin.getPlace();
+
+//   google.maps.event.addListener(origin, "place_changed", () => {
+//     var originPlace = origin.getPlace();
+//   });
+
+
+// .addListener is a MVCObject method. It takes the event "place_changed", which is the
+// only option for the autocomplete object. (autocomplete extends MVCObject)
+   origin.addListener("place_changed", () => {
+     let originSelected = origin.getPlace();
+     let jsonAutocomplete = JSON.stringify(originSelected);
+     let jsonAutoObject = JSON.parse(jsonAutocomplete);
+     let name = origin.get(jsonAutoObject.name);
+     window.alert("The name is " + name + "!")
    });
 
-
-
-//   origin.addListener("placed_changed", () => {
-//     originPlace = origin.getPlace();
+//   origin.addDomListener(originInput, "click", () => {
+//     window.alert("Input has been changed!");
 //   });
-//
-   console.log(originPlace.name);
+
+//     originPlace = origin.getPlace();
+//     let jsonAutocomplete = JSON.stringify(originPlace);
+//     let jsonAutoObject = JSON.parse(jsonAutocomplete);
+//   console.log(origin);
+//   console.log(jsonAutoObject);
+}
+
+
+
+
+
+function initMap() {
+
 //
 //   let jsonAutocomplete = JSON.stringify(originPlace);
 //   console.log(jsonAutocomplete);

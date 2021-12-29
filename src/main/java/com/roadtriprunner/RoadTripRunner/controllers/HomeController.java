@@ -43,6 +43,7 @@ public class HomeController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
 //        tripRepository.save(newTrip);
         return "redirect:";
     }
