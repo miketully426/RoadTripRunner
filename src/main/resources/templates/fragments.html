@@ -15,8 +15,10 @@
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <a th:href = "@{/trips}" id="headerLink">My Saved Trips</a>
+        <a th:if="${User.getIsLoggedIn()}" th:href = "@{/trips}" id="headerLink">My Saved Trips></a>
+<!--        <a th:unless="${User.getIsLoggedIn()}" th:href = "@{/login}" id="headerLink">My Saved Trips></a>-->
         <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
+        </div>
         <br>
         <br>
     </div>

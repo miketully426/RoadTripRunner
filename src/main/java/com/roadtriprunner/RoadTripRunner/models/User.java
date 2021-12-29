@@ -32,6 +32,9 @@ public class User extends AbstractEntity {
     private String pwHash;
 
 
+//    must be instance variable to make sense with class, but cannot call instance variable in template?
+//    private static Boolean isLoggedIn = false;
+
     public User(String name, String email, String username, String password) {
         this.name = name;
         this.email = email;
@@ -51,4 +54,11 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+//    public static Boolean getIsLoggedIn() {
+//        return isLoggedIn;
+//    }
+//
+//    public static void setIsLoggedIn(Boolean isLoggedIn) {
+//        User.isLoggedIn = isLoggedIn;
+//    }
 }
