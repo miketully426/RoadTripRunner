@@ -1,6 +1,5 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.LoginFormDTO;
@@ -21,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 public class AuthenticationController {
+
     @Autowired
     UserRepository userRepository;
 
@@ -45,7 +45,6 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
@@ -53,10 +52,10 @@ public class AuthenticationController {
         return "register";
     }
 
-
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request, Model model) {
+                                          Errors errors, HttpServletRequest request,
+                                          Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
@@ -66,8 +65,7 @@ public class AuthenticationController {
         User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists",
-                    "A user with that username already exists");
+            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             model.addAttribute("title", "Register");
             return "register";
         }
@@ -75,17 +73,17 @@ public class AuthenticationController {
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch",
-                    "Passwords do not match");
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             model.addAttribute("title", "Register");
             return "register";
         }
 
-        User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(), registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(),
+                                registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
+        setUserInSession(request.getSession(), newUser);
 
         return "redirect:";
-
     }
 
     @GetMapping("/login")
@@ -93,7 +91,6 @@ public class AuthenticationController {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
         return "login";
-
 }
 
     @PostMapping("/login")
