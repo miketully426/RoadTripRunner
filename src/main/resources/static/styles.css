@@ -86,10 +86,9 @@ body {
     flex-direction: column;
 }
 
-#error {
+.errors {
     color: red;
 }
-
 footer {
     margin-top: auto;
     text-align: center;
