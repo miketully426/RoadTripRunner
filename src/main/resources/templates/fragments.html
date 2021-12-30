@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <link th:href="@{/styles.css}" rel="stylesheet" type="text/css"></link>
@@ -19,8 +19,13 @@
         <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
         <br>
         <br>
+<!--        <p id="userInSession">test</p>-->
+<!--        <p th:text="${#session.getAttribute('userInSession')}">test</p>-->
+<!--        <p th:text="${session.userInSession}">test</p>-->
     </div>
 </div>
+
+
 
 <footer th:fragment="footer">
     <p>	Better Than Bezos &#169; 2022 </p>

@@ -6,6 +6,13 @@
 <div>
     <h1>Welcome to RoadTrip Runner!</h1>
 
+<!--    <p th:text="${userInSession}">test</p>-->
+    <tr th:each="bool : ${userInSession}">
+        <td th:text="${userInSession}">1</td>
+<!--    <p th:text="${#servletContext.getAttribute('userInSession')}">test</p>-->
+    </tr>
+
+
     <iframe width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <h3>Ready for your next adventure?  Enter your route here:</h3>

@@ -44,8 +44,13 @@ public class AuthenticationController {
         return user.get();
     }
 
-    private static void setUserInSession(HttpSession session, User user) {
+//    @ModelAttribute("userInSession")
+    private static Boolean setUserInSession(HttpSession session, User user) {
+        user.setIsLoggedIn(true);
         session.setAttribute(userSessionKey, user.getId());
+//        model.addAttribute("userInSession", false);
+//        session.setAttribute("userInSession", true);
+        return true;
     }
 
     @GetMapping("/register")
@@ -82,7 +87,8 @@ public class AuthenticationController {
         }
 
         User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(),
-                                registerFormDTO.getUsername(), registerFormDTO.getPassword());
+                                registerFormDTO.getUsername(), registerFormDTO.getPassword(),
+                                registerFormDTO.getIsLoggedIn());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
         return "redirect:";
