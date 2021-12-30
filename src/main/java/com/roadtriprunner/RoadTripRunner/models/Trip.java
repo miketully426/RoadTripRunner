@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
