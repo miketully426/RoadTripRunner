@@ -40,13 +40,9 @@
 </div>
 <div id="map"></div>
 
-<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<!--<script-->
-<!--        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&v=weekly"-->
-<!--        async-->
-<!--&gt;</script>-->
 
-<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&callback=initMap'">
+
+<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
 </script>
 </body>
 <footer th:replace="fragments :: footer"></footer>

@@ -16,14 +16,15 @@ public class Trip  extends AbstractEntity {
 
     private String tripName;
 
+    //eventually change to type Location
     @NotBlank(message = "Starting location is required.")
     @NotNull
     private String startingLocation;
 
+    //eventually change to type Location
     @NotBlank(message="Ending location is required.")
     @NotNull
     private String endingLocation;
-
 
     @Min(0)
     @Max(150)

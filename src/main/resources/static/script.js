@@ -42,7 +42,7 @@ function getAutocompleteData() {
 
      jsonAutocompleteOrigin = JSON.stringify(originSelected);
      jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-     console.log(jsonAutoObjectOrigin)
+     console.log(jsonAutoObjectOrigin) //eventually take this out
    });
 
    destination.addListener("place_changed", () => {
@@ -54,9 +54,8 @@ function getAutocompleteData() {
 
      const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
      const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-     console.log(jsonAutoObjectDestination);
+     console.log(jsonAutoObjectDestination); //eventually take this out
    });
-
 
 }
 
@@ -65,20 +64,9 @@ function getAutocompleteData() {
 
 
 function initMap() {
-
-//
-//   let jsonAutocomplete = JSON.stringify(originPlace);
-//   console.log(jsonAutocomplete);
-//   let jsonAutoObject = JSON.parse(jsonAutocomplete);
-//
-//   if (jsonAutocomplete === "undefined") {
-//     console.log("OOPS!");
-//   }
-//
-//   if (jsonAutoObject === "undefined") {
-//     console.log("parsed isn't working");
-//   }
-
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const infoWindow = new google.maps.InfoWindow();
 
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: centerZoom,
@@ -86,25 +74,22 @@ function initMap() {
   });
 
 
-  const directionsService = new google.maps.DirectionsService();
-  const directionsRenderer = new google.maps.DirectionsRenderer();
-  const infoWindow = new google.maps.InfoWindow();
 
 
-//  directionsRenderer.setMap(map);
-//
-//  const onChangeHandler = function () {
-//    calculateAndDisplayRoute(directionsService, directionsRenderer);
-//  };
-//
-//  originInput.addEventListener("change", onChangeHandler);
-//  destinationInput.addEventListener("change", onChangeHandler);
+  directionsRenderer.setMap(map);
+
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+
+  document.getElementById("start").addEventListener("change", onChangeHandler);
+  document.getElementById("end").addEventListener("change", onChangeHandler);
 
   let request = {
     query: "'US national park'",
   };
 
-   const placesService = new google.maps.places.PlacesService(map);
+//   const placesService = new google.maps.places.PlacesService(map);
 
 
    service = new google.maps.places.PlacesService(map);
@@ -137,37 +122,21 @@ function initMap() {
 
 
 
-function autocompleteInput() {
-   var originInput = document.getElementById("originInput");
-   var origin = new google.maps.places.Autocomplete(originInput,
-   {
-     componentRestrictions: {'country': ['us']},
-     fields: ['geometry', 'name', 'formatted_address']
-   });
-   var destinationInput = document.getElementById("destinationInput");
-   var destination = new google.maps.places.Autocomplete(destinationInput,
-   {
-    componentRestrictions: {'country': ['us']},
-    fields: ['geometry', 'name', 'formatted_address']
-   });
+
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  directionsService
+    .route({
+      origin: {
+        query: originInput.value,
+      },
+      destination: {
+        query: originInput.value,
+      },
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+    })
+    .catch((e) => window.alert("Directions request failed due to " + status));
 }
-
-
-
-
-//function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-//  directionsService
-//    .route({
-//      origin: {
-//        query: originInput.value,
-//      },
-//      destination: {
-//        query: originInput.value,
-//      },
-//      travelMode: google.maps.TravelMode.DRIVING,
-//    })
-//    .then((response) => {
-//      directionsRenderer.setDirections(response);
-//    })
-//    .catch((e) => window.alert("Directions request failed due to " + status));
-//}
