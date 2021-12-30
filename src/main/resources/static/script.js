@@ -22,6 +22,7 @@ function getAutocompleteData() {
    var jsonAutocompleteDestination;
    var jsonAutoObjectDestination;
 
+
    //declaring origin as an extension of the MVC Object class. likely unnecessary, TEST!
    origin.prototype = new google.maps.MVCObject();
 
@@ -40,12 +41,26 @@ function getAutocompleteData() {
 
      jsonAutocompleteOrigin = JSON.stringify(originSelected);
      jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+
+
+
+// HTTP REQUEST
+//     let originRequest = new XMLHttpRequest();
+//     originRequest.open("GET", )
+
+
+//USING AJAX
+//     $.ajax({
+//       type : "POST",
+//       url : "/maps/directions",
+//       contentType: "application/json",
+//       data: jsonAutoObjectOrigin
+//     });
+
+
+
      console.log(jsonAutoObjectOrigin) //eventually take this out
 
-//     originSelected.bindTo(originSelected.name, Location [, Location.name]);
-//     originSelected.bindTo(originSelected.formatted_address, Location [, Location.address]);
-//     originSelected.bindTo(originSelected.geometry.location.lat, Location [, Location.latitude]);
-//     originSelected.bindTo(originSelected.geometry.location.lng, Location [, Location.longitude]);
    });
 
    destination.addListener("place_changed", () => {

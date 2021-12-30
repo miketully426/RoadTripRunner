@@ -1,26 +1,37 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
-import lombok.Data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+//class to store autocomplete object on inputs 'originInput' and 'destinationInput'
+@Getter
+@Setter
 public class Location {
 
-    private double latitude;
-
-    private double longitude;
-
-    private double[] location;
-
+    //jsonAutoObject field of 'name'
     private String name;
 
-    private String description;
+    //corresponds to jsonAutoObject(origin/destination) of 'formatted_address'
+    @JsonProperty("formatted_address")
+    private String address;
 
+    //jsonAutoObject field 'geometry.location.lat'
+    //may need to be declared as a different type?
+    private double lat;
 
+    //jsonAutoObject field 'geometry.location.lng'
+    private double lng;
 
-    public Location(double latitude, double longitude, double[] location, String name, String description) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.location = location;
+    public Location(String name, String address, double lat, double lng) {
         this.name = name;
-        this.description = description;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
     }
+
+    public Location() {}
+
+
 }
