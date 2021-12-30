@@ -26,6 +26,8 @@ public class AuthenticationController {
 
     private static final String userSessionKey = "user";
 
+//    try idea of checking whether a session has been started or not
+
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -43,6 +45,8 @@ public class AuthenticationController {
 
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
+        user.setIsLoggedIn(true);
+        System.out.println(user);
     }
 
     @GetMapping("/register")
@@ -79,10 +83,12 @@ public class AuthenticationController {
         }
 
         User newUser = new User(registerFormDTO.getName(), registerFormDTO.getEmail(),
-                                registerFormDTO.getUsername(), registerFormDTO.getPassword());
+                                registerFormDTO.getUsername(), registerFormDTO.getPassword(),
+                                registerFormDTO.getIsLoggedIn());
+        //should this be setIsLoggedIn(true) in the constructor?
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-
+        newUser.setIsLoggedIn(true);
         return "redirect:";
     }
 
@@ -120,6 +126,7 @@ public class AuthenticationController {
         }
 
         setUserInSession(request.getSession(), theUser);
+        theUser.setIsLoggedIn(true);
 
         return "redirect:";
     }
@@ -127,6 +134,7 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
+//        need a way to set the Boolean to false
         return "redirect:/login";
     }
 

@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import com.roadtriprunner.RoadTripRunner.models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +25,13 @@ public class HomeController {
     private String gmapsApiKey;
 
     @GetMapping("/")
-    public String displayTripForm(Model model) {
+    public String displayTripForm(Model model, User user) {
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip());
+        if (user.getIsLoggedIn() == true) {
+            model.addAttribute("isLoggedIn", user.getIsLoggedIn());
+        }
+        model.addAttribute("spongeBob", "testcase");
         return "index";
     }
 

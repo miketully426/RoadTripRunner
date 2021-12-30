@@ -31,16 +31,20 @@ public class User extends AbstractEntity {
 
     private String pwHash;
 
-    public User(String name, String email, String username, String password) {
+    private Boolean isLoggedIn;
+
+    public User(String name, String email, String username, String password, Boolean isLoggedIn) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.pwHash = encoder.encode(password);
+        this.isLoggedIn = true;
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, Boolean isLoggedIn) {
         this.username = username;
         this.pwHash = password;
+        this.isLoggedIn = true;
     }
 
     public User() {
