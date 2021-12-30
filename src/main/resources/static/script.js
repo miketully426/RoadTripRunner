@@ -81,8 +81,8 @@ function initMap() {
        }
      }
    });
-
 }
+
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   directionsService
@@ -100,7 +100,3 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     })
     .catch((e) => window.alert("Directions request failed due to " + status));
 }
-
-
-
-
