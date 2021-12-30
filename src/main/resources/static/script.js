@@ -5,7 +5,6 @@ let centerLongitude = -97.65;
 let centerZoom = 4;
 
 function initMap() {
-   //autocomplete creation below. could this be a function that is called first in initmap? to do so, would need to declare variables at top?
    var originInput = document.getElementById("originInput");
    var origin = new google.maps.places.Autocomplete(originInput,
    {
@@ -16,9 +15,8 @@ function initMap() {
    var destination = new google.maps.places.Autocomplete(destinationInput,
    {
     componentRestrictions: {'country': ['us']},
-    fields: ['geometry', 'name', 'formatted_address'] //is there anything else we need? we'll want to create a location object with this info
+    fields: ['geometry', 'name', 'formatted_address']
    });
-   //handle when a user hits enter upon finding selected place
      let startInput = document.getElementById("originInput");
             google.maps.event.addDomListener(startInput, "keydown", function(event) {
             if (event.keyCode === 13){
