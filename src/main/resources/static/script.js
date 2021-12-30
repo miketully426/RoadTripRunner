@@ -3,14 +3,81 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 
+function getAutocompleteData() {
+
+//might eventually want to add placeId as a field... TBD
+ let autocompleteRequest =
+  {
+   componentRestrictions: {'country': ['us']},
+   fields: ['geometry', 'name', 'formatted_address']
+  }
+
+   var originInput = document.getElementById("originInput");
+   var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+   var destinationInput = document.getElementById("destinationInput");
+   var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+   var originPlace;
+   var jsonAutocompleteOrigin;
+   var jsonAutoObjectOrigin;
+   var jsonAutocompleteDestination;
+   var jsonAutoObjectDestination;
+
+   //declaring origin as an extension of the MVC Object class. likely unnecessary, TEST!
+   origin.prototype = new google.maps.MVCObject();
+
+
+
+/*  - .addListener is a MVCObject method. It takes the event "place_changed", which is the
+      only option for the autocomplete object. (autocomplete extends MVCObject)
+    - will need to add logic in here to bind jsonobject to model if user is logged in  */
+
+   origin.addListener("place_changed", () => {
+     const originSelected = origin.getPlace();
+
+     if (!originSelected.name || !originSelected.geometry) {
+       window.alert("Yikes! We can't process that location. Please try another");
+     }
+
+     jsonAutocompleteOrigin = JSON.stringify(originSelected);
+     jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+     console.log(jsonAutoObjectOrigin) //eventually take this out
+
+//     originSelected.bindTo(originSelected.name, Location [, Location.name]);
+//     originSelected.bindTo(originSelected.formatted_address, Location [, Location.address]);
+//     originSelected.bindTo(originSelected.geometry.location.lat, Location [, Location.latitude]);
+//     originSelected.bindTo(originSelected.geometry.location.lng, Location [, Location.longitude]);
+   });
+
+   destination.addListener("place_changed", () => {
+     const destinationSelected = destination.getPlace();
+
+     if (!destinationSelected.name || !destinationSelected.geometry) {
+       window.alert("Yikes! We can't process that location. Please try another.");
+     }
+
+     const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+     const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+     console.log(jsonAutoObjectDestination); //eventually take this out
+   });
+
+}
+
+
+
+
+
 function initMap() {
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const infoWindow = new google.maps.InfoWindow();
+
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: centerZoom,
     center: { lat: centerLatitude, lng: centerLongitude },
   });
+
+
+
 
   directionsRenderer.setMap(map);
 
@@ -25,7 +92,8 @@ function initMap() {
     query: "'US national park'",
   };
 
-   const placesService = new google.maps.places.PlacesService(map);
+//   const placesService = new google.maps.places.PlacesService(map);
+
 
    service = new google.maps.places.PlacesService(map);
    service.textSearch(request, (results, status) => {
@@ -55,14 +123,18 @@ function initMap() {
    });
 }
 
+
+
+
+
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   directionsService
     .route({
       origin: {
-        query: document.getElementById("start").value,
+        query: originInput.value,
       },
       destination: {
-        query: document.getElementById("end").value,
+        query: originInput.value,
       },
       travelMode: google.maps.TravelMode.DRIVING,
     })
