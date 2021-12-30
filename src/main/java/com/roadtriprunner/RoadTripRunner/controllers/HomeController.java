@@ -28,10 +28,6 @@ public class HomeController {
     public String displayTripForm(Model model, User user) {
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
         model.addAttribute("trip", new Trip());
-        if (user.getIsLoggedIn() == true) {
-            model.addAttribute("isLoggedIn", user.getIsLoggedIn());
-        }
-        model.addAttribute("spongeBob", "testcase");
         return "index";
     }
 

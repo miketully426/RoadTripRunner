@@ -19,6 +19,4 @@ public class LoginFormDTO {
     @Size(min=8, max=40, message="Invalid password. Must be between 8 and 40 characters.")
     private String password;
 
-    private Boolean isLoggedIn = true;
-
 }
