@@ -3,10 +3,6 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
-//var originInput; //element for the dom (what user types in startingLocation)
-//var origin; //autocomplete object for originInput
-//var destinationInput;
-//var destination;
 
 function initMap() {
    //autocomplete creation below. could this be a function that is called first in initmap? to do so, would need to declare variables at top?
