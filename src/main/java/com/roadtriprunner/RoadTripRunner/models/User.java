@@ -50,12 +50,4 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
-//    public Boolean isLoggedIn() {
-//        if (this.userStatus == true) {
-////
-//        } else {
-//            this.userStatus = false;
-//        }
-//    }
-
 }

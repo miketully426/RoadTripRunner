@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-import static com.roadtriprunner.RoadTripRunner.controllers.AuthenticationController.isLoggedIn;
-
 @Controller
 @RequestMapping("/trips")
 public class TripController {
@@ -25,13 +23,9 @@ public class TripController {
 
     @GetMapping("")
     public String displayAllTrips(Model model, HttpSession session) {
-        if (isLoggedIn(session)) {
-            model.addAttribute("title", "Your saved trips");
-            model.addAttribute("trips", tripRepository.findAll());
-            return "trips/index";
-        } else {
-            return "login";
-        }
+        model.addAttribute("title", "Your saved trips");
+        model.addAttribute("trips", tripRepository.findAll());
+        return "trips/index";
     }
 
     @GetMapping("/trip")

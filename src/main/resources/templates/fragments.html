@@ -8,10 +8,13 @@
     <title>RoadTrip Runner</title>
 </head>
 <body>
-<div th:fragment = "pageHeader" class="wrapper">
 
+<div th:fragment = "logout">
+    <a id="login" th:href="@{/logout}">Logout</a>
+</div>
+
+<div th:fragment = "pageHeader" class="wrapper">
     <div class="header">
-        <a id="login" th:href="@{/login}">Login/Register</a>
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
@@ -19,9 +22,6 @@
         <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
         <br>
         <br>
-<!--        <p id="userInSession">test</p>-->
-<!--        <p th:text="${#session.getAttribute('userInSession')}">test</p>-->
-<!--        <p th:text="${session.userInSession}">test</p>-->
     </div>
 </div>
 

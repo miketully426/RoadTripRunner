@@ -26,9 +26,6 @@ public class AuthenticationController {
 
     private static final String userSessionKey = "user";
 
-//    try idea of checking whether a session has been started or not
-//    alt option  if/else returns two different templates
-
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -44,21 +41,8 @@ public class AuthenticationController {
         return user.get();
     }
 
-//    @ModelAttribute("userInSession")
     private static void setUserInSession(HttpSession session, User user) {
-//        user.setIsLoggedIn(true);
         session.setAttribute(userSessionKey, user.getId());
-//        model.addAttribute("userInSession", false);
-//        session.setAttribute("userInSession", true);
-//        return true;
-    }
-
-    public static Boolean isLoggedIn(HttpSession session) {
-        if (session == null) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     @GetMapping("/register")
