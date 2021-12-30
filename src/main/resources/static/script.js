@@ -22,9 +22,19 @@ function initMap() {
     componentRestrictions: {'country': ['us']},
     fields: ['geometry', 'name', 'formatted_address'] //is there anything else we need? we'll want to create a location object with this info
    });
-   //need to handle when a user hits enter upon finding selected place
-   //event listener for when a place is selected? it doesn't seem needed
-   //event listener for button click
+   //handle when a user hits enter upon finding selected place
+     let startInput = document.getElementById("originInput");
+            google.maps.event.addDomListener(startInput, "keydown", function(event) {
+            if (event.keyCode === 13){
+              event.preventDefault();
+              }
+            });
+       let endInput = document.getElementById("destinationInput");
+              google.maps.event.addDomListener(destinationInput, "keydown", function(event) {
+              if (event.keyCode === 13){
+                event.preventDefault();
+                }
+              });
 
 
   const directionsService = new google.maps.DirectionsService();
@@ -35,14 +45,14 @@ function initMap() {
     center: { lat: centerLatitude, lng: centerLongitude },
   });
 
-//  directionsRenderer.setMap(map);
+  directionsRenderer.setMap(map);
 
-//  const onChangeHandler = function () {
-//    calculateAndDisplayRoute(directionsService, directionsRenderer);
-//  };
-//
-//  document.getElementById("start").addEventListener("change", onChangeHandler);
-//  document.getElementById("end").addEventListener("change", onChangeHandler);
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+
+  document.getElementById("start").addEventListener("change", onChangeHandler);
+  document.getElementById("end").addEventListener("change", onChangeHandler);
 
   let request = {
     query: "'US national park'",
@@ -97,34 +107,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
-//
-window.addEventListener("load", function() {
-         let input = document.getElementById("originInput");
-         google.maps.event.addDomListener(input, "keydown", function(event) {
-         if (event.keyCode === 13){
-           event.preventDefault();
-           //document.getElementById("submitBtn").click();
-           }
-           console.log("This form is working")
-         });
-      });
 
-//      let input = document.getElementById("originInput");
-//
-//      input.addEventListener("keydown", function(event) {
-//           if (event.keyCode === 13){
-//             event.preventDefault();
-//             document.getElementById("submitBtn").click();
-//             }
-//      });
-
-//var inputText = document.getElementById("inputField");
-//   inputText.addEventListener("keyup", function(event) {
-//      if (event.keyCode === 13) {
-//         event.preventDefault();
-//         document.getElementById("alertBtn").click();
-//      }
-//   });
-      //add event listener to button that allows for form to be submitted when clicked
 
 
