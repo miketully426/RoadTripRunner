@@ -3,8 +3,6 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 
-
-
 function getAutocompleteData() {
 
 //might eventually want to add placeId as a field... TBD
@@ -36,19 +34,24 @@ function getAutocompleteData() {
    origin.addListener("place_changed", () => {
      const originSelected = origin.getPlace();
 
-     if (!originSelected.name) {
+     if (!originSelected.name || !originSelected.geometry) {
        window.alert("Yikes! We can't process that location. Please try another");
      }
 
      jsonAutocompleteOrigin = JSON.stringify(originSelected);
      jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
      console.log(jsonAutoObjectOrigin) //eventually take this out
+
+//     originSelected.bindTo(originSelected.name, Location [, Location.name]);
+//     originSelected.bindTo(originSelected.formatted_address, Location [, Location.address]);
+//     originSelected.bindTo(originSelected.geometry.location.lat, Location [, Location.latitude]);
+//     originSelected.bindTo(originSelected.geometry.location.lng, Location [, Location.longitude]);
    });
 
    destination.addListener("place_changed", () => {
      const destinationSelected = destination.getPlace();
 
-     if (!destinationSelected.name) {
+     if (!destinationSelected.name || !destinationSelected.geometry) {
        window.alert("Yikes! We can't process that location. Please try another.");
      }
 
