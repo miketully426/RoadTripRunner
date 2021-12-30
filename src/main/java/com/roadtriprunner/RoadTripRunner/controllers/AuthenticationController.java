@@ -27,6 +27,7 @@ public class AuthenticationController {
     private static final String userSessionKey = "user";
 
 //    try idea of checking whether a session has been started or not
+//    alt option  if/else returns two different templates
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
