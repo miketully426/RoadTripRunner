@@ -1,6 +1,8 @@
 package com.roadtriprunner.RoadTripRunner;
 
 import com.roadtriprunner.RoadTripRunner.controllers.AuthenticationController;
+import com.roadtriprunner.RoadTripRunner.controllers.TripController;
+import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,13 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     UserRepository userRepository;
 
     @Autowired
+    TripRepository tripRepository;
+
+    @Autowired
     AuthenticationController authenticationController;
+
+    @Autowired
+    TripController tripController;
 
     @Override
     public boolean preHandle(HttpServletRequest request,

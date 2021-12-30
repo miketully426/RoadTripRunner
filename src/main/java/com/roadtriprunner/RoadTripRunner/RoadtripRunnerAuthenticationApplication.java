@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JavaWebDevRoadtripRunnerAuthenticationApplication {
+public class RoadtripRunnerAuthenticationApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JavaWebDevRoadtripRunnerAuthenticationApplication.class, args);
+        SpringApplication.run(RoadtripRunnerAuthenticationApplication.class, args);
     }
 }
