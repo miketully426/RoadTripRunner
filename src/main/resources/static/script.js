@@ -11,24 +11,27 @@ function initMap() {
      componentRestrictions: {'country': ['us']},
      fields: ['geometry', 'name', 'formatted_address']
    });
+
    var destinationInput = document.getElementById("destinationInput");
    var destination = new google.maps.places.Autocomplete(destinationInput,
    {
     componentRestrictions: {'country': ['us']},
     fields: ['geometry', 'name', 'formatted_address']
    });
-     let startInput = document.getElementById("originInput");
-            google.maps.event.addDomListener(startInput, "keydown", function(event) {
-            if (event.keyCode === 13){
-              event.preventDefault();
-              }
-            });
-       let endInput = document.getElementById("destinationInput");
-              google.maps.event.addDomListener(destinationInput, "keydown", function(event) {
-              if (event.keyCode === 13){
-                event.preventDefault();
-                }
-              });
+
+   let startInput = document.getElementById("originInput");
+   google.maps.event.addDomListener(startInput, "keydown", function(event) {
+     if (event.keyCode === 13){
+       event.preventDefault();
+     }
+   });
+
+   let endInput = document.getElementById("destinationInput");
+   google.maps.event.addDomListener(destinationInput, "keydown", function(event) {
+     if (event.keyCode === 13){
+       event.preventDefault();
+     }
+   });
 
 
   const directionsService = new google.maps.DirectionsService();
@@ -63,21 +66,22 @@ function initMap() {
      console.log(jsonObject[10]);
 
        for (let i = 0; i < jsonObject.length; i++) {
-           const marker = new google.maps.Marker({
-             map: map,
-             position: jsonObject[i].geometry.location,
-             title: jsonObject[i].name,
-           });
+         const marker = new google.maps.Marker({
+           map: map,
+           position: jsonObject[i].geometry.location,
+           title: jsonObject[i].name,
+         });
 
-           let infoWindowDefaultText = "National Park";
-           let infoWindowMarkerText = "<b>"+`${jsonObject[i].name}`+"</b>" + "<br>" + `${jsonObject[i].formatted_address}` + "<br>" + `User Rating: ${jsonObject[i].rating}`;
+         let infoWindowDefaultText = "National Park";
+         let infoWindowMarkerText = "<b>"+`${jsonObject[i].name}`+"</b>" + "<br>" + `${jsonObject[i].formatted_address}` + "<br>" + `User Rating: ${jsonObject[i].rating}`;
 
-           marker.addListener("click", () => {
-             infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
-             infoWindow.open({
-                anchor: marker,
-                map });
-           });
+         marker.addListener("click", () => {
+           infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
+           infoWindow.open({
+             anchor: marker,
+             map
+             });
+         });
        }
      }
    });
