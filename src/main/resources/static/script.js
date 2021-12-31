@@ -44,11 +44,31 @@ function getAutocompleteData() {
 
 
 
-// HTTP REQUEST
-//     let originRequest = new XMLHttpRequest();
-//     originRequest.open("POST", )
+// HTTP REQUEST (I THINK THIS MIGHT BE AJAX TOO...)
+ function sendJSON() {
+     let originRequest = new XMLHttpRequest();
+     originRequest.open("POST", localhost8080/??, true);
+     originRequest.setRequestHeader("Content-Type", "application/json");
+
+     //create state change callback?
+     originRequest.onreadystatechange = function () {
+       if (originRequest.readyState === 4 && originRequest.status === 200) {
+
+        //print received data from server
+         result.innerHTML = this.responseText;
+       }
+     };
+
+     //convert JSON data to string
+     var data = JSON.stringify({ /*object here*/ });
+
+     //send data with request
+     originRequest.send(data);
+
 //use post because we want to send to database and save it
 // include url localhost8080/api ... (will not be a view)
+
+
 
 //USING AJAX
 //     $.ajax({
