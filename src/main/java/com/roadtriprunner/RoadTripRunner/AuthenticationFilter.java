@@ -17,8 +17,6 @@ import java.util.List;
 
 public class AuthenticationFilter extends HandlerInterceptorAdapter {
 
-    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css", "/png");
-
     @Autowired
     UserRepository userRepository;
 
@@ -28,8 +26,17 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     AuthenticationController authenticationController;
 
-    @Autowired
-    TripController tripController;
+    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css", "/png");
+
+    private static boolean isWhitelisted(String path) {
+        for (String pathRoot : whitelist) {
+            if (path.startsWith(pathRoot)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -51,12 +58,4 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         return false;
     }
 
-    private static boolean isWhitelisted(String path) {
-        for (String pathRoot : whitelist) {
-            if (path.startsWith(pathRoot)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -82,8 +82,7 @@ public class AuthenticationController {
                                 registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-//        return "redirect:";
-        return "index";
+        return "redirect:";
     }
 
     @GetMapping("/login")
@@ -121,8 +120,7 @@ public class AuthenticationController {
 
         setUserInSession(request.getSession(), theUser);
 
-//        return "redirect:";
-        return "index";
+        return "redirect:";
     }
 
     @GetMapping("/logout")
