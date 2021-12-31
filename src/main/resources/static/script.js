@@ -1,4 +1,10 @@
 var map;
+var originSelected;
+var destinationSelected;
+var jsonAutocompleteOrigin;
+var jsonAutoObjectOrigin;
+var jsonAutocompleteDestination;
+var jsonAutoObjectDestination;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
@@ -102,50 +108,10 @@ let centerZoom = 4;
 //}
 
 
+
 function initMap() {
 
-    let autocompleteRequest =
-    {
-        componentRestrictions: {'country': ['us']},
-        fields: ['geometry', 'name', 'formatted_address']
-    }
-
-    var originInput = document.getElementById("originInput");
-    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-    var destinationInput = document.getElementById("destinationInput");
-    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-    var originPlace;
-    var jsonAutocompleteOrigin;
-    var jsonAutoObjectOrigin;
-    var jsonAutocompleteDestination;
-    var jsonAutoObjectDestination;
-
-    origin.addListener("place_changed", () => {
-        const originSelected = origin.getPlace();
-
-        if (!originSelected.name || !originSelected.geometry) {
-            window.alert("Yikes! We can't process that location. Please try another");
-        }
-
-        jsonAutocompleteOrigin = JSON.stringify(originSelected);
-        jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-
-        console.log(jsonAutoObjectOrigin) //eventually take this out
-
-    });
-
-    destination.addListener("place_changed", () => {
-        const destinationSelected = destination.getPlace();
-
-        if (!destinationSelected.name || !destinationSelected.geometry) {
-            window.alert("Yikes! We can't process that location. Please try another.");
-        }
-
-        const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
-        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-        console.log(jsonAutoObjectDestination); //eventually take this out
-    });
-
+   getAutocompleteData();
 
 
     const directionsService = new google.maps.DirectionsService();
@@ -160,12 +126,15 @@ function initMap() {
 
     directionsRenderer.setMap(map);
 
-    const onChangeHandler = function () {
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-    };
+    calculateAndDisplayRoute(directionsService, directionsRenderer, callback);
 
+//    const onChangeHandler = function () {
+//        calculateAndDisplayRoute(directionsService, directionsRenderer);
+//    };
+//
 //    originSelected.addEventListener("change", onChangeHandler);
 //    destinationSelected.addEventListener("change", onChangeHandler);
+
 
     let request = {
         query: "'US national park'",
@@ -201,18 +170,69 @@ function initMap() {
         }
     });
 
+   function getAutocompleteData() {
+    autocompleteRequest =
+    {
+        componentRestrictions: {'country': ['us']},
+        fields: ['geometry', 'name', 'formatted_address']
+    }
 
-    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    var originInput = document.getElementById("originInput");
+    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+    var destinationInput = document.getElementById("destinationInput");
+    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+    var originPlace;
+
+
+
+
+    origin.addListener("place_changed", () => {
+        const originSelected = origin.getPlace();
+
+        if (!originSelected.name || !originSelected.geometry) {
+            window.alert("Yikes! We can't process that location. Please try another");
+        }
+//
+////        originSelected.addEventListener("change", onChangeHandler);
+//
+        jsonAutocompleteOrigin = JSON.stringify(originSelected);
+        jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+//
+//        console.log(jsonAutoObjectOrigin) //eventually take this out
+
+    });
+
+    destination.addListener("place_changed", () => {
+        const destinationSelected = destination.getPlace();
+
+        if (!destinationSelected.name || !destinationSelected.geometry) {
+            window.alert("Yikes! We can't process that location. Please try another.");
+        }
+
+//        const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+//        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+//        console.log(jsonAutoObjectDestination); //eventually take this out
+    });
+
+
+
+
+}
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer, callback) {
         directionsService
         .route({
-            origin: {
-            query: originSelected.value,
-            },
-        destination: {
-            query: destinationSelected.value,
-        },
-        travelMode: google.maps.TravelMode.DRIVING,
-        })
+            origin: jsonAutoObjectOrigin.geometry.location,
+            destination: jsonAutoObjectDestination.geometry.location,
+            travelMode: google.maps.TravelMode.DRIVING,
+        }), function (results, status) {
+            if (google.maps.places.PlacesServiceStatus.OK == "OK") {
+                callback(results);
+            }
+            else {
+            alert("Fetching place was unsuccessful due to " + status);
+            }
+        }
         .then((response) => {
             directionsRenderer.setDirections(response);
         })
