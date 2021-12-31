@@ -46,8 +46,9 @@ function getAutocompleteData() {
 
 // HTTP REQUEST
 //     let originRequest = new XMLHttpRequest();
-//     originRequest.open("GET", )
-
+//     originRequest.open("POST", )
+//use post because we want to send to database and save it
+// include url localhost8080/api ... (will not be a view)
 
 //USING AJAX
 //     $.ajax({
