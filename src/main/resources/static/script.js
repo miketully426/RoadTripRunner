@@ -124,9 +124,8 @@ function initMap() {
     });
 
 
-    directionsRenderer.setMap(map);
-
-    calculateAndDisplayRoute(directionsService, directionsRenderer, callback);
+// directionsRenderer.setMap(map);
+//    calcRoute();
 
 //    const onChangeHandler = function () {
 //        calculateAndDisplayRoute(directionsService, directionsRenderer);
@@ -171,74 +170,101 @@ function initMap() {
     });
 
    function getAutocompleteData() {
-    autocompleteRequest =
-    {
-        componentRestrictions: {'country': ['us']},
-        fields: ['geometry', 'name', 'formatted_address']
+        autocompleteRequest =
+        {
+            componentRestrictions: {'country': ['us']},
+            fields: ['geometry', 'name', 'formatted_address']
+        }
+
+        var originInput = document.getElementById("originInput");
+        var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+        var destinationInput = document.getElementById("destinationInput");
+        var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+        var originPlace;
+
+
+
+
+        origin.addListener("place_changed", () => {
+            const originSelected = origin.getPlace();
+
+            if (!originSelected.name || !originSelected.geometry) {
+                window.alert("Yikes! We can't process that location. Please try another");
+            }
+    //
+    ////        originSelected.addEventListener("change", onChangeHandler);
+    //
+            jsonAutocompleteOrigin = JSON.stringify(originSelected);
+            jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+    //
+    //        console.log(jsonAutoObjectOrigin) //eventually take this out
+
+        });
+
+        destination.addListener("place_changed", () => {
+            const destinationSelected = destination.getPlace();
+
+            if (!destinationSelected.name || !destinationSelected.geometry) {
+                window.alert("Yikes! We can't process that location. Please try another.");
+            }
+
+    //        const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+    //        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+    //        console.log(jsonAutoObjectDestination); //eventually take this out
+        });
     }
 
-    var originInput = document.getElementById("originInput");
-    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-    var destinationInput = document.getElementById("destinationInput");
-    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-    var originPlace;
 
 
-
-
-    origin.addListener("place_changed", () => {
-        const originSelected = origin.getPlace();
-
-        if (!originSelected.name || !originSelected.geometry) {
-            window.alert("Yikes! We can't process that location. Please try another");
-        }
-//
-////        originSelected.addEventListener("change", onChangeHandler);
-//
-        jsonAutocompleteOrigin = JSON.stringify(originSelected);
-        jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-//
-//        console.log(jsonAutoObjectOrigin) //eventually take this out
-
-    });
-
-    destination.addListener("place_changed", () => {
-        const destinationSelected = destination.getPlace();
-
-        if (!destinationSelected.name || !destinationSelected.geometry) {
-            window.alert("Yikes! We can't process that location. Please try another.");
-        }
-
-//        const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
-//        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-//        console.log(jsonAutoObjectDestination); //eventually take this out
-    });
-
-
-
-
+//    function calculateAndDisplayRoute(directionsService, directionsRenderer, callback) {
+//        directionsService
+//        .route({
+//            origin: jsonAutoObjectOrigin.geometry.location,
+//            destination: jsonAutoObjectDestination.geometry.location,
+//            travelMode: google.maps.TravelMode.DRIVING,
+//        }), function (results, status) {
+//            if (google.maps.places.PlacesServiceStatus.OK == "OK") {
+//                callback(results);
+//            }
+//            else {
+//            alert("Fetching place was unsuccessful due to " + status);
+//            }
+//        }
+//        .then((response) => {
+//            directionsRenderer.setDirections(response);
+//        })
+//       .catch((e) => window.alert("Directions request failed due to " + status));
+//    }
 }
 
-    function calculateAndDisplayRoute(directionsService, directionsRenderer, callback) {
-        directionsService
-        .route({
-            origin: jsonAutoObjectOrigin.geometry.location,
-            destination: jsonAutoObjectDestination.geometry.location,
-            travelMode: google.maps.TravelMode.DRIVING,
-        }), function (results, status) {
-            if (google.maps.places.PlacesServiceStatus.OK == "OK") {
-                callback(results);
-            }
-            else {
-            alert("Fetching place was unsuccessful due to " + status);
-            }
-        }
-        .then((response) => {
-            directionsRenderer.setDirections(response);
-        })
-       .catch((e) => window.alert("Directions request failed due to " + status));
-    }
-}
+//    function calcRoute() {
+//        var request = {
+//            origin: document.getElementById("originInput").value,
+//            destination: document.getElementById("destinationInput").value,
+//            travelMode: google.maps.TravelMode.DRIVING,
+//            unitSystem: google.maps.UnitSystem.IMPERIAL
+//        }
+//
+//        directionsService.route(request, (result, status) = {
+//            if (status == google.maps.DirectionsStatus.OK) {
+//
+//                //display time and distance of route, inside div output
+//                const output = document.querySelector('#output');
+//                output.innerHTML = "<div> From: " + document.getElementById("originInput").value + "<br /> To: " + document.getElementById("destinationInput").value + "<br /> Driving Distance: " + result.routes[0].legs[0].distance.text + "</div>";
+//
+//                //display route
+//                directionsRenderer.setDirections(result);
+//            }
+//            else {
+//                directionsRenderer.setDirections({ routes: []});
+//
+//                //center map next
+//
+//                //show error
+//                output.innerHTML = "<div> OOPS! It didn't work! </div>"
+//            }
+//        });
+//    }
 
 
 

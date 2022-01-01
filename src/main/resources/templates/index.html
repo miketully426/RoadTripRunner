@@ -17,23 +17,24 @@
         <p class="error" th:errors="${trip.tripName}"></p>
         <br>
         <br>
-
-        <label th:for="startingLocation">Starting Location:
+<!--        th:for="startingLocation"-->
+        <label>Starting Location:
             <input type="text" id="originInput" placeholder="starting from...">
         </label>
         <!--        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above-->
         <br>
-        <p class="error" th:errors="${trip.startingLocation}"></p>
+<!--        <p class="error" th:errors="${trip.startingLocation}"></p>-->
 
         <br>
         <br>
 
-
-        <label th:for="endingLocation"> Destination:
-            <input type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
+<!--        th:for="endingLocation"-->
+        <label> Destination:
+            <input type="text" id="destinationInput" placeholder="travelling to...">
         </label>
+<!--        th:field="${trip.endingLocation}" th:value="${trip.endingLocation}"-->
         <br>
-        <p class="error" th:errors="${trip.endingLocation}"></p>
+<!--        <p class="error" th:errors="${trip.endingLocation}"></p>-->
         <br>
         <br>
         <label> Detour Radius in Miles:
@@ -55,6 +56,7 @@
 </div>
 
 <div id="map"></div>
+<div id="output"></div>
 
 <!--<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=getAutocompleteData'">-->
 <!--</script>-->
