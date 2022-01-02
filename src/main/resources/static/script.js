@@ -126,15 +126,15 @@ function initMap() {
 
     directionsRenderer.setMap(map);
     getAutocompleteData();
-//    calcRoute(getAutocompleteData);
 
 
-//    const onChangeHandler = function () {
-//        calculateAndDisplayRoute(directionsService, directionsRenderer);
-//    };
-//
-//    originSelected.addEventListener("change", onChangeHandler);
-//    destinationSelected.addEventListener("change", onChangeHandler);
+    const onChangeHandler = function () {
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+    };
+
+//    document.getElementById("originInput").addEventListener("change", onChangeHandler);
+//    document.getElementById("destinationInput").addEventListener("change", onChangeHandler);
+    document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
 
     let request = {
@@ -216,59 +216,54 @@ function initMap() {
         return places;
     }
 
-    function calcRoute(places) {
-        var request = {
-            origin: places[0],
-            destination: places[1],
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.IMPERIAL
-        }
-        directionsService.route(request, (result, status) => {
-            if (status == google.maps.DirectionsStatus.OK) {
-
-                //display time and distance of route, inside div output
-                const output = document.querySelector('#output');
-                output.innerHTML = "<div> From: " + document.getElementById("originInput").value + "<br /> To: " + document.getElementById("destinationInput").value + "<br /> Driving Distance: " + result.routes[0].legs[0].distance.text + "</div>";
-
-                //display route
+//    function calcRoute(places) {
+//        var request = {
+//            origin: places[0],
+//            destination: places[1],
+//            travelMode: google.maps.TravelMode.DRIVING,
+//            unitSystem: google.maps.UnitSystem.IMPERIAL
+//        }
+//        directionsService.route(request, (result, status) => {
+//            if (status == google.maps.DirectionsStatus.OK) {
+//
+//                //display time and distance of route, inside div output
+//                const output = document.querySelector('#output');
+//                output.innerHTML = "<div> From: " + document.getElementById("originInput").value + "<br /> To: " + document.getElementById("destinationInput").value + "<br /> Driving Distance: " + result.routes[0].legs[0].distance.text + "</div>";
+//
+//                //display route
+////                directionsRenderer.setDirections(result);
+//            }
+//            else {
+//                directionsRenderer.setDirections({ routes: []});
+//                output.innerHTML = "<div> OOPS! It didn't work! </div>"
+//            }
+//            .then((result) => {
 //                directionsRenderer.setDirections(result);
-            }
-            else {
-                directionsRenderer.setDirections({ routes: []});
-                output.innerHTML = "<div> OOPS! It didn't work! </div>"
-            }
-            .then((result) => {
-                directionsRenderer.setDirections(result);
-            })
-           .catch((e) => window.alert("Directions request failed due to " + status));
-        });
-    }
+//            })
+//           .catch((e) => window.alert("Directions request failed due to " + status));
+//        });
+//    }
 
-
-
-    function calculateAndDisplayRoute(directionsService, directionsRenderer, callback) {
-        directionsService
-        .route({
-            origin: jsonAutoObjectOrigin.geometry.location,
-            destination: jsonAutoObjectDestination.geometry.location,
-            travelMode: google.maps.TravelMode.DRIVING,
-        }), function (results, status) {
-            if (google.maps.places.PlacesServiceStatus.OK == "OK") {
-                callback(results);
-            }
-            else {
-            alert("Fetching place was unsuccessful due to " + status);
-            }
-        }
-        .then((response) => {
-            directionsRenderer.setDirections(response);
-        })
-       .catch((e) => window.alert("Directions request failed due to " + status));
-    }
 
 
 }
 
+ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+      directionsService
+        .route({
+          origin: {
+            query: document.getElementById("originInput").value,
+          },
+          destination: {
+            query: document.getElementById("destinationInput").value,
+          },
+          travelMode: google.maps.TravelMode.DRIVING,
+        })
+        .then((response) => {
+          directionsRenderer.setDirections(response);
+        })
+        .catch((e) => window.alert("Directions request failed due to " + status));
+    }
 
 
 
