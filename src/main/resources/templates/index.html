@@ -9,48 +9,65 @@
     <iframe width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <h3>Ready for your next adventure?  Enter your route here:</h3>
-    <form id="destination-form" onsubmit="displayLog()" method="post">
-        <label>Name Your Trip:
-            <input th:field="${trip.tripName}" th:value="${trip.tripName}">
-        </label>
-        <br>
-        <p class="error" th:errors="${trip.tripName}"></p>
-        <br>
-        <br>
-<!--        th:for="startingLocation"-->
-        <label>Starting Location:
-            <input type="text" id="originInput" placeholder="starting from...">
-        </label>
-        <!--        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above-->
-        <br>
-<!--        <p class="error" th:errors="${trip.startingLocation}"></p>-->
+<!--    onsubmit="displayLog()" method="post"-->
+    <form id="destination-form">
+        <div>
+            <label>Starting Location:
+                <input type="text" id="originInput" placeholder="starting from...">
+            </label>
+        </div>
 
         <br>
         <br>
 
-<!--        th:for="endingLocation"-->
-        <label> Destination:
-            <input type="text" id="destinationInput" placeholder="travelling to...">
-        </label>
-<!--        th:field="${trip.endingLocation}" th:value="${trip.endingLocation}"-->
-        <br>
-<!--        <p class="error" th:errors="${trip.endingLocation}"></p>-->
-        <br>
-        <br>
-        <label> Detour Radius in Miles:
-            <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">
-        </label>
-        <br>
-        <p class="error" th:errors="${trip.detourRadius}"></p>
-        <br>
-        <br>
-        <input type="submit" value="Begin!"/>
-        <br>
-        <br>
-        <p>Want to save your trips?  Click the Register button below.</p>
-        <a th:href="@{/register}" class="form-link">Register</a>
+        <div>
+            <label> Destination:
+                <input type="text" id="destinationInput" placeholder="travelling to...">
+            </label>
+        </div>
+
+<!--        <label>Name Your Trip:-->
+<!--            <input th:field="${trip.tripName}" th:value="${trip.tripName}">-->
+<!--        </label>-->
+<!--        <br>-->
+<!--        <p class="error" th:errors="${trip.tripName}"></p>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--&lt;!&ndash;        th:for="startingLocation"&ndash;&gt;-->
+<!--        <label>Starting Location:-->
+<!--            <input type="text" id="originInput" placeholder="starting from...">-->
+<!--        </label>-->
+<!--        &lt;!&ndash;        th:field="${trip.startingLocation}" th:value="${trip.startingLocation}" for above&ndash;&gt;-->
+<!--        <br>-->
+<!--&lt;!&ndash;        <p class="error" th:errors="${trip.startingLocation}"></p>&ndash;&gt;-->
+
+<!--        <br>-->
+<!--        <br>-->
+
+<!--&lt;!&ndash;        th:for="endingLocation"&ndash;&gt;-->
+<!--        <label> Destination:-->
+<!--            <input type="text" id="destinationInput" placeholder="travelling to...">-->
+<!--        </label>-->
+<!--&lt;!&ndash;        th:field="${trip.endingLocation}" th:value="${trip.endingLocation}"&ndash;&gt;-->
+<!--        <br>-->
+<!--&lt;!&ndash;        <p class="error" th:errors="${trip.endingLocation}"></p>&ndash;&gt;-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <label> Detour Radius in Miles:-->
+<!--            <input type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">-->
+<!--        </label>-->
+<!--        <br>-->
+<!--        <p class="error" th:errors="${trip.detourRadius}"></p>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <input type="submit" value="Begin!"/>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <p>Want to save your trips?  Click the Register button below.</p>-->
+<!--        <a th:href="@{/register}" class="form-link">Register</a>-->
 
     </form>
+    <button>Submit!</button>
 
 
 </div>
