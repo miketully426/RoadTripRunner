@@ -11,46 +11,6 @@ let centerZoom = 4;
 
 
 
-//
-//function getAutocompleteData() {
-
-    //might eventually want to add placeId as a field... TBD
-//    let autocompleteRequest =
-//    {
-//        componentRestrictions: {'country': ['us']},
-//        fields: ['geometry', 'name', 'formatted_address']
-//    }
-//
-//    var originInput = document.getElementById("originInput");
-//    var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-//    var destinationInput = document.getElementById("destinationInput");
-//    var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-//    var originPlace;
-//    var jsonAutocompleteOrigin;
-//    var jsonAutoObjectOrigin;
-//    var jsonAutocompleteDestination;
-//    var jsonAutoObjectDestination;
-
-
-    //declaring origin as an extension of the MVC Object class. likely unnecessary, TEST!
-//    origin.prototype = new google.maps.MVCObject();
-
-
-
-    /*  - .addListener is a MVCObject method. It takes the event "place_changed", which is the
-            only option for the autocomplete object. (autocomplete extends MVCObject)
-    - will need to add logic in here to bind jsonobject to model if user is logged in  */
-
-//    origin.addListener("place_changed", () => {
-//    const originSelected = origin.getPlace();
-//
-//    if (!originSelected.name || !originSelected.geometry) {
-//        window.alert("Yikes! We can't process that location. Please try another");
-//    }
-//
-//    jsonAutocompleteOrigin = JSON.stringify(originSelected);
-//    jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-
 
 
 //        // HTTP REQUEST (I THINK THIS MIGHT BE AJAX TOO...)
@@ -89,34 +49,15 @@ let centerZoom = 4;
 
 
 
-//    console.log(jsonAutoObjectOrigin) //eventually take this out
-//
-//    });
-//
-//    destination.addListener("place_changed", () => {
-//        const destinationSelected = destination.getPlace();
-//
-//        if (!destinationSelected.name || !destinationSelected.geometry) {
-//            window.alert("Yikes! We can't process that location. Please try another.");
-//        }
-//
-//        const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
-//        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-//        console.log(jsonAutoObjectDestination); //eventually take this out
-//    });
 
-//}
 
 
 
 function initMap() {
 
-
-
-
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
-    var infoWindow = new google.maps.InfoWindow();
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    const infoWindow = new google.maps.InfoWindow();
 
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: centerZoom,
@@ -197,7 +138,7 @@ function initMap() {
             jsonAutocompleteOrigin = JSON.stringify(originSelected);
             jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
     //
-    //        console.log(jsonAutoObjectOrigin) //eventually take this out
+            console.log(jsonAutoObjectOrigin) //eventually take this out
 
         });
 
@@ -212,8 +153,6 @@ function initMap() {
     //        const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
     //        console.log(jsonAutoObjectDestination); //eventually take this out
         });
-        var places = [originSelected, destinationSelected];
-        return places;
     }
 
 //    function calcRoute(places) {
@@ -243,22 +182,16 @@ function initMap() {
 //           .catch((e) => window.alert("Directions request failed due to " + status));
 //        });
 //    }
-
-
-
 }
 
  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-      directionsService
-        .route({
-          origin: {
-            query: document.getElementById("originInput").value,
-          },
-          destination: {
-            query: document.getElementById("destinationInput").value,
-          },
-          travelMode: google.maps.TravelMode.DRIVING,
-        })
+     var request = {
+         origin: document.getElementById("originInput").value,
+         destination: document.getElementById("destinationInput").value,
+         travelMode: google.maps.TravelMode.DRIVING,
+         unitSystem: google.maps.UnitSystem.IMPERIAL
+     }
+      directionsService.route(request)
         .then((response) => {
           directionsRenderer.setDirections(response);
         })
