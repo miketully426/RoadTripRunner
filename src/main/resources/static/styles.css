@@ -97,7 +97,7 @@ h1 {
     display:flex;
 }
 
-#error {
+.errors {
     color: red;
 }
 footer {

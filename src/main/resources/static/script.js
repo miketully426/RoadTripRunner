@@ -1,4 +1,3 @@
-
 var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
