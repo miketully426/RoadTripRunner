@@ -29,6 +29,7 @@ public class HomeController {
     @GetMapping("/")
     public String displayTripForm(Model model) {
         model.addAttribute("title", "Enter Your Starting and Ending Locations");
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
         model.addAttribute("trip", new Trip());
         return "index";
     }
