@@ -9,17 +9,14 @@
 </head>
 <body>
 
-<!--<div th:fragment = "logout">-->
-<!--    <a id="login" th:href="@{/logout}">Logout</a>-->
-<!--</div>-->
-
 <div th:fragment = "pageHeader" class="wrapper">
     <div class="header">
+        <a id="login" th:href="@{/logout}">Logout</a>
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-<!--        <a th:href = "@{/trips}" id="headerLink">My Saved Trips</a>-->
-<!--        <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>-->
+        <a th:href = "@{/trips}" id="headerLink">My Saved Trips</a>
+        <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
         <br>
         <br>
     </div>
