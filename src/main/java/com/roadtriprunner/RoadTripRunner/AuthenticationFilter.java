@@ -21,9 +21,6 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     UserRepository userRepository;
 
     @Autowired
-    TripRepository tripRepository;
-
-    @Autowired
     AuthenticationController authenticationController;
 
     private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css", "/png", "/js");

@@ -32,7 +32,7 @@ public class HomeController {
     }
 
     @GetMapping("/map")
-    public String index(Model model) {
+    public String displayMap(Model model) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         return "maps/mapDisplay";
     }

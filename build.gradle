@@ -9,13 +9,25 @@ group = 'com.roadtriprunner'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+//lines 13 - 18 copied from techjobs
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+
 repositories {
 	mavenCentral()
 }
 
 springBoot {
-	mainClass = "com.roadtriprunner.RoadTripRunner.RoadTripRunnerApplication"
+//	mainClass = "com.roadtriprunner.RoadTripRunner.RoadTripRunnerApplication"
+	mainClass = "com.roadtriprunner.RoadTripRunner.RoadtripRunnerAuthenticationApplication"
 }
+
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
