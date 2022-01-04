@@ -60,7 +60,7 @@ iframe {
 #destination-form {
     flex: 1;
     flex-direction: column;
-    margin: 20px;
+    margin: 60px;
     text-align: left;
     height: 100%
 
@@ -106,7 +106,9 @@ footer {
 }
 
 #map {
-    height: 40%;
+    display: inline-block;
+    height: 50%;
+    width: 50%
 }
 
 #main-box {
@@ -129,7 +131,6 @@ body {
     flex: 2;
 }
 
-.flex-container {
-    display:flex;
+.directions {
+    display: inline-block;
 }
-

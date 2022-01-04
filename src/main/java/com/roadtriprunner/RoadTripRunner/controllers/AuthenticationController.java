@@ -83,7 +83,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "planATrip";
+        return "redirect:/planATrip";
     }
 
     @GetMapping("/login")
@@ -121,7 +121,7 @@ public class AuthenticationController {
 
         setUserInSession(request.getSession(), theUser);
 
-        return "planATrip";
+        return "redirect:/planATrip";
     }
 
     @GetMapping("/logout")
