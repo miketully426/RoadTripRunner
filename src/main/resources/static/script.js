@@ -4,6 +4,7 @@ let centerLongitude = -97.65;
 let centerZoom = 4;
 
 
+
 function initMap() {
 
     const directionsService = new google.maps.DirectionsService();
@@ -34,27 +35,31 @@ function initMap() {
         let jsonString = JSON.stringify(results);
         let jsonObject = JSON.parse(jsonString);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-
-            for (let i = 0; i < jsonObject.length; i++) {
-                const marker = new google.maps.Marker({
-                    map: map,
-                    position: jsonObject[i].geometry.location,
-                    title: jsonObject[i].name,
-                });
-
-                let infoWindowDefaultText = "National Park";
-                let infoWindowMarkerText = "<b>"+`${jsonObject[i].name}`+"</b>" + "<br>" + `${jsonObject[i].formatted_address}` + "<br>" + `User Rating: ${jsonObject[i].rating}`;
-
-                marker.addListener("click", () => {
-                    infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
-                    infoWindow.open({
-                        anchor: marker,
-                        map
-                    });
-                });
-            }
+            displayMarkerAndInfoWindow(jsonObject);
         }
-   });
+    });
+
+
+    function displayMarkerAndInfoWindow(places) {
+        for (let i = 0; i < places.length; i++) {
+            const marker = new google.maps.Marker({
+                map: map,
+                position: places[i].geometry.location,
+                title: places[i].name,
+            });
+
+            let infoWindowDefaultText = "point of interest";
+            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
+
+            marker.addListener("click", () => {
+                infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
+                infoWindow.open({
+                    anchor: marker,
+                    map,
+                });
+            });
+        }
+    }
 
     function getAutocompleteData() {
 
