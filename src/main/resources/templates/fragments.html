@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
-    <link th:href="@{/styles.css}" rel="stylesheet" type="text/css"></link>
+    <link th:href="@{/styles.css}" rel="stylesheet" type="text/css">
     <script th:src="script.js"></script>
     <meta charset="UTF-8"/>
     <title>RoadTrip Runner</title>
@@ -23,8 +23,8 @@
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
         <br>
         <br>
-        <a id="headerLink">Your Saved Trips</a>
-        <a id="headerLink">Plan a Trip</a>
+        <a th:href = "@{/trips}" id="headerLink">Your Saved Trips</a>
+        <a th:href = "@{/map}" id="headerLink">Plan a Trip</a>
     </div>
 </div>
 

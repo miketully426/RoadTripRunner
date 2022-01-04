@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.models;
 
+import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 public class User extends AbstractEntity {
 
@@ -29,21 +31,19 @@ public class User extends AbstractEntity {
     @Size(min=5, max=25, message="Invalid username. Must be between 5 and 25 characters.")
     private String username;
 
-    @NotBlank(message="Please enter a unique password")
-    @NotNull
-    @Size(min=8, max=40, message="Invalid password. Must be between 8 and 40 characters.")
     private String pwHash;
 
-
-    public String getUsername() {
-        return username;
-    }
 
     public User(String name, String email, String username, String password) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.pwHash = encoder.encode(password);
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.pwHash = password;
     }
 
     public User() {
@@ -53,6 +53,5 @@ public class User extends AbstractEntity {
     public boolean isPasswordMatching(String password) {
         return encoder.matches(password, pwHash);
     }
-
 
 }
