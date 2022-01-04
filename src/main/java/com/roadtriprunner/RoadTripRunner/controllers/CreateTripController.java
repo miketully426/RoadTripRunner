@@ -18,35 +18,35 @@ import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class CreateTripController {
 
-    @Autowired
-    TripRepository tripRepository;
+//    @Autowired
+//    TripRepository tripRepository;
 
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
-    @GetMapping("/")
-    public String displayTripForm(Model model) {
-        model.addAttribute("title", "Enter Your Starting and Ending Locations");
+//    @GetMapping("/")
+//    public String displayTripForm(Model model) {
+//        model.addAttribute("title", "Enter Your Starting and Ending Locations");
+//        model.addAttribute("gmapsApiKey", gmapsApiKey);
+//        model.addAttribute("trip", new Trip());
+//        return "index";
+//    }
+
+    @GetMapping("/planATrip")
+    public String renderPlanATripPage(Model model) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
-        model.addAttribute("trip", new Trip());
-        return "index";
+        return "planATrip";
     }
 
-    @GetMapping("/map")
-    public String index(Model model) {
-        model.addAttribute("gmapsApiKey", gmapsApiKey);
-        return "maps/mapDisplay";
-    }
-
-    @PostMapping("/")
-    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model){
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Enter Your Starting and Ending Locations");
-            return "index";
-        }
-        tripRepository.save(newTrip);
-        return "redirect:";
-    }
+//    @PostMapping("/")
+//    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model){
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Enter Your Starting and Ending Locations");
+//            return "index";
+//        }
+//        tripRepository.save(newTrip);
+//        return "redirect:";
+//    }
 }
