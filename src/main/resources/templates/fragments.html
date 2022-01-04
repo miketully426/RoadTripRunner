@@ -12,8 +12,12 @@
 
 
     <div class="header">
-        <div th:switch="${isUserInSession}">
-            <a th:case="${true}"id="login" th:href="@{/logout}">Logout</a>
+        <div th:switch="${loggedInUser != null}">
+            <div th:case="${true}">
+                <a  id="login" th:href="@{/logout}">Logout</a>
+                <p id="welcome" th:text="${username}"></p>
+            </div>
+
             <a th:case="*" id="login" th:href="@{/login}">Login</a>
         </div>
         <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>

@@ -23,7 +23,7 @@ public class AuthenticationController {
     @Autowired
     UserRepository userRepository;
 
-    private static final String userSessionKey = "user";
+    public static final String userSessionKey = "user";
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
@@ -46,7 +46,7 @@ public class AuthenticationController {
 
 
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
+    public String displayRegistrationForm(Model model, HttpServletRequest request) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "register";
@@ -124,17 +124,18 @@ public class AuthenticationController {
 
         model.addAttribute("logout", "Logout");
         setUserInSession(request.getSession(), theUser);
-        theUser.setUserInSession(true);
-        model.addAttribute("isUserInSession", theUser.getUserInSession());
+        model.addAttribute("loggedInUser", theUser);
+        //theUser.getUsername is returning null ...
+//        model.addAttribute("username", theUser.getUsername());
+//        System.out.println(theUser.getUsername());
 
-        return "trips/index";
+
+        return "maps/mapDisplay";
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, Model model, User theUser){
         request.getSession().invalidate();
-        theUser.setUserInSession(false);
-        model.addAttribute("isUserInSession", theUser.getUserInSession());
         return "redirect:/login";
     }
 
