@@ -88,6 +88,7 @@ h1 {
     text-align: center;
 }
 .flex-container {
+    min-height: 90vh;
     display:flex;
 }
 
@@ -129,5 +130,4 @@ body {
        flex-direction: column;
        text-align: left;
        margin-top: 20px;
-       height: 100%
 }
