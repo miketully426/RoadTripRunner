@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header th:replace="fragments :: pageHeader"></header>
+
+
+
+    <div class="directions">
+        <h1>Plan Your Trip Here</h1>
+
+
+        <h3>Ready for your next adventure?  Enter your route here:</h3>
+        <form id="destination-form">
+        <div>
+            <label>Starting Location:
+                <input type="text" id="originInput" placeholder="starting from...">
+            </label>
+        </div>
+
+        <br>
+        <br>
+
+        <div>
+            <label> Destination:
+                <input type="text" id="destinationInput" placeholder="travelling to...">
+            </label>
+        </div>
+
+        </form>
+        <button id="submit-button">Submit!</button>
+
+    </div>
+
+    <div id="map"></div>
+
+
+
+
+
+
+    <script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
+    </script>
+
+    <footer th:replace="fragments :: footer"></footer>
+
+</body>
+</html>

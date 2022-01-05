@@ -3,49 +3,16 @@
 <head th:replace="fragments :: head"></head>
 <body>
     <header th:replace="fragments :: pageHeader"></header>
-    <h1>Welcome to RoadTrip Runner!</h1>
-    <main class="flex-container" >
-                    <iframe class="demo-box" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <form id="destination-form" method="post">
-                            <h3>Ready for your next adventure?  Enter your route here:</h3>
-                            <br>
-                            <label>Name Your Trip:
-                                <input class="input" type="text" th:field="${trip.tripName}" th:value="${trip.tripName}">
-                            </label>
-                            <br>
-                            <p class="error" th:errors="${trip.tripName}"></p>
-                            <br>
-                            <label th:for="startingLocation">Starting Location:
-                                <input class="input directionInput" type="text" id="originInput" placeholder="starting from..." th:field="${trip.startingLocation}" th:value="${trip.startingLocation}">
-                            </label>
-                            <br>
-                            <p class="error" th:errors="${trip.startingLocation}"></p>
-                            <br>
-                            <label th:for="endingLocation"> Destination:
-                                <input class="input directionInput" type="text" id="destinationInput" placeholder="travelling to..." th:field="${trip.endingLocation}" th:value="${trip.endingLocation}">
-                            </label>
-                            <br>
-                            <p class="error" th:errors="${trip.endingLocation}"></p>
-                            <br>
-                            <label> Detour Radius in Miles:
-                                <input class="input" type="number" th:field="${trip.detourRadius}" th:value="${trip.detourRadius}" placeholder="0">
-                            </label>
-                            <br>
-                            <p class="error" th:errors="${trip.detourRadius}"></p>
-                            <br>
-                            <input class="submit" id="submitBtn" type="submit" value="Begin!"/>
-                            <br>
-                                <p>Want to save your trips?  Click the Register button below.</p>
-                            <a th:href="@{/register}" class="form-link">Register</a>
-                        </form>
-                    </div>
-                </div>
 
-            </div>
-        </section>
-    </main>
-<script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">
-</script>
+    <h1>Welcome to RoadTrip Runner!</h1>
+
+    <iframe width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <br>
+    <br>
+
+    <a class="form-link" th:href="@{/register}">Need to Register?</a>
+
 
     <footer th:replace="fragments :: footer"></footer>
 
