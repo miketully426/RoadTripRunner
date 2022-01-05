@@ -16,12 +16,35 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
+    const polygonCoords = [
+      {lat: 39.384308649558, lng: -119.815360985150},
+      {lat: 46.394348251329, lng: -119.467474821662},
+      {lat: 30.396318323523, lng: -121.597960374905},
+      {lat: 40.394358733076, lng: -84.748268289089},
+      {lat: 39.384308649558, lng: -119.815360985150},
+    ];
+    const polygon = new google.maps.Polygon({
+        paths: polygonCoords,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+      });
+
+      polygon.setMap(map);
+
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
+
+    let point1 = document.getElementById("originInput").value;
+    console.log(point1);
+    let point2 = document.getElementById("destinationInput").value;
+    console.log(point2);
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
