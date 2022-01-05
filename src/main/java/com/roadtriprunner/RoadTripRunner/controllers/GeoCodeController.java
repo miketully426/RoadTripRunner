@@ -24,9 +24,9 @@ public class GeoCodeController {
         OkHttpClient client = new OkHttpClient();
         String encodedAddress = URLEncoder.encode(address, "UTF-8");
         Request request = new Request.Builder()
-                .url("https://google-maps-geocoding.")  // needs more
+                .url("http://localhost:8080/planATrip/geocode/json?language=en&address=" + encodedAddress)
                 .get()
-                .addHeader() //needs more
+                .addHeader("http://localhost:8080/planATrip", ) //needs more
                 .addHeader("gmapsApiKey", gmapsApiKey)
                 .build();
 
