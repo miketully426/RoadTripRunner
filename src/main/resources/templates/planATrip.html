@@ -4,36 +4,31 @@
 <body>
     <header th:replace="fragments :: pageHeader"></header>
 
+    <h1>Plan Your Trip Here</h1>
+    <main class="flex-container">
+        <div class="directions">
+            <form>
+                <div>
+                    <label>Starting Location:
+                        <input class="input" type="text" id="originInput" placeholder="starting from...">
+                    </label>
+                </div>
 
+                <br>
+                <br>
 
-    <div class="directions">
-        <h1>Plan Your Trip Here</h1>
+                <div>
+                    <label> Destination:
+                        <input class="input" type="text" id="destinationInput" placeholder="travelling to...">
+                    </label>
+                </div>
+            </form>
+            <button class="submit">Submit!</button>
 
-
-        <h3>Ready for your next adventure?  Enter your route here:</h3>
-        <form id="destination-form">
-        <div>
-            <label>Starting Location:
-                <input type="text" id="originInput" placeholder="starting from...">
-            </label>
         </div>
 
-        <br>
-        <br>
-
-        <div>
-            <label> Destination:
-                <input type="text" id="destinationInput" placeholder="travelling to...">
-            </label>
-        </div>
-
-        </form>
-        <button id="submit-button">Submit!</button>
-
-    </div>
-
-    <div id="map"></div>
-
+        <div id="map"></div>
+    </main>
 
 
 

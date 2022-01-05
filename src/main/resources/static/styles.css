@@ -100,9 +100,8 @@ footer {
 }
 
 #map {
-    display: inline-block;
-    height: 50%;
-    width: 50%
+    margin-top: 20px;
+    flex:2
 }
 
 #main-box {
@@ -126,5 +125,9 @@ body {
 }
 
 .directions {
-    display: inline-block;
+       flex: 1;
+       flex-direction: column;
+       text-align: left;
+       margin-top: 20px;
+       height: 100%
 }
