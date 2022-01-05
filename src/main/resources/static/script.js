@@ -99,8 +99,6 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-
-
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
                 event.preventDefault();
@@ -112,10 +110,14 @@ function initMap() {
                 event.preventDefault();
             }
         });
+
+          console.log(destination.geometry.location.lng);
+          console.log(destination.geometry.location.lat);
     }
 
 
-}
+
+} //end of InitMap
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
