@@ -57,19 +57,13 @@ iframe {
     border-radius: 3px;
 }
 
-#destination-form {
+#login-form {
     flex: 1;
     flex-direction: column;
     margin: 60px;
     text-align: left;
     height: 100%
 
-}
-
-#page-form {
-    margin: 100px;
-    text-align: center;
-    font-size: 20px;
 }
 
 .form-link {
