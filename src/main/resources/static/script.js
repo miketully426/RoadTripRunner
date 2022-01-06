@@ -16,14 +16,8 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
-
-
-
     directionsRenderer.setMap(map);
     getAutocompleteData();
-
-
-
 
 
     const onChangeHandler = function () {
@@ -82,7 +76,7 @@ function initMap() {
 
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-        var starting = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+        let starting = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
 
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
