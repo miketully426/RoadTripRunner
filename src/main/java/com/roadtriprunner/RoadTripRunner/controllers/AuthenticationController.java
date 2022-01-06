@@ -123,13 +123,8 @@ public class AuthenticationController {
         }
 
         model.addAttribute("logout", "Logout");
-        setUserInSession(request.getSession(), theUser);
-        model.addAttribute("loggedInUser", theUser);
-        //theUser.getUsername is returning null ...
-//        model.addAttribute("username", theUser.getUsername());
-//        System.out.println(theUser.getUsername());
-
-
+        setUserInSession(request.getSession(), user);
+        model.addAttribute("loggedInUser", user);
         return "maps/mapDisplay";
     }
 
