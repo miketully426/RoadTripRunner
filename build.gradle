@@ -23,8 +23,7 @@ repositories {
 }
 
 springBoot {
-//	mainClass = "com.roadtriprunner.RoadTripRunner.RoadTripRunnerApplication"
-	mainClass = "com.roadtriprunner.RoadTripRunner.RoadtripRunnerAuthenticationApplication"
+	mainClass = "com.roadtriprunner.RoadTripRunner.RoadTripRunnerApplication"
 }
 
 
