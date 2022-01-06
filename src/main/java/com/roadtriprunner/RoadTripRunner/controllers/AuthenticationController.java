@@ -113,7 +113,7 @@ public class AuthenticationController {
 
         String password = loginFormDTO.getPassword();
 
-        if (!theUser.isPasswordMatching(password)) {
+        if (!user.isPasswordMatching(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
             return "login";
