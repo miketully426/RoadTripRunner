@@ -20,18 +20,21 @@ public class GeoCodeController {
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
-    @RequestMapping(path = "/geocode", method = RequestMethod.GET)
-    public String getGeocode(@RequestParam String address) throws IOException {
+    String url = "http://localhost:8080/planATrip";
+
+    @RequestMapping(path = "/planATrip/geocode", method = RequestMethod.GET)
+    public String getGeocode(@RequestParam String url) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        String encodedAddress = URLEncoder.DEFAULT.encode(address, StandardCharsets.UTF_8);
+//        String encodedAddress = URLEncoder.DEFAULT.encode(address, StandardCharsets.UTF_8);
         Request request = new Request.Builder()
-                .url("http://localhost:8080/planATrip/json?language=en&address=" + encodedAddress)
+                .url("https://maps.googleapis.com/maps/api/js?key=AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20&libraries=places&callback=initMap")
                 .get()
-//                .addHeader("http://localhost:8080/", ) //needs more
-                .addHeader("gmapsApiKey", gmapsApiKey)
+                .addHeader("gmapsApiCall", "http://localhost:8080/planATrip") //needs more
+//                .addHeader("gmapsApiKey", gmapsApiKey)
                 .build();
 
         ResponseBody responseBody = client.newCall(request).execute().body();
+        System.out.println(responseBody);
         return responseBody.string();
     }
 }

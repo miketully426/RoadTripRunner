@@ -32,12 +32,13 @@ function initMap() {
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, (results, status) => {
-        let jsonString = JSON.stringify(results);
-        let jsonObject = JSON.parse(jsonString);
+        let jsonObject = JSON.parse(JSON.stringify(results));
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
             displayMarkerAndInfoWindow(jsonObject);
         }
     });
+
+
 
 
     function displayMarkerAndInfoWindow(places) {
@@ -91,7 +92,6 @@ function initMap() {
         });
     }
 
-
 }
 
 
@@ -107,4 +107,12 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         directionsRenderer.setDirections(response);
     })
         .catch((e) => window.alert("Directions request failed due to " + status));
+}
+
+function sendPostRequest(jsonLocationObject) {
+	request.open(“POST”, "http://localhost:8080/planATrip/geocode", true);
+	request.setRequestHeader("Content-Type”, “application/json; charset=UTF-8”);
+	request.send(JSON.parse(JSON.stringify(jsonLocationObject));
+
+	return;
 }
