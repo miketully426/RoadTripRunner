@@ -14,7 +14,7 @@
         <div th:switch="${loggedInUser != null}">
             <div th:case="${true}">
                 <a  id="login" th:href="@{/logout}">Logout</a>
-                <p id="welcome" th:text="${username}"></p>
+                <p id="welcome" th:text="'Welcome, ' + ${loggedInUser.getUsername} + '!'"></p>
             </div>
 
             <a th:case="*" id="login" th:href="@{/login}">Login</a>
