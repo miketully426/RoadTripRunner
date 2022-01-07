@@ -65,6 +65,7 @@ public class TripController {
             model.addAttribute("title", trip.getTripName());
             model.addAttribute("trip", trip);
             User theUser = getUserFromSession(request.getSession());
+            model.addAttribute("loggedInUser", theUser);
         }
         return "trips/trip";
     }
