@@ -87,9 +87,6 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-
-
-
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
                 event.preventDefault();
@@ -101,9 +98,13 @@ function initMap() {
                 event.preventDefault();
             }
         });
+
+          console.log(destination.geometry.location.lng);
+          console.log(destination.geometry.location.lat);
     }
 
 
+<<<<<<< HEAD
  function drawPolygon(){
 
 //         let latOrigin = destinationValue.geometry.location.lat();
@@ -133,6 +134,10 @@ function initMap() {
 
 
 }
+=======
+
+} //end of InitMap
+>>>>>>> 81a5085f07b00ef4fc16fd95a3b98b7591531d97
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
