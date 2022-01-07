@@ -28,9 +28,8 @@ public class RoadTripRunnerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RoadTripRunnerApplication.class, args);
 
+		/*
 //		method 2: uses java.net.http.HttpClient and allows asynch calls
-
-
 		HttpClient client = HttpClient.newHttpClient();  // create client
 		// build request using JSON placeholder URL
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://jsonplaceholder.typicode.com/albums")).build();
@@ -45,7 +44,7 @@ public class RoadTripRunnerApplication {
 //				then return all the results of the completable future and display the results
 //				will not display anything without .join();
 				.join();
-
+*/
 
 /*method 1
 		BufferedReader reader;
