@@ -27,7 +27,7 @@ public class GeoCodeController {
         OkHttpClient client = new OkHttpClient();
 //        String encodedAddress = URLEncoder.DEFAULT.encode(address, StandardCharsets.UTF_8);
         Request request = new Request.Builder()
-                .url("https://maps.googleapis.com/maps/api/js?key=AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20&libraries=places&callback=initMap")
+                .url("'https://maps.googleapis.com/maps/api/js?key=' +gmapsApiKey+ &libraries=places&callback=initMap")
                 .get()
                 .addHeader("gmapsApiCall", "http://localhost:8080/planATrip") //needs more
 //                .addHeader("gmapsApiKey", gmapsApiKey)

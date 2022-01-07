@@ -1,6 +1,8 @@
 package com.roadtriprunner.RoadTripRunner;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -28,23 +30,41 @@ public class RoadTripRunnerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RoadTripRunnerApplication.class, args);
 
-		/*
-//		method 2: uses java.net.http.HttpClient and allows asynch calls
-		HttpClient client = HttpClient.newHttpClient();  // create client
-		// build request using JSON placeholder URL
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://jsonplaceholder.typicode.com/albums")).build();
 
+//method 2: uses java.net.http.HttpClient and allows asynch calls
+// create client
+// build request using JSON placeholder URL
 //send request via client asynch -- tell handler we want reponse as string
+//once asynch is done and we have response, apply method to previous result
+//:: means use body method from HTTPResponse class on the previous result
+//then use that body and print it out
+//then return all the results of the completable future and display the results
+//will not display anything without .join();
+
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://jsonplaceholder.typicode.com/albums")).build();
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-//				once asynch is done and we have response, apply method to previous result
-//				:: means use body method from HTTPResponse class on the previous result
 				.thenApply(HttpResponse::body)
-//				then use that body and print it out
-				.thenAccept(System.out::println)
-//				then return all the results of the completable future and display the results
-//				will not display anything without .join();
+				.thenApply(RoadTripRunnerApplication::parse)
 				.join();
-*/
+
+	}
+
+	public static String parse(String responseBody) {
+		JSONArray albums = new JSONArray(responseBody);
+		for (int i = 0; i < albums.length(); i++){
+			JSONObject album = albums.getJSONObject(i);
+			int id = album.getInt("id");
+			int userId = album.getInt("userId");
+			String title = album.getString("title");
+			System.out.println(id + "   " + title + "   " + userId);
+		}
+		return null;
+	}
+
+
+}
+
 
 /*method 1
 		BufferedReader reader;
@@ -89,8 +109,8 @@ public class RoadTripRunnerApplication {
 		}
 
 */
-	}
-}
+
+
 
 
 
