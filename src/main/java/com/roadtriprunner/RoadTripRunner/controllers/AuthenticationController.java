@@ -5,6 +5,7 @@ import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.LoginFormDTO;
 import com.roadtriprunner.RoadTripRunner.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.init.ScriptException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -96,16 +98,18 @@ public class AuthenticationController {
     @PostMapping("/")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
-                                   Model model) {
+                                   Model model, User theUser) throws
+            IOException,
+            ScriptException, NoSuchMethodException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
             return "index";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
 
-        if (theUser == null) {
+        if (user == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Log In");
             return "index";
@@ -113,21 +117,23 @@ public class AuthenticationController {
 
         String password = loginFormDTO.getPassword();
 
-        if (!theUser.isPasswordMatching(password)) {
+        if (!user.isPasswordMatching(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
             return "index";
         }
 
-        setUserInSession(request.getSession(), theUser);
+        model.addAttribute("logout", "Logout");
+        setUserInSession(request.getSession(), user);
+        model.addAttribute("loggedInUser", user);
 
         return "redirect:/planATrip";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request, Model model, User theUser){
         request.getSession().invalidate();
-        return "index";
+        return "redirect:";
     }
 
 }
