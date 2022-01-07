@@ -10,6 +10,7 @@ function initMap() {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const infoWindow = new google.maps.InfoWindow();
+    const geocoder = new google.maps.Geocoder();
 
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: centerZoom,
@@ -82,7 +83,6 @@ function initMap() {
 
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-        var starting = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
 
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
@@ -99,18 +99,18 @@ function initMap() {
             }
         });
 
-          console.log(destination.geometry.location.lng);
-          console.log(destination.geometry.location.lat);
+
     }
 
 
-<<<<<<< HEAD
  function drawPolygon(){
+
+ geocode();
 
 //         let latOrigin = destinationValue.geometry.location.lat();
 //         let jsonOrigin = JSON.stringify(latOrigin);
 //         let originObject = JSON.parse(jsonOrigin);
-         console.log(starting);
+//         console.log(starting);
 
 
 //    const polygonCoords = [
@@ -134,10 +134,14 @@ function initMap() {
 
 
 }
-=======
 
-} //end of InitMap
->>>>>>> 81a5085f07b00ef4fc16fd95a3b98b7591531d97
+function geocode(){
+
+    const originValue = document.getElementById("originInput").value;
+    let lat = place.geometry.location.lat();
+    console.log(lat);
+
+}
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
