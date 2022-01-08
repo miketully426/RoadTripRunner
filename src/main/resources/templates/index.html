@@ -2,7 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header th:replace="fragments :: notLoggedInPageHeader"></header>
+
+<div class="header">
+    <div th:switch="${loggedInUser != null}">
+        <div th:case="${true}">
+            <header th:replace="fragments :: loggedInPageHeader"></header>
+        </div>
+        <div th:case="${false}">
+            <header th:replace="fragments :: notLoggedInPageHeader"></header>
+        </div>
+    </div>
+
+
     <h1>Welcome to RoadTrip Runner!</h1>
     <h3>Click below to Register or Login</h3>
     <main class="flex-container">

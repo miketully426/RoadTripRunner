@@ -127,12 +127,12 @@ public class AuthenticationController {
         return "redirect:/landing";
     }
 
-//    @GetMapping("/")
-//    public String renderIndexPage(Model model, HttpServletRequest request) {
-//        User theUser = getUserFromSession(request.getSession());
-//        model.addAttribute("loggedInUser", theUser);
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String renderIndexPage(Model model, HttpServletRequest request) {
+        User theUser = getUserFromSession(request.getSession());
+        model.addAttribute("loggedInUser", theUser);
+        return "index";
+    }
 
     @GetMapping("/landing")
     public String renderLandingPage(Model model, HttpServletRequest request) {
