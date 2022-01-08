@@ -20,10 +20,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     AuthenticationController authenticationController;
 
-    private static final List<String> allowedList = Arrays.asList("", "/register", "/logout", "/styles.css",
-            "/logo.png", "/script.js");
-
-    private static final List<String> notAllowedList = Arrays.asList("/planATrip", "/trips");
+    private static final List<String> notAllowedList = Arrays.asList("/landing", "/planATrip", "/trips");
 
     private static boolean isPermitted(String path) {
         for (String pathRoot : notAllowedList) {
@@ -32,15 +29,6 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
             }
         }
         return true;
-
-        /*
-        for (String pathRoot : allowedList) {
-            if (path.startsWith(pathRoot)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
     }
 
     @Override
