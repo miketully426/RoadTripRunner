@@ -78,17 +78,18 @@ function initMap() {
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+  origin.addListener("place_changed", () => {
+             const originSelected = origin.getPlace();
+             const jsonAutocompleteOrigin = JSON.stringify(originSelected);
+             const jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
 
+             console.log(jsonAutoObjectOrigin.geometry.location.lat);
+             });
         destination.addListener("place_changed", () => {
              const destinationSelected = destination.getPlace();
-
-             if (!destinationSelected.name || !destinationSelected.geometry) {
-               window.alert("Yikes! We can't process that location. Please try another.");
-             }
-
              const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
              const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-             console.log(jsonAutoObjectDestination); //eventually take this out
+             console.log(jsonAutoObjectDestination.geometry.location.lat); //eventually take this out
            });
 
 
