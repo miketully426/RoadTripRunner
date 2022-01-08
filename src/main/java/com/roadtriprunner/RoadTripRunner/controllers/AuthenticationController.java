@@ -87,7 +87,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/")
-    public String renderLoginForm(Model model, User theUser) {
+    public String renderLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
         return "index";
