@@ -19,11 +19,17 @@
                 <a th:case="*" id="login" th:href="@{/}">Login</a>
             </div>
 
-            <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
-            <br>
-            <br>
-            <a th:href = "@{/trips}" id="headerLink">Your Saved Trips</a>
-            <a th:href = "@{/planATrip}" id="headerLink">Plan a Trip</a>
+            <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/><br><br>
+            <div th:switch="${loggedInUser != null}">
+                <div th:case="${true}">
+                    <a th:href = "@{/trips}" id="headerLink">My Saved Trips</a>
+                    <a th:href = "@{/planATrip}" id="headerLink">Plan a Trip</a>
+                </div>
+                <div th:case="${false}">
+                    <a id="headerLink" th:href="@{/}">My Saved Trips</a>
+                    <a id="headerLink" th:href="@{/}">Plan a Trip</a>
+                </div>
+            </div>
         </div>
     </div>
 
