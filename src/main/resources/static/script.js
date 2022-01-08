@@ -76,10 +76,20 @@ function initMap() {
         }
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-        var place = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-        console.log(place);
         var destinationInput = document.getElementById("destinationInput");
-        var destinationPlace = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+        var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+
+        destination.addListener("place_changed", () => {
+             const destinationSelected = destination.getPlace();
+
+             if (!destinationSelected.name || !destinationSelected.geometry) {
+               window.alert("Yikes! We can't process that location. Please try another.");
+             }
+
+             const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+             const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+             console.log(jsonAutoObjectDestination); //eventually take this out
+           });
 
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
