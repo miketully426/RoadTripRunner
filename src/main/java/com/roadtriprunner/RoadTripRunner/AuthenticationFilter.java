@@ -20,7 +20,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     AuthenticationController authenticationController;
 
-    private static final List<String> allowedList = Arrays.asList("/", "/register", "/logout", "/styles.css",
+    private static final List<String> allowedList = Arrays.asList("", "/register", "/logout", "/styles.css",
             "/logo.png", "/script.js");
 
     private static boolean isPermitted(String path) {
