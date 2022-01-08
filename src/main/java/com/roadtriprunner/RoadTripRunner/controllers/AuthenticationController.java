@@ -46,7 +46,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model, HttpServletRequest request) {
+    public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "register";
@@ -91,7 +91,8 @@ public class AuthenticationController {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
         return "index";
-}
+    }
+
 
     @PostMapping("/")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
