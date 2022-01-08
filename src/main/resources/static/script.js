@@ -78,14 +78,16 @@ function initMap() {
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
+        let originLatLong = [];
+        let destinationLatLong = [];
   origin.addListener("place_changed", () => {
              const originSelected = origin.getPlace();
              const jsonAutocompleteOrigin = JSON.stringify(originSelected);
              const jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
              let originLat = jsonAutoObjectOrigin.geometry.location.lat;
              let originLong = jsonAutoObjectOrigin.geometry.location.lng;
-             let originLatLong = [originLat, originLong];
-                console.log(originLatLong);
+             originLatLong.push(originLat, originLong);
+             console.log(originLatLong);
              });
         destination.addListener("place_changed", () => {
              const destinationSelected = destination.getPlace();
@@ -93,8 +95,9 @@ function initMap() {
              const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
              let destinationLat = jsonAutoObjectDestination.geometry.location.lat;
              let destinationLong = jsonAutoObjectDestination.geometry.location.lng;
-             let destinationLatLong = [destinationLat, destinationLong];
+             destinationLatLong.push(destinationLat, destinationLong);
              console.log(destinationLatLong);
+
            });
 
 
@@ -109,7 +112,7 @@ function initMap() {
                 event.preventDefault();
             }
         });
-
+console.log(originLatLong);
 // const polygonCoords = [
 //                          {lat: originLatLong[0], lng: originLatLong[1]},
 //                          {lat: 40.394358733076, lng: -84.748268289089},
@@ -127,7 +130,7 @@ function initMap() {
 //                          });
 //
 //                          polygon.setMap(map);
-
+//
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
