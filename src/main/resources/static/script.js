@@ -22,8 +22,8 @@ function initMap() {
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
-        drawPolygon();
-    };
+        getAutocompleteData();
+            };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
@@ -65,6 +65,8 @@ function initMap() {
     }
 
 
+
+
     function getAutocompleteData() {
 
         autocompleteRequest =
@@ -72,16 +74,12 @@ function initMap() {
             componentRestrictions: {'country': ['us']},
             fields: ['geometry', 'name', 'formatted_address']
         }
-
-
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-        let starting = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-
+        var place = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
+        console.log(place);
         var destinationInput = document.getElementById("destinationInput");
-        var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-
-
+        var destinationPlace = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
@@ -95,38 +93,30 @@ function initMap() {
                 event.preventDefault();
             }
         });
-    }
-
-
- function drawPolygon(){
-
-//         let latOrigin = destinationValue.geometry.location.lat();
-//         let jsonOrigin = JSON.stringify(latOrigin);
-//         let originObject = JSON.parse(jsonOrigin);
-         console.log(starting);
-
-
-//    const polygonCoords = [
-//                  {lat: 39.384308649558, lng: -119.815360985150},
-//                  {lat: 46.394348251329, lng: -119.467474821662},
-//                  {lat: 30.396318323523, lng: -121.597960374905},
-//                  {lat: 40.394358733076, lng: -84.748268289089},
-//                  {lat: 39.384308649558, lng: -119.815360985150},
-//                ];
-//                const polygon = new google.maps.Polygon({
-//                    paths: polygonCoords,
-//                    strokeColor: "#FF0000",
-//                    strokeOpacity: 0.8,
-//                    strokeWeight: 2,
-//                    fillColor: "#FF0000",
-//                    fillOpacity: 0.35,
-//                  });
-//
-//                  polygon.setMap(map);
-                   }
-
-
 }
+//function drawPolygon(){
+
+////    const polygonCoords = [
+////                  {lat: 39.384308649558, lng: -119.815360985150},
+////                  {lat: 46.394348251329, lng: -119.467474821662},
+////                  {lat: 30.396318323523, lng: -121.597960374905},
+////                  {lat: 40.394358733076, lng: -84.748268289089},
+////                  {lat: 39.384308649558, lng: -119.815360985150},
+////                ];
+////                const polygon = new google.maps.Polygon({
+////                    paths: polygonCoords,
+////                    strokeColor: "#FF0000",
+////                    strokeOpacity: 0.8,
+////                    strokeWeight: 2,
+////                    fillColor: "#FF0000",
+////                    fillOpacity: 0.35,
+////                  });
+////
+////                  polygon.setMap(map);
+//                   }
+//
+//
+//}
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -141,6 +131,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         directionsRenderer.setDirections(response);
     })
         .catch((e) => window.alert("Directions request failed due to " + status));
+}
+
 }
 
 
