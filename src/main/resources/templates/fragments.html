@@ -13,10 +13,12 @@
         <div class="header">
             <div th:switch="${loggedInUser != null}">
                 <div th:case="${true}">
-                    <a  id="login" th:href="@{/logout}">Logout</a>
+                    <a id="login" th:href="@{/logout}">Logout</a>
                     <p id="welcome" th:text="'Welcome, ' + ${loggedInUser.getUsername} + '!'"></p>
                 </div>
-                <a th:case="*" id="login" th:href="@{/}">Login</a>
+                <div th:case="${false}">
+                    <a id="login" th:href="@{/}">Login</a>
+                </div>
             </div>
 
             <a th:href="@{/}">
