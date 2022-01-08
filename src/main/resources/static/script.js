@@ -17,19 +17,11 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
-
-
-
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
-
-
-
-
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
-        drawPolygon();
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -70,7 +62,7 @@ function initMap() {
             });
         }
     }
-
+} //end of InitMap
 
     function getAutocompleteData() {
 
@@ -99,49 +91,19 @@ function initMap() {
             }
         });
 
-
-    }
-
-
- function drawPolygon(){
-
- geocode();
-
-//         let latOrigin = destinationValue.geometry.location.lat();
-//         let jsonOrigin = JSON.stringify(latOrigin);
-//         let originObject = JSON.parse(jsonOrigin);
-//         console.log(starting);
-
-
-//    const polygonCoords = [
-//                  {lat: 39.384308649558, lng: -119.815360985150},
-//                  {lat: 46.394348251329, lng: -119.467474821662},
-//                  {lat: 30.396318323523, lng: -121.597960374905},
-//                  {lat: 40.394358733076, lng: -84.748268289089},
-//                  {lat: 39.384308649558, lng: -119.815360985150},
-//                ];
-//                const polygon = new google.maps.Polygon({
-//                    paths: polygonCoords,
-//                    strokeColor: "#FF0000",
-//                    strokeOpacity: 0.8,
-//                    strokeWeight: 2,
-//                    fillColor: "#FF0000",
-//                    fillOpacity: 0.35,
-//                  });
+//        var geocoder = new google.maps.Geocoder();
+//        var startingAddress = origin;
+//        geocoder.geocode( { 'startingAddress': startingAddress}, function(results, status) {
 //
-//                  polygon.setMap(map);
-                   }
+//              if (status == google.maps.GeocoderStatus.OK) {
+//                var startingLat = results[0].geometry.location.lat();
+//                var startingLong = results[0].geometry.location.lng();
+//                alert(startingLat);
+//                alert(startingLong);
+//              }
+//        });
 
-
-}
-
-function geocode(){
-
-    const originValue = document.getElementById("originInput").value;
-    let lat = place.geometry.location.lat();
-    console.log(lat);
-
-}
+    } //end AutoComplete Data
 
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -154,9 +116,59 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     directionsService.route(request)
     .then((response) => {
         directionsRenderer.setDirections(response);
+
+        destination.addListener("place_changed", () => {
+             const destinationSelected = destination.getPlace();
+
+             if (!destinationSelected.name || !destinationSelected.geometry) {
+               window.alert("Yikes! We can't process that location. Please try another.");
+             }
+
+             const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+             const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+             console.log(jsonAutoObjectDestination); //eventually take this out
+           });
+         //call function draw box
+                console.log(response.routes[0]);
     })
         .catch((e) => window.alert("Directions request failed due to " + status));
 }
+
+//Code Graveyard
+
+
+
+// function drawPolygon(){
+//
+// geocode();
+//
+////         let latOrigin = destinationValue.geometry.location.lat();
+////         let jsonOrigin = JSON.stringify(latOrigin);
+////         let originObject = JSON.parse(jsonOrigin);
+////         console.log(starting);
+//
+//
+////    const polygonCoords = [
+////                  {lat: 39.384308649558, lng: -119.815360985150},
+////                  {lat: 46.394348251329, lng: -119.467474821662},
+////                  {lat: 30.396318323523, lng: -121.597960374905},
+////                  {lat: 40.394358733076, lng: -84.748268289089},
+////                  {lat: 39.384308649558, lng: -119.815360985150},
+////                ];
+////                const polygon = new google.maps.Polygon({
+////                    paths: polygonCoords,
+////                    strokeColor: "#FF0000",
+////                    strokeOpacity: 0.8,
+////                    strokeWeight: 2,
+////                    fillColor: "#FF0000",
+////                    fillOpacity: 0.35,
+////                  });
+////
+////                  polygon.setMap(map);
+//                   }
+//
+//
+
 
 
 
