@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @Controller
@@ -35,7 +31,7 @@ public class CreateTripController {
     @Autowired
     UserRepository userRepository;
 
-    String address = "Owensboro, KY";
+    String address = "Owensboro, KY"; //sample address
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(AuthenticationController.userSessionKey);
@@ -51,8 +47,6 @@ public class CreateTripController {
 
         return user.get();
     }
-
-//String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKey + "&libraries=places&callback=initMap";
 
     @SneakyThrows
     @GetMapping("/planATrip")
@@ -74,18 +68,6 @@ public class CreateTripController {
         System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
     }
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create(initMapCall)).build();
-//        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
-//                .thenApply(HttpResponse::body)
-//                .thenAccept(System.out::println)
-//                .join();
-//
-//        model.addAttribute("httpResponse", httpResponse);
-//        call setCallback(Callback<t> callback) method
-
-
-
 
 }
 
