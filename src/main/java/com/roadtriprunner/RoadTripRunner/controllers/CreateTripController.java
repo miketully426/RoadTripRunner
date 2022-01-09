@@ -33,10 +33,7 @@ public class CreateTripController {
     @Autowired
     UserRepository userRepository;
 
-    String originAddress = "Owensboro, KY"; //sample address
-    String destinationAddress = "Kansas City, MO"; //sample address
-    List<String> addresses = new ArrayList<String>();
-
+    String address = "Owensboro, KY"; //sample address
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(AuthenticationController.userSessionKey);
@@ -59,7 +56,8 @@ public class CreateTripController {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
-        callAPIForLatLng();
+        callAPIForLatLng(); //do for origin
+        callAPIForLatLng(); //do for destination
         return "planATrip";
     }
 
@@ -68,7 +66,7 @@ public class CreateTripController {
                 .apiKey(gmapsApiKey)
                 .build();
         GeocodingResult[] results = GeocodingApi.geocode(context,
-                originAddress).await();
+                address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
