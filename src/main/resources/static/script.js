@@ -21,9 +21,7 @@ function initMap() {
 
 
     const onChangeHandler = function () {
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-//        drawPolygon();
-//        getAutocompleteData();
+        calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer);
             };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -80,28 +78,6 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-//        let originLat;
-//        let destinationLong;
-//  origin.addListener("place_changed", () => {
-//             const originSelected = origin.getPlace();
-//             const jsonAutocompleteOrigin = JSON.stringify(originSelected);
-//             const jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-//             originLat = jsonAutoObjectOrigin.geometry.location.lat;
-//             originLong = jsonAutoObjectOrigin.geometry.location.lng;
-//             console.log(originLat);
-//             });
-//        destination.addListener("place_changed", () => {
-//             const destinationSelected = destination.getPlace();
-//             const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
-//             const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-//             let destinationLat = jsonAutoObjectDestination.geometry.location.lat;
-//             let destinationLong = jsonAutoObjectDestination.geometry.location.lng;
-
-//           });
-//           console.log(originLat);
-
-
-
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
                 event.preventDefault();
@@ -116,7 +92,7 @@ function initMap() {
 
 }
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+function calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer) {
     var request = {
         origin: document.getElementById("originInput").value,
         destination: document.getElementById("destinationInput").value,
@@ -138,12 +114,12 @@ directionsService.route(request)
        let destinationLong = (response.routes[0].legs[0].start_location.lng());
        console.log(originLat + 5);
        const polygonCoords = [
-                                 {lat: originLat + .75, lng: originLong + .75},
-                                 {lat: originLat, lng: originLong},
-                                 {lat: destinationLat + .75, lng: destinationLong + .75},
-                                 {lat: destinationLat, lng: destinationLong},
-                                  {lat: originLat + .75, lng: originLong + .75}
-                               ];
+                                {lat: originLat + 2, lng: originLong + 4},
+                                {lat: originLat - 2, lng: originLong - 4},
+                                {lat: destinationLat - 2, lng: destinationLong - 4},
+                                {lat: destinationLat + 2, lng: destinationLong + 4},
+                                {lat: originLat + 2, lng: originLong + 4}
+                             ];
 
        const polygon = new google.maps.Polygon({
            paths: polygonCoords,
@@ -156,18 +132,10 @@ directionsService.route(request)
 
          polygon.setMap(map);
 
-
     })
         .catch((e) => window.alert("Boundary box failed"));
 
 }
-
-//function drawPolygon() {
-
-
-
-//}
-
 }
 
 
