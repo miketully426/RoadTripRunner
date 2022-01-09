@@ -42,14 +42,15 @@ public class CreateTripController {
         return user.get();
     }
 
-String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKey + "&libraries=places&callback=initMap";
+//String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKey + "&libraries=places&callback=initMap";
 
     @GetMapping("/planATrip")
     public String renderPlanATripPage(Model model, HttpServletRequest request) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
-
+        return "planATrip";
+    }
 //        HttpClient client = HttpClient.newHttpClient();
 //        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create(initMapCall)).build();
 //        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
@@ -60,8 +61,7 @@ String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKe
 //        model.addAttribute("httpResponse", httpResponse);
 //        call setCallback(Callback<t> callback) method
 
-        return "/planATrip";
-    }
+
 
 
 }

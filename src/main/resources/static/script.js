@@ -117,11 +117,11 @@ public static DirectionsApiRequest getDirections(
   }
 */
 
-
+/*
 function sendPostRequest(jsonLocationObject) {
 	request.open(“POST”, "http://localhost:8080/planATrip/geocode", true);
 	request.setRequestHeader("Content-Type”, “application/json; charset=UTF-8”);
 	request.send(JSON.parse(JSON.stringify(jsonLocationObject));
 
 	return;
-}
+}*/
