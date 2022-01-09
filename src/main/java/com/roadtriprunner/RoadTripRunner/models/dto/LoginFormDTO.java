@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
 public class LoginFormDTO {
@@ -16,7 +18,7 @@ public class LoginFormDTO {
 
     @NotBlank(message="Please enter a unique password")
     @NotNull
-    @Size(min=8, max=40, message="Invalid password. Must be between 8 and 40 characters.")
     private String password;
+
 
 }
