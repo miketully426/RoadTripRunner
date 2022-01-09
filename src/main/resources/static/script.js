@@ -3,8 +3,6 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 
-
-
 function initMap() {
 
     const directionsService = new google.maps.DirectionsService();
@@ -26,11 +24,9 @@ function initMap() {
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
-
     let request = {
         query: "'US national park'",
     };
-
 
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, (results, status) => {
@@ -40,7 +36,6 @@ function initMap() {
             displayMarkerAndInfoWindow(jsonObject);
         }
     });
-
 
     function displayMarkerAndInfoWindow(places) {
         for (let i = 0; i < places.length; i++) {
@@ -62,9 +57,6 @@ function initMap() {
             });
         }
     }
-
-
-
 
     function getAutocompleteData() {
 
@@ -89,53 +81,52 @@ function initMap() {
                 event.preventDefault();
             }
         });
-
 }
 
-function calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer) {
-    var request = {
-        origin: document.getElementById("originInput").value,
-        destination: document.getElementById("destinationInput").value,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
+    function calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer) {
+        var request = {
+            origin: document.getElementById("originInput").value,
+            destination: document.getElementById("destinationInput").value,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }
+    directionsService.route(request)
+       .then((response) => {
+            directionsRenderer.setDirections(response);
+        })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+
+    directionsService.route(request)
+       .then((response) => {
+           directionsRenderer.setDirections(response);
+           let originLat = (response.routes[0].legs[0].end_location.lat());
+           let originLong = (response.routes[0].legs[0].end_location.lng());
+           let destinationLat = (response.routes[0].legs[0].start_location.lat());
+           let destinationLong = (response.routes[0].legs[0].start_location.lng());
+           console.log(originLat + 5);
+           const polygonCoords = [
+                                    {lat: originLat + 2, lng: originLong + 4},
+                                    {lat: originLat - 2, lng: originLong - 4},
+                                    {lat: destinationLat - 2, lng: destinationLong - 4},
+                                    {lat: destinationLat + 2, lng: destinationLong + 4},
+                                    {lat: originLat + 2, lng: originLong + 4}
+                                 ];
+
+           const polygon = new google.maps.Polygon({
+               paths: polygonCoords,
+               strokeColor: "#FF0000",
+               strokeOpacity: 0.8,
+               strokeWeight: 2,
+               fillColor: "#FF0000",
+               fillOpacity: 0.35,
+             });
+
+             polygon.setMap(map);
+
+        })
+            .catch((e) => window.alert("Boundary box failed"));
+
     }
-directionsService.route(request)
-   .then((response) => {
-        directionsRenderer.setDirections(response);
-    })
-        .catch((e) => window.alert("Directions request failed due to " + status));
-
-directionsService.route(request)
-   .then((response) => {
-       directionsRenderer.setDirections(response);
-       let originLat = (response.routes[0].legs[0].end_location.lat());
-       let originLong = (response.routes[0].legs[0].end_location.lng());
-       let destinationLat = (response.routes[0].legs[0].start_location.lat());
-       let destinationLong = (response.routes[0].legs[0].start_location.lng());
-       console.log(originLat + 5);
-       const polygonCoords = [
-                                {lat: originLat + 2, lng: originLong + 4},
-                                {lat: originLat - 2, lng: originLong - 4},
-                                {lat: destinationLat - 2, lng: destinationLong - 4},
-                                {lat: destinationLat + 2, lng: destinationLong + 4},
-                                {lat: originLat + 2, lng: originLong + 4}
-                             ];
-
-       const polygon = new google.maps.Polygon({
-           paths: polygonCoords,
-           strokeColor: "#FF0000",
-           strokeOpacity: 0.8,
-           strokeWeight: 2,
-           fillColor: "#FF0000",
-           fillOpacity: 0.35,
-         });
-
-         polygon.setMap(map);
-
-    })
-        .catch((e) => window.alert("Boundary box failed"));
-
-}
 }
 
 
