@@ -69,8 +69,16 @@ public class AuthenticationController {
             model.addAttribute("title", "Register");
             return "register";
         }
-
         String password = registerFormDTO.getPassword();
+        Boolean complexPassword = registerFormDTO.isValid(password);
+
+        if(!complexPassword) {
+            errors.rejectValue("password", "password.notcomplex", "Password must include a lowercase and uppercase letter, number, and symbol, and be 8-20 characters long.");
+            model.addAttribute("title", "Register");
+            return "register";
+        }
+
+
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
