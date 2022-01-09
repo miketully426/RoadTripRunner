@@ -42,6 +42,7 @@ public class CreateTripController {
         return user.get();
     }
 
+String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKey + "&libraries=places&callback=initMap";
 
     @GetMapping("/planATrip")
     public String renderPlanATripPage(Model model, HttpServletRequest request) {
@@ -50,7 +51,7 @@ public class CreateTripController {
         model.addAttribute("loggedInUser", theUser);
 
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create("https://maps.googleapis.com/maps/api/js?key= APIKEY  &libraries=places&callback=initMap")).build();
+        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create(initMapCall)).build();
         Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .thenAccept(System.out::println)
