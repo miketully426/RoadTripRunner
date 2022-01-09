@@ -20,7 +20,7 @@
 //
 //    String address = "Owensboro, KY";
 //
-//    @GetMapping("/test")
+//    @GetMapping
 //    public void callAPIForLatLng() throws IOException, InterruptedException, ApiException {
 //        GeoApiContext context = new GeoApiContext.Builder()
 //                .apiKey(gmapsApiKey)
