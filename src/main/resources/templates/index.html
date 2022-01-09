@@ -3,16 +3,16 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<div class="header">
-    <div th:switch="${loggedInUser != null}">
-        <div th:case="${true}">
-            <header th:replace="fragments :: loggedInPageHeader"></header>
-        </div>
-        <div th:case="${false}">
-            <header th:replace="fragments :: notLoggedInPageHeader"></header>
+    <div class="header">
+        <div th:switch="${loggedInUser != null}">
+            <div th:case="${true}">
+                <header th:replace="fragments :: loggedInPageHeader"></header>
+            </div>
+            <div th:case="${false}">
+                <header th:replace="fragments :: notLoggedInPageHeader"></header>
+            </div>
         </div>
     </div>
-
 
     <h1>Welcome to RoadTrip Runner!</h1>
 
@@ -27,13 +27,13 @@
             </div>
             <div class="button-div">
                 <input class="black-btn-right" type="submit" value="Register"/>
-                <input class="black-btn-right" type="submit" value="Login"/>
+                <input class="black-btn-right" type="submit" value="Log In"/>
             </div>
 <!--        needs two buttons next to video that say Register and Login -->
-
+        </div>
     </main>
 
-    <footer th:replace="fragments :: footer"></footer>
+        <footer th:replace="fragments :: footer"></footer>
 
 </body>
 </html>

@@ -87,7 +87,16 @@ iframe {
   border: solid 2px black;
   border-radius: 3px;
 }
-
+.black-btn {
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  padding: 5px 20px 5px 20px;
+  margin: 10px;
+  border: solid 2px black;
+  border-radius: 3px;
+  width: 50%;
+}
 .black-btn-right{
   display:flex;
   justify-content: center;
@@ -122,7 +131,7 @@ h1 {
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .flex-child-right {
