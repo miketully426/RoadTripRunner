@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head th:replace="fragments :: head">
+</head>
 <body>
+<script type="text/javascript" th:src="@{script.js}" th:onload="'initMap();'"></script>
+
     <header th:replace="fragments :: pageHeader"></header>
-
-
 
     <div class="directions">
         <h1>Plan Your Trip Here</h1>

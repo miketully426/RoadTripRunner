@@ -50,14 +50,14 @@ String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKe
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create(initMapCall)).build();
-        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
-                .join();
-
-        model.addAttribute("httpResponse", httpResponse);
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create(initMapCall)).build();
+//        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
+//                .thenApply(HttpResponse::body)
+//                .thenAccept(System.out::println)
+//                .join();
+//
+//        model.addAttribute("httpResponse", httpResponse);
 //        call setCallback(Callback<t> callback) method
 
         return "planATrip";
