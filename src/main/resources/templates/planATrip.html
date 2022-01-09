@@ -3,7 +3,6 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
-<script type="text/javascript" th:src="@{script.js}" th:onload="'initMap();'"></script>
 
     <header th:replace="fragments :: pageHeader"></header>
 
@@ -34,10 +33,6 @@
     </div>
 
     <div id="map"></div>
-
-
-
-
 
 
     <script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">

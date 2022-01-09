@@ -60,7 +60,7 @@ String initMapCall = "https://maps.googleapis.com/maps/api/js?key=" + gmapsApiKe
 //        model.addAttribute("httpResponse", httpResponse);
 //        call setCallback(Callback<t> callback) method
 
-        return "planATrip";
+        return "/planATrip";
     }
 
 
