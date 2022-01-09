@@ -1,5 +1,6 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import com.google.maps.internal.ApiConfig;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/")
 public class CreateTripController {
+
+    static final ApiConfig API_CONFIG = new ApiConfig("/maps/api/staticmap");
 
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
@@ -43,25 +46,29 @@ public class CreateTripController {
     }
 
 
-    @GetMapping("/planATrip")
-    public String renderPlanATripPage(Model model, HttpServletRequest request) {
-        model.addAttribute("gmapsApiKey", gmapsApiKey);
-        User theUser = getUserFromSession(request.getSession());
-        model.addAttribute("loggedInUser", theUser);
+//    @GetMapping("/planATrip")
+//    public String renderPlanATripPage(Model model, HttpServletRequest request) {
+//        model.addAttribute("gmapsApiKey", gmapsApiKey);
+//        User theUser = getUserFromSession(request.getSession());
+//        model.addAttribute("loggedInUser", theUser);
+//
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create("https://maps.googleapis.com/maps/api/js?key= APIKEY  &libraries=places&callback=initMap")).build();
+//        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
+//                .thenApply(HttpResponse::body)
+//                .thenAccept(System.out::println)
+//                .join();
+//
+//        model.addAttribute("httpResponse", httpResponse);
+////        call setCallback(Callback<t> callback) method
+//
+//        return "planATrip";
+//    }
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create("https://maps.googleapis.com/maps/api/js?key= APIKEY  &libraries=places&callback=initMap")).build();
-        Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
-                .join();
 
-        model.addAttribute("httpResponse", httpResponse);
-//        call setCallback(Callback<t> callback) method
+    @GetMapping("/planATrip") {
 
-        return "planATrip";
     }
-
 
 }
 
