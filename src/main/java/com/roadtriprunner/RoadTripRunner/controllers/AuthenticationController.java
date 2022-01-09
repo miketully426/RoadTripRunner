@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -24,7 +24,7 @@ public class AuthenticationController {
     @Autowired
     UserRepository userRepository;
 
-    private static final String userSessionKey = "user";
+    public static final String userSessionKey = "user";
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
@@ -46,7 +46,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
+    public String displayRegistrationForm(Model model, HttpServletRequest request) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "register";
@@ -86,48 +86,50 @@ public class AuthenticationController {
         return "redirect:/planATrip";
     }
 
-    @GetMapping("/login")
-    public String renderLoginForm(Model model) {
+    @GetMapping("/")
+    public String renderLoginForm(Model model, User theUser) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
-        return "login";
+        return "index";
 }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
-                                   Model model) {
+                                   Model model, User theUser) throws IOException, ScriptException, NoSuchMethodException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            return "login";
+            return "index";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
 
-        if (theUser == null) {
+        if (user == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "index";
         }
 
         String password = loginFormDTO.getPassword();
 
-        if (!theUser.isPasswordMatching(password)) {
+        if (!user.isPasswordMatching(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "index";
         }
 
-        setUserInSession(request.getSession(), theUser);
+        model.addAttribute("logout", "Logout");
+        setUserInSession(request.getSession(), user);
+        model.addAttribute("loggedInUser", user);
 
         return "redirect:/planATrip";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request, Model model, User theUser){
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:";
     }
 
 }

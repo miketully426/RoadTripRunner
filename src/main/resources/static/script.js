@@ -129,6 +129,17 @@ function initMap() {
     }
 }
 
-
-
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    var request = {
+        origin: document.getElementById("originInput").value,
+        destination: document.getElementById("destinationInput").value,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+    }
+    directionsService.route(request)
+    .then((response) => {
+        directionsRenderer.setDirections(response);
+    })
+    .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
+}
 

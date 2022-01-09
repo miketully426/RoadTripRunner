@@ -3,16 +3,32 @@
 <head th:replace="fragments :: head"></head>
 <body>
     <header th:replace="fragments :: pageHeader"></header>
-
     <h1>Welcome to RoadTrip Runner!</h1>
+    <main class="flex-container" >
 
-    <iframe width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="demo-box" width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <br>
-    <br>
+        <form id="login-form" method="post">
+            <label th:for="username">Username
+                <input  class="input" th:field="${loginFormDTO.username}" placeholder="username">
+            </label>
+            <p class="errors" th:errors="${loginFormDTO.username}"></p>
+            <br>
+            <br>
 
-    <a class="form-link" th:href="@{/register}">Need to Register?</a>
+            <label>Password
+                <input class="input" th:field="${loginFormDTO.password}" type="password" placeholder="password">
+            </label>
+            <p class="errors" th:errors="${loginFormDTO.password}"></p>
+            <br>
+            <br>
 
+            <input class="submit" id="submitBtn" type="submit" value="Log In" />
+            <br>
+            <br>
+            <a class="form-link" th:href="@{/register}">Need to Register?</a>
+        </form>
+    </main>
 
     <footer th:replace="fragments :: footer"></footer>
 
