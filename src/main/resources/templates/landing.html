@@ -4,14 +4,19 @@
 <body>
     <header th:replace="fragments :: loggedInPageHeader"></header>
 <h1>Welcome to RoadTrip Runner!</h1>
-    <h3>Click below to Plan A Trip or See Saved Trips!</h3>
-<main class="flex-container">
+    <main class="flex-container">
+      <div>
+        <iframe class="demo-box" width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
 
-  <iframe class="demo-box" width="700" height="400" src="https://www.youtube.com/embed/JsU3RG1gYuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-  <!--        needs two buttons next to video that say Plan A Trip and My Saved Trips-->
-
-</main>
+      <div class="column-right">
+        <div class="button-div">
+          <input class="black-btn-right" type="submit" value="Plan A Trip"/>
+          <input class="black-btn-right" type="submit" value="My Saved Trips"/>
+        </div>
+        <!--        needs two buttons next to video that say Register and Login -->
+      </div>
+    </main>
 
 <footer th:replace="fragments :: footer"></footer>
 

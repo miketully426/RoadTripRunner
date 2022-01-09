@@ -98,9 +98,6 @@ iframe {
   width: 50%;
 }
 .black-btn-right{
-  display:flex;
-  justify-content: center;
-  align-self: center;
   font-size: 15px;
   background-color: black;
   color: white;
@@ -108,7 +105,7 @@ iframe {
   margin: 10px;
   border: solid 2px black;
   border-radius: 3px;
-  width: 50%;
+  width: 100%;
 }
 
 .header-right{
@@ -146,10 +143,11 @@ h1 {
 .button-div{
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: stretch;
   align-items: center;
   margin-top: 80px;
   height: 90%;
+  width: 100%;
 }
 
 .column-right{
@@ -157,6 +155,7 @@ h1 {
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
+  margin-left: 20px;
 }
 
 .errors {
