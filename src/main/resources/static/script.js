@@ -136,25 +136,25 @@ directionsService.route(request)
        let originLong = (response.routes[0].legs[0].end_location.lng());
        let destinationLat = (response.routes[0].legs[0].start_location.lat());
        let destinationLong = (response.routes[0].legs[0].start_location.lng());
-       console.log(originLat);
-//       const polygonCoords = [
-//                                 {lat: originLat, lng: originLong},
-//                                 {lat: 40.394358733076, lng: -84.748268289089},
-//                                 {lat: destinationLat + 2, lng: destinationLong},
-//                                 {lat: 39.384308649558, lng: -119.815360985150},
-//                                 {lat: originLatLong[0], lng: originLatLong[1]}
-//                               ];
-//
-//       const polygon = new google.maps.Polygon({
-//           paths: polygonCoords,
-//           strokeColor: "#FF0000",
-//           strokeOpacity: 0.8,
-//           strokeWeight: 2,
-//           fillColor: "#FF0000",
-//           fillOpacity: 0.35,
-//         });
-//
-//         polygon.setMap(map);
+       console.log(originLat + 5);
+       const polygonCoords = [
+                                 {lat: originLat + .75, lng: originLong + .75},
+                                 {lat: originLat, lng: originLong},
+                                 {lat: destinationLat + .75, lng: destinationLong + .75},
+                                 {lat: destinationLat, lng: destinationLong},
+                                  {lat: originLat + .75, lng: originLong + .75}
+                               ];
+
+       const polygon = new google.maps.Polygon({
+           paths: polygonCoords,
+           strokeColor: "#FF0000",
+           strokeOpacity: 0.8,
+           strokeWeight: 2,
+           fillColor: "#FF0000",
+           fillOpacity: 0.35,
+         });
+
+         polygon.setMap(map);
 
 
     })
