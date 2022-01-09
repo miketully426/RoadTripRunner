@@ -1,3 +1,6 @@
+//keeping this code for future although it's not needed for this story
+
+/*
 package com.roadtriprunner.RoadTripRunner.controllers;
 
 import com.google.gson.Gson;
@@ -20,7 +23,7 @@ public class RestController {
 
     String address = "Owensboro, KY";
 
-    @GetMapping("/test")
+    @GetMapping
     public void callAPIForLatLng() throws IOException, InterruptedException, ApiException {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(gmapsApiKey)
@@ -43,3 +46,4 @@ public class RestController {
     }
 }
 
+*/

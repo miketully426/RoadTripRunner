@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head th:replace="fragments :: head">
+</head>
 <body>
+
     <header th:replace="fragments :: pageHeader"></header>
-
-
 
     <div class="directions">
         <h1>Plan Your Trip Here</h1>
@@ -33,10 +33,6 @@
     </div>
 
     <div id="map"></div>
-
-
-
-
 
 
     <script async th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${gmapsApiKey} + '&libraries=places&callback=initMap'">

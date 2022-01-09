@@ -3,7 +3,8 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 
-
+//should we be making calls and rendering map from java??
+//https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/StaticMapsRequest.java
 
 function initMap() {
 
@@ -109,18 +110,18 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
-/* can call directionsRenderer from Java side
+/* can call directionsRenderer from Java side  https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/DirectionsApi.java
 public static DirectionsApiRequest getDirections(
       GeoApiContext context, String origin, String destination) {
     return new DirectionsApiRequest(context).origin(origin).destination(destination);
   }
 */
 
-
+/*
 function sendPostRequest(jsonLocationObject) {
 	request.open(“POST”, "http://localhost:8080/planATrip/geocode", true);
 	request.setRequestHeader("Content-Type”, “application/json; charset=UTF-8”);
 	request.send(JSON.parse(JSON.stringify(jsonLocationObject));
 
 	return;
-}
+}*/
