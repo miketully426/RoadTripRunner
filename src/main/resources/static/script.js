@@ -22,7 +22,7 @@ function initMap() {
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
-        getAutocompleteData();
+        drawPolygon();
             };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -78,28 +78,7 @@ function initMap() {
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-        let originLatLong = [];
-        let destinationLatLong = [];
-  origin.addListener("place_changed", () => {
-             const originSelected = origin.getPlace();
-             const jsonAutocompleteOrigin = JSON.stringify(originSelected);
-             const jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
-             let originLat = jsonAutoObjectOrigin.geometry.location.lat;
-             let originLong = jsonAutoObjectOrigin.geometry.location.lng;
-             originLatLong.push(originLat, originLong);
-             console.log(originLatLong);
-             });
-        destination.addListener("place_changed", () => {
-             const destinationSelected = destination.getPlace();
-             const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
-             const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
-             let destinationLat = jsonAutoObjectDestination.geometry.location.lat;
-             let destinationLong = jsonAutoObjectDestination.geometry.location.lng;
-             destinationLatLong.push(destinationLat, destinationLong);
-             console.log(destinationLatLong);
-
-           });
-
+        let originAndDestination = [origin, destination];
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
@@ -112,25 +91,7 @@ function initMap() {
                 event.preventDefault();
             }
         });
-console.log(originLatLong);
-// const polygonCoords = [
-//                          {lat: originLatLong[0], lng: originLatLong[1]},
-//                          {lat: 40.394358733076, lng: -84.748268289089},
-//                          {lat: destinationLatLong[0] + 2, lng: destinationLatLong[1]},
-//                          {lat: 39.384308649558, lng: -119.815360985150},
-//                          {lat: originLatLong[0], lng: originLatLong[1]}
-//                        ];
-//                        const polygon = new google.maps.Polygon({
-//                            paths: polygonCoords,
-//                            strokeColor: "#FF0000",
-//                            strokeOpacity: 0.8,
-//                            strokeWeight: 2,
-//                            fillColor: "#FF0000",
-//                            fillOpacity: 0.35,
-//                          });
-//
-//                          polygon.setMap(map);
-//
+return originAndDestination;
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -147,7 +108,50 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
-}
+function drawPolygon() {
+let placeObjArr = getAutocompleteData();
+console.log(placeObjArr[0].fields);
+
+//let originFromArr = placeObjArr[0].getPlace();
+//let destinationFromArr = placeObjArr[1];
+//
+//console.log(originFromArr);
+
+//    const jsonAutocompleteOrigin = JSON.stringify(originFromArr);
+//    const jsonAutoObjectOrigin = JSON.parse(jsonAutocompleteOrigin);
+//    let originLat = jsonAutoObjectOrigin.geometry.location.lat;
+//    let originLong = jsonAutoObjectOrigin.geometry.location.lng;
+//    originLatLong.push(originLat, originLong);
+//    console.log(originLatLong);
+
+
+// const destinationSelected = destinationFromArr.getPlace();
+//              const jsonAutocompleteDestination = JSON.stringify(destinationSelected);
+//              const jsonAutoObjectDestination = JSON.parse(jsonAutocompleteDestination);
+//              let destinationLat = jsonAutoObjectDestination.geometry.location.lat;
+//              let destinationLong = jsonAutoObjectDestination.geometry.location.lng;
+//              destinationLatLong.push(destinationLat, destinationLong);
+//              console.log(destinationLatLong);
+//
+//               const polygonCoords = [
+//                                        {lat: originLatLong[0], lng: originLatLong[1]},
+//                                        {lat: 40.394358733076, lng: -84.748268289089},
+//                                        {lat: destinationLatLong[0] + 2, lng: destinationLatLong[1]},
+//                                        {lat: 39.384308649558, lng: -119.815360985150},
+//                                        {lat: originLatLong[0], lng: originLatLong[1]}
+//                                      ];
+//                                      const polygon = new google.maps.Polygon({
+//                                          paths: polygonCoords,
+//                                          strokeColor: "#FF0000",
+//                                          strokeOpacity: 0.8,
+//                                          strokeWeight: 2,
+//                                          fillColor: "#FF0000",
+//                                          fillOpacity: 0.35,
+//                                        });
+//                                        polygon.setMap(map);
+
+
+}}
 
 
 
