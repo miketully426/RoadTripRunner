@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,7 +33,10 @@ public class CreateTripController {
     @Autowired
     UserRepository userRepository;
 
-    String address = "Owensboro, KY"; //sample address
+    String originAddress = "Owensboro, KY"; //sample address
+    String destinationAddress = "Kansas City, MO"; //sample address
+    List<String> addresses = new ArrayList<String>();
+
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(AuthenticationController.userSessionKey);
@@ -63,7 +68,7 @@ public class CreateTripController {
                 .apiKey(gmapsApiKey)
                 .build();
         GeocodingResult[] results = GeocodingApi.geocode(context,
-                address).await();
+                originAddress).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
