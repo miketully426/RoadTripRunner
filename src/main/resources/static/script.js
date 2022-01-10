@@ -22,6 +22,8 @@ function initMap() {
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
+        console.log(locationArray[0].name);
+        console.log(locationArray[1].name);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -68,7 +70,7 @@ function initMap() {
         autocompleteRequest =
         {
             componentRestrictions: {'country': ['us']},
-            fields: ['geometry', 'name', 'formatted_address']
+            fields: ['geometry', 'name', 'formatted_address', 'place_id']
         }
 
 
@@ -78,7 +80,7 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-
+        let locationArray = [origin, destination];
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
@@ -117,11 +119,10 @@ public static DirectionsApiRequest getDirections(
   }
 */
 
-/*
-function sendPostRequest(jsonLocationObject) {
-	request.open(“POST”, "http://localhost:8080/planATrip/geocode", true);
-	request.setRequestHeader("Content-Type”, “application/json; charset=UTF-8”);
-	request.send(JSON.parse(JSON.stringify(jsonLocationObject));
-
-	return;
-}*/
+//
+//function sendPostRequest(jsonLocationObject) {
+//	request.open(“POST”, "http://localhost:8080/planATrip/test", true);
+//	request.setRequestHeader("Content-Type”, “application/json; charset=UTF-8”);
+//	request.send(JSON.parse(JSON.stringify(jsonLocationObject));
+//	return;
+//}

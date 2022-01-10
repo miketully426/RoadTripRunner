@@ -7,6 +7,7 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
+import com.roadtriprunner.RoadTripRunner.models.Location;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,7 @@ public class CreateTripController {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
-        callAPIForLatLng(); //do for origin
-        callAPIForLatLng(); //do for destination
+        callAPIForLatLng();
         return "planATrip";
     }
 
@@ -66,9 +66,10 @@ public class CreateTripController {
                 .apiKey(gmapsApiKey)
                 .build();
         GeocodingResult[] results = GeocodingApi.geocode(context,
-                address).await();
+                    address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(results[0].geometry.location));
+        Location location = gson.toJson(results[0].geometry.location;
+        System.out.println(location.getName());
         context.shutdown();
     }
 
