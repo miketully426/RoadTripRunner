@@ -28,23 +28,26 @@ function initMap() {
         query: "'US national park'",
     };
 
+    let nationalParks = [];
     service = new google.maps.places.PlacesService(map);
     service.textSearch(request, (results, status) => {
         let jsonString = JSON.stringify(results);
         let jsonObject = JSON.parse(jsonString);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            displayMarkerAndInfoWindow(jsonObject);
+            //&& if it is in the circles
+            nationalParks = displayMarkerAndInfoWindow(jsonObject);
         }
     });
 
     function displayMarkerAndInfoWindow(places) {
+        let markers = []
         for (let i = 0; i < places.length; i++) {
             const marker = new google.maps.Marker({
                 map: map,
                 position: places[i].geometry.location,
                 title: places[i].name,
             });
-
+            markers.push(marker);
             let infoWindowDefaultText = "point of interest";
             let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
 
@@ -56,6 +59,7 @@ function initMap() {
                 });
             });
         }
+        return markers;
     }
 
     function getAutocompleteData() {
@@ -93,19 +97,12 @@ function initMap() {
     directionsService.route(request)
        .then((response) => {
             directionsRenderer.setDirections(response);
-            findPointsOfInterest(response.routes[0].overview_polyline, map)
+            findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
         })
             .catch((e) => {
             console.log(e)
-            //window.alert("Directions request failed due to " + status));
+            //window.alert("Directions request failed due to " + status);
             })
-
-    directionsService.route(request)
-       .then((response) => {
-           directionsRenderer.setDirections(response);
-        })
-            .catch((e) => window.alert("Points of Interest Failed"));
-
     }
 }  //end of InitMap
 
@@ -123,8 +120,11 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     })
     .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
 }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-function findPointsOfInterest (encodedWaypoints, map) {
+function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
 
     let decodedWaypoints = decode(encodedWaypoints);
     let waypoints = []
@@ -132,23 +132,40 @@ function findPointsOfInterest (encodedWaypoints, map) {
     for (let i = 0; i < decodedWaypoints.length; i+=15){
       waypoints.push(decodedWaypoints[i]);
     }
-
+    let allCircles = []
     for(const waypoint of waypoints) {
-      //console.log(waypoint[0]. waypoint[1]);
       var waypointLatLng = new google.maps.LatLng(waypoint[0], waypoint[1])
       var waypointCircle = new google.maps.Circle({
-         strokeColor: "#FF0000",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: "#FF0000",
+         strokeColor: "#add8e6",
+              strokeOpacity: 0,
+              strokeWeight: 0,
+              fillColor: "#add8e6",
               fillOpacity: 0.35,
               map,
               center: waypointLatLng,
               radius: 160000,
       });
-    }
+      allCircles.push(waypointCircle);
+     }
+     //take each park at a time and see if it is in the circle
+     //helper variable
+     //flag variable
+     let parksInCircles = [];
 
-}
-    //for loop for every 30 waypoints put the next waypoint into an array
-    //array will have approx 10 points
-    //for loop that says for each waypoint use that as the center of the circle.  The radius is the distance to the next waypoint
+     for (park of nationalParks) {
+        let withinBounds = false;
+         for (waypointCircle of allCircles){
+            if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
+                console.log('=> is in searchArea');
+                withinBounds = true;
+            } else {
+                console.log('=> is NOT in searchArea');
+            }
+         }
+         if(withinBounds == false){
+         console.log("removing park")
+         park.setMap(null);
+         }
+     }
+
+} //end of findPointsOfInterest
