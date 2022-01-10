@@ -36,10 +36,10 @@ public class RestController {
     }
 
     public static String parse(String responseBody) {
-        JSONArray albums = new JSONArray(responseBody);
-        for (int i = 0; i < albums.length(); i++){
-            JSONObject album = albums.getJSONObject(i);
-            String name = album.getString("name");
+        JSONArray locations = new JSONArray(responseBody);
+        for (int i = 0; i < locations.length(); i++){
+            JSONObject location = locations.getJSONObject(i);
+            String name = location.getString("name");
             System.out.println(name);
         }
         return null;
