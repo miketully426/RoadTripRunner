@@ -1,5 +1,7 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.maps.GeoApiContext;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -30,6 +33,10 @@ public class CreateTripController {
 
     @Autowired
     UserRepository userRepository;
+
+    ObjectMapper mapper = new ObjectMapper();
+
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
 
     String address = "Owensboro, KY"; //sample address
 
@@ -59,9 +66,6 @@ public class CreateTripController {
     }
 
     public void callAPIForLatLng() throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(gmapsApiKey)
-                .build();
         GeocodingResult[] results = GeocodingApi.geocode(context,
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
