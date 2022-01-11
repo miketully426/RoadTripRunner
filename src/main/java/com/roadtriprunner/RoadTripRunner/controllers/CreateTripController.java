@@ -91,7 +91,7 @@ public class CreateTripController {
 
 
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
 
 
 
@@ -140,9 +140,9 @@ public class CreateTripController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "landing";
         }
-        String startingLocation = callAPIForLatLng(directionsDTO.getStartingLocation());
-        String endingLocation = callAPIForLatLng(directionsDTO.getEndingLocation());
-        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
+        callAPIForLatLng(directionsDTO.getStartingLocation());
+        callAPIForLatLng(directionsDTO.getEndingLocation());
+//        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
 //        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
 //        System.out.println(trip.toString());
 //        tripRepository.save(trip);
@@ -150,14 +150,14 @@ public class CreateTripController {
     }
 
 
-    public String callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {
+    public void callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {
         GeocodingResult[] results = GeocodingApi.geocode(context,
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String location = gson.toJson(results[0].geometry.location);
-//        System.out.println(gson.toJson(results[0].geometry.location));
+//        String location = gson.toJson(results[0].geometry.location);
+        System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
-        return location;
+//        return location;
     }
 
 }
