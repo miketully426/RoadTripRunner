@@ -22,8 +22,6 @@ function initMap() {
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
-        console.log(locationArray[0].name);
-        console.log(locationArray[1].name);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -110,6 +108,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     directionsService.route(request)
     .then((response) => {
         directionsRenderer.setDirections(response);
+        sendJSON();
     })
         .catch((e) => window.alert("Directions request failed due to " + status));
 }
@@ -129,4 +128,19 @@ public static DirectionsApiRequest getDirections(
 //	return;
 //}
 
+
+
+function sendJSON() {
+//    let starting = document.querySelector("originInput");
+//    let ending = document.querySelector("destinationInput");
+
+    let xhr = new XMLHttpRequest();
+    let url = "localhost:8080/planATrip";
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var data = JSON.stringify({"origin": originInput.value, "destination": destinationInput.value});
+    xhr.send(data);
+}
 
