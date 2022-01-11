@@ -19,6 +19,7 @@ function initMap() {
 
 
     const onChangeHandler = function () {
+
         calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer);
             };
 
@@ -105,11 +106,11 @@ function initMap() {
            let destinationLong = (response.routes[0].legs[0].start_location.lng());
            console.log(originLat + 5);
            const polygonCoords = [
-                                    {lat: originLat + 2, lng: originLong + 4},
-                                    {lat: originLat - 2, lng: originLong - 4},
-                                    {lat: destinationLat - 2, lng: destinationLong - 4},
-                                    {lat: destinationLat + 2, lng: destinationLong + 4},
-                                    {lat: originLat + 2, lng: originLong + 4}
+                                    {lat: originLat + 2, lng: originLong + 2},
+                                    {lat: originLat - 2, lng: originLong - 2},
+                                    {lat: destinationLat - 2, lng: destinationLong - 2},
+                                    {lat: destinationLat + 2, lng: destinationLong + 2},
+                                    {lat: originLat + 2, lng: originLong + 2}
                                  ];
 
            const polygon = new google.maps.Polygon({
