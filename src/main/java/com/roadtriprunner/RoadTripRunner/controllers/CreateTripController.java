@@ -100,4 +100,11 @@ public class CreateTripController {
         context.shutdown();
     }
 
+    //currently we are hardcoading the String address (a variable inside the contrroller currently) and we need it to
+    // be able to give the string input for starting and ending location and get back lat long
+
+    //geocoding api takes in a string and gives back a lat long
+
+    //
+
 }
