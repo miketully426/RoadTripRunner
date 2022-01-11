@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Trip  extends AbstractEntity {
 
+
     private String tripName;
 
     @NotBlank(message = "Starting location is required.")
@@ -23,11 +24,6 @@ public class Trip  extends AbstractEntity {
     @NotBlank(message="Ending location is required.")
     @NotNull
     private String endingLocation;
-
-
-    @Min(0)
-    @Max(150)
-    private Integer detourRadius;
 
 
 }

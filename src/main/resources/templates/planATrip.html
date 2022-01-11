@@ -12,9 +12,16 @@
 
     <h3>Ready for your next adventure?  Enter your route here:</h3>
     <form id="destination-form">
+
         <div>
-            <label>Starting Location:
-                <input type="text" id="originInput" placeholder="starting from...">
+            <label th:for="tripName"> Name your trip:
+                <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
+            </label>
+        </div>
+
+        <div>
+            <label th:for="startingLocation">Starting Location:
+                <input type="text" th:field="${trip.startingLocation}" id="originInput" th:value="${trip.startingLocation}" placeholder="starting from...">
             </label>
         </div>
 
@@ -22,13 +29,14 @@
         <br>
 
         <div>
-            <label> Destination:
-                <input type="text" id="destinationInput" placeholder="travelling to...">
+            <label th:for="endingLocation"> Destination:
+                <input type="text" th:field="${trip.endingLocation}" id="destinationInput" placeholder="traveling to..." th:value="${trip.endingLocation}">
             </label>
         </div>
 
     </form>
-    <button id="submit-button">Submit!</button>
+    <input type="submit" value="Submit!" id="submit-button" />
+<!--    <button id="submit-button">Submit!</button>-->
 
 </div>
 
