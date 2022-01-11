@@ -16,6 +16,7 @@ import com.roadtriprunner.RoadTripRunner.models.Trip;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.DirectionsDTO;
 import lombok.SneakyThrows;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -28,8 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
+import java.time.Duration;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +51,7 @@ public class CreateTripController {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"
+//    "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"
 
 
     //FOR NATIONAL PARKS API:
@@ -70,6 +74,20 @@ public class CreateTripController {
 //            for park in data["data"]:
 //            print(park["fullName"])
 
+//    public JSONObject sendPostForNationalParks() {
+//        HttpClient httpClient = HttpClient.newBuilder().build();
+//        HttpRequest request = new HttpRequest() {}
+//
+//        request.addHeader("content-type", "application/json");
+//        request.addHeader("Authorization", "Bearer " + this.Access_Token);
+//        request.setEntity(params);
+//
+//            HttpResponse response = httpClient.execute(request);
+//
+//            System.out.println("API Resonse :"+result.toString());
+//            jsonObject = new JSONObject(result.toString());
+//
+//    }
 
 
 
