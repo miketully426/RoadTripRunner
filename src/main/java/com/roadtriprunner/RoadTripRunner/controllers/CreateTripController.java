@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.GeocodingResult;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.util.Optional;
 
 @Controller
@@ -43,7 +47,36 @@ public class CreateTripController {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("ADD YOUR KEY IN HERE").build();
+    "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"
+
+
+    //FOR NATIONAL PARKS API:
+//
+//    String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=600";
+//    Httpheader = {"Authorization":"yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"};
+
+
+
+
+//            endpoint = "https://developer.nps.gov/api/v1/parks?limit=600"
+//            HEADERS = {"Authorization":"INSERT-API-KEY-HERE"}
+//            req = urllib.request.Request(endpoint,headers=HEADERS)
+//
+//            # Execute request and parse response
+//            response = urllib.request.urlopen(req).read()
+//            data = json.loads(response.decode('utf-8'))
+//
+//            # Prepare and execute output
+//            for park in data["data"]:
+//            print(park["fullName"])
+
+
+
+
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
+
+
+
 
 //    String address = "Owensboro, KY"; //sample address
 
@@ -73,13 +106,13 @@ public class CreateTripController {
         return "planATrip";
     }
 
-//    @RequestMapping("planATrip/{startingLocation}")
-//    public String displayRoute(Model model, HttpServletRequest request, DirectionsDTO directionsDTO) {
-//        model.addAttribute("gmapsApiKey", gmapsApiKey);
-//
-//
-//    }
 
+
+//    //annotations here...? responsebody, requestmapping -- value at origin?
+//    public void renderTripRequest(DirectionsDTO directionsDTO) throws IOException, InterruptedException, ApiException {
+//        DirectionsApiRequest request = new DirectionsApiRequest(context);
+//        DirectionsResult route = request.origin(directionsDTO.getStartingLocation()).destination(directionsDTO.getEndingLocation()).await();
+//    }
 
 
     @PostMapping("/planATrip")
