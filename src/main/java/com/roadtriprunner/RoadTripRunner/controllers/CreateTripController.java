@@ -73,17 +73,17 @@ public class CreateTripController {
     }
 
 
-    @PostMapping("/planATrip")
-    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model)  {
-        model.addAttribute("gmapsApiKey", gmapsApiKey);
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Enter Your Starting and Ending Locations");
-            return "index";
-        }
-        System.out.println(newTrip.toString());
-        tripRepository.save(newTrip);
-        return "redirect:";
-    }
+//    @PostMapping("/planATrip")
+//    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model)  {
+//        model.addAttribute("gmapsApiKey", gmapsApiKey);
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Enter Your Starting and Ending Locations");
+//            return "index";
+//        }
+//        System.out.println(newTrip.toString());
+//        tripRepository.save(newTrip);
+//        return "redirect:";
+//    }
 
 
     public void callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {

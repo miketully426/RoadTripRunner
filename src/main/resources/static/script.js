@@ -108,9 +108,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     directionsService.route(request)
     .then((response) => {
         directionsRenderer.setDirections(response);
-        sendJSON();
     })
-//        .catch((e) => window.alert("Directions request failed due to " + status));
+        .catch((e) => window.alert("Directions request failed due to " + e));
 }
 
 /* can call directionsRenderer from Java side  https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/DirectionsApi.java
