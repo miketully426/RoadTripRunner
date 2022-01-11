@@ -3,8 +3,6 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 
-
-
 function initMap() {
 
     const directionsService = new google.maps.DirectionsService();
@@ -19,47 +17,14 @@ function initMap() {
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
+
     const onChangeHandler = function () {
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-    };
+        calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer);
+        }
+
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
-    let request = {
-        query: "'US national park'",
-    };
-
-
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, (results, status) => {
-        let jsonString = JSON.stringify(results);
-        let jsonObject = JSON.parse(jsonString);
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            displayMarkerAndInfoWindow(jsonObject);
-        }
-    });
-
-
-    function displayMarkerAndInfoWindow(places) {
-        for (let i = 0; i < places.length; i++) {
-            const marker = new google.maps.Marker({
-                map: map,
-                position: places[i].geometry.location,
-                title: places[i].name,
-            });
-
-            let infoWindowDefaultText = "point of interest";
-            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
-
-            marker.addListener("click", () => {
-                infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
-                infoWindow.open({
-                    anchor: marker,
-                    map,
-                });
-            });
-        }
-    }
 
     function getAutocompleteData() {
 
@@ -68,15 +33,10 @@ function initMap() {
             componentRestrictions: {'country': ['us']},
             fields: ['geometry', 'name', 'formatted_address']
         }
-
-
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-
-
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
@@ -89,22 +49,78 @@ function initMap() {
                 event.preventDefault();
             }
         });
-    }
-
-
 }
-
-
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    var request = {
-        origin: document.getElementById("originInput").value,
-        destination: document.getElementById("destinationInput").value,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-    }
+}
+    function calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer) {
+        var request = {
+            origin: document.getElementById("originInput").value,
+            destination: document.getElementById("destinationInput").value,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }
     directionsService.route(request)
-    .then((response) => {
-        directionsRenderer.setDirections(response);
-    })
-    .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
-}
+       .then((response) => {
+            directionsRenderer.setDirections(response);
+        })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+
+    directionsService.route(request)
+       .then((response) => {
+           directionsRenderer.setDirections(response);
+           let originLat = (response.routes[0].legs[0].end_location.lat());
+           let originLong = (response.routes[0].legs[0].end_location.lng());
+           let destinationLat = (response.routes[0].legs[0].start_location.lat());
+           let destinationLong = (response.routes[0].legs[0].start_location.lng());
+           const polygonCoords = [
+                                    {lat: originLat + 2, lng: originLong + 4},
+                                    {lat: originLat - 2, lng: originLong - 4},
+                                    {lat: destinationLat - 2, lng: destinationLong - 4},
+                                    {lat: destinationLat + 2, lng: destinationLong + 4},
+                                    {lat: originLat + 2, lng: originLong + 4}
+                                 ];
+
+           const polygon = new google.maps.Polygon({
+               paths: polygonCoords,
+               strokeColor: "#FF0000",
+               strokeOpacity: 0.8,
+               strokeWeight: 2,
+               fillColor: "#FF0000",
+               fillOpacity: 0.35,
+             });
+
+             polygon.setMap(map);
+             let request = {
+                             query: "'US national park'",
+                         };
+
+                         service = new google.maps.places.PlacesService(map);
+                         service.textSearch(request, (results, status) => {
+                             let jsonString = JSON.stringify(results);
+                             let jsonObject = JSON.parse(jsonString);
+                             if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                                 displayMarkerAndInfoWindow(jsonObject);
+                             }
+                         });
+                     for (let i = 0; i < jsonObject.length; i++) {
+                     if (google.maps.geometry.poly.containsLocation(places[i].geometry.location, polygon)){
+                         const marker = new google.maps.Marker({
+                             map: map,
+                             position: places[i].geometry.location,
+                             title: places[i].name,
+                         });
+
+                         let infoWindowDefaultText = "point of interest";
+                         let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
+                         marker.addListener("click", () => {
+                             infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
+                             infoWindow.open({
+                                 anchor: marker,
+                                 map,
+                             });
+                         });
+                     }
+                 }
+             })
+            .catch((e) => window.alert("Boundary box failed"));
+    }
+
