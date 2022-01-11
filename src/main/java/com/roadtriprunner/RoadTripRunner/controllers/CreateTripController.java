@@ -43,10 +43,9 @@ public class CreateTripController {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("put api key here").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("ADD YOUR KEY IN HERE").build();
 
 //    String address = "Owensboro, KY"; //sample address
-
 
 
     public User getUserFromSession(HttpSession session) {
@@ -71,23 +70,30 @@ public class CreateTripController {
 //        model.addAttribute("trip", new Trip());
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
-//        callAPIForLatLng(directionsDTO.getEndingLocation());
         return "planATrip";
     }
 
+//    @RequestMapping("planATrip/{startingLocation}")
+//    public String displayRoute(Model model, HttpServletRequest request, DirectionsDTO directionsDTO) {
+//        model.addAttribute("gmapsApiKey", gmapsApiKey);
+//
+//
+//    }
 
 
 
     @PostMapping("/planATrip")
-    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model, DirectionsDTO directionsDTO)  {
+    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model, DirectionsDTO directionsDTO) throws IOException, InterruptedException, ApiException {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
-        System.out.println(trip.toString());
-        tripRepository.save(trip);
+        callAPIForLatLng(directionsDTO.getStartingLocation());
+        callAPIForLatLng(directionsDTO.getEndingLocation());
+//        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+//        System.out.println(trip.toString());
+//        tripRepository.save(trip);
         return "redirect:";
     }
 

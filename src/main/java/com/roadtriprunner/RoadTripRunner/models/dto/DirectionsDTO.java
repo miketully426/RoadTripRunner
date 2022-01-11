@@ -16,4 +16,5 @@ public class DirectionsDTO {
     @NotNull
     private String endingLocation;
 
+
 }
