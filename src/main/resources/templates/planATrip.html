@@ -14,16 +14,10 @@
     <form id="destination-form" method="post">
 
         <div>
-            <label th:for="tripName"> Name your trip:
-                <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
-            </label>
-        </div>
-
-        <div>
             <label th:for="startingLocation">Starting Location:
-                <input type="text" th:field="${trip.startingLocation}" id="originInput" th:value="${trip.startingLocation}" placeholder="starting from...">
+                <input type="text" th:field="${directionsDTO.startingLocation}" id="originInput" th:value="${directionsDTO.startingLocation}" placeholder="starting from...">
             </label>
-            <p class="error" th:errors="${trip.startingLocation}"></p>
+            <p class="error" th:errors="${directionsDTO.startingLocation}"></p>
         </div>
 
         <br>
@@ -31,12 +25,18 @@
 
         <div>
             <label th:for="endingLocation"> Destination:
-                <input type="text" th:field="${trip.endingLocation}" id="destinationInput" placeholder="traveling to..." th:value="${trip.endingLocation}">
+                <input type="text" th:field="${directionsDTO.endingLocation}" id="destinationInput" placeholder="traveling to..." th:value="${directionsDTO.endingLocation}">
             </label>
-            <p class="error" th:errors="${trip.endingLocation}"></p>
+            <p class="error" th:errors="${directionsDTO.endingLocation}"></p>
         </div>
 
         <input type="submit" value="Save Trip"/>
+
+<!--        <div>-->
+<!--            <label th:for="tripName"> Name your trip:-->
+<!--                <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">-->
+<!--            </label>-->
+<!--        </div>-->
     </form>
 
     <div>

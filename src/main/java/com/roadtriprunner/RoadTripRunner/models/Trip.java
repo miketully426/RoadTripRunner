@@ -14,8 +14,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Trip  extends AbstractEntity {
 
-
-    private String tripName;
+//    @NotBlank(message = "Please name your trip to save it!")
+//    @NotNull
+//    private String tripName;
 
     @NotBlank(message = "Starting location is required.")
     @NotNull
@@ -24,6 +25,11 @@ public class Trip  extends AbstractEntity {
     @NotBlank(message="Ending location is required.")
     @NotNull
     private String endingLocation;
+
+    public Trip(String startingLocation, String endingLocation) {
+        this.startingLocation = startingLocation;
+        this.endingLocation = endingLocation;
+    }
 
 
 }

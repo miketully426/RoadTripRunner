@@ -37,7 +37,7 @@ public class TripController {
         }
         else {
             Trip trip = possibleTrip.get();
-            model.addAttribute("title", trip.getTripName());
+//            model.addAttribute("title", trip.getTripName());
             model.addAttribute("trip", trip);
         }
         return "trips/trip";

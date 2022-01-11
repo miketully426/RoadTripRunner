@@ -12,9 +12,11 @@ import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import com.roadtriprunner.RoadTripRunner.models.User;
+import com.roadtriprunner.RoadTripRunner.models.dto.DirectionsDTO;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -41,7 +43,7 @@ public class CreateTripController {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("put api key here").build();
 
 //    String address = "Owensboro, KY"; //sample address
 
@@ -62,28 +64,32 @@ public class CreateTripController {
         return user.get();
     }
 
-//    @SneakyThrows
+    @SneakyThrows
     @GetMapping("/planATrip")
-    public String renderPlanATripPage(Model model, HttpServletRequest request) {
+    public String renderPlanATripPage(Model model, HttpServletRequest request, DirectionsDTO directionsDTO) throws IOException, InterruptedException, ApiException {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
-        model.addAttribute("trip", new Trip());
+//        model.addAttribute("trip", new Trip());
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
+//        callAPIForLatLng(directionsDTO.getEndingLocation());
         return "planATrip";
     }
 
 
-//    @PostMapping("/planATrip")
-//    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model)  {
-//        model.addAttribute("gmapsApiKey", gmapsApiKey);
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Enter Your Starting and Ending Locations");
-//            return "index";
-//        }
-//        System.out.println(newTrip.toString());
-//        tripRepository.save(newTrip);
-//        return "redirect:";
-//    }
+
+
+    @PostMapping("/planATrip")
+    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model, DirectionsDTO directionsDTO)  {
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Enter Your Starting and Ending Locations");
+            return "index";
+        }
+        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+        System.out.println(trip.toString());
+        tripRepository.save(trip);
+        return "redirect:";
+    }
 
 
     public void callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {
