@@ -91,7 +91,7 @@ public class CreateTripController {
 
 
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
 
 
 
@@ -143,9 +143,9 @@ public class CreateTripController {
         callAPIForLatLng(directionsDTO.getStartingLocation());
         callAPIForLatLng(directionsDTO.getEndingLocation());
 //        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
-//        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
-//        System.out.println(trip.toString());
-//        tripRepository.save(trip);
+        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+        System.out.println(trip.toString());
+        tripRepository.save(trip);
         return "redirect:";
     }
 
