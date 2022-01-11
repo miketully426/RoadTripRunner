@@ -138,14 +138,20 @@ public class CreateTripController {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
-            return "landing";
+            return "index";
         }
         callAPIForLatLng(directionsDTO.getStartingLocation());
         callAPIForLatLng(directionsDTO.getEndingLocation());
+<<<<<<< HEAD
 //        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
         Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
         System.out.println(trip.toString());
         tripRepository.save(trip);
+=======
+//        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+//        System.out.println(trip.toString());
+//        tripRepository.save(trip);
+>>>>>>> parent of ce18e5c (trying to build off of Emily's branch and make the API call return a String)
         return "redirect:";
     }
 
@@ -154,10 +160,15 @@ public class CreateTripController {
         GeocodingResult[] results = GeocodingApi.geocode(context,
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+<<<<<<< HEAD
 //        String location = gson.toJson(results[0].geometry.location);
         System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
 //        return location;
+=======
+        System.out.println(gson.toJson(results[0].geometry.location));
+        context.shutdown();
+>>>>>>> parent of ce18e5c (trying to build off of Emily's branch and make the API call return a String)
     }
 
 }
