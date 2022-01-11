@@ -18,7 +18,7 @@ function initMap() {
     });
 
     directionsRenderer.setMap(map);
-    getAutocompleteData();
+//    getAutocompleteData();
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);

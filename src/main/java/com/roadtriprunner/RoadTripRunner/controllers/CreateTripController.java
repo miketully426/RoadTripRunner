@@ -72,13 +72,14 @@ public class CreateTripController {
         return "planATrip";
     }
 
-    @SneakyThrows
+
     @PostMapping("/planATrip")
     public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model) throws IOException, InterruptedException, ApiException {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
+
         tripRepository.save(newTrip);
         return "redirect:";
     }
