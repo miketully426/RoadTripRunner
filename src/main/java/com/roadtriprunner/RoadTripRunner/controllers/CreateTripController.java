@@ -62,7 +62,7 @@ public class CreateTripController {
         return user.get();
     }
 
-    @SneakyThrows
+//    @SneakyThrows
     @GetMapping("/planATrip")
     public String renderPlanATripPage(Model model, HttpServletRequest request) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
@@ -74,12 +74,13 @@ public class CreateTripController {
 
 
     @PostMapping("/planATrip")
-    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model) throws IOException, InterruptedException, ApiException {
+    public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model)  {
+        model.addAttribute("gmapsApiKey", gmapsApiKey);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-
+        System.out.println(newTrip.toString());
         tripRepository.save(newTrip);
         return "redirect:";
     }

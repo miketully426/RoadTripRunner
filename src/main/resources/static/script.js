@@ -18,7 +18,7 @@ function initMap() {
     });
 
     directionsRenderer.setMap(map);
-//    getAutocompleteData();
+    getAutocompleteData();
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
@@ -110,7 +110,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         directionsRenderer.setDirections(response);
         sendJSON();
     })
-        .catch((e) => window.alert("Directions request failed due to " + status));
+//        .catch((e) => window.alert("Directions request failed due to " + status));
 }
 
 /* can call directionsRenderer from Java side  https://github.com/googlemaps/google-maps-services-java/blob/main/src/main/java/com/google/maps/DirectionsApi.java
@@ -130,17 +130,17 @@ public static DirectionsApiRequest getDirections(
 
 
 
-function sendJSON() {
-//    let starting = document.querySelector("originInput");
-//    let ending = document.querySelector("destinationInput");
-
-    let xhr = new XMLHttpRequest();
-    let url = "localhost:8080/planATrip";
-
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    var data = JSON.stringify({"origin": originInput.value, "destination": destinationInput.value});
-    xhr.send(data);
-}
+//function sendJSON() {
+////    let starting = document.querySelector("originInput");
+////    let ending = document.querySelector("destinationInput");
+//
+//    let xhr = new XMLHttpRequest();
+//    let url = "localhost:8080/planATrip";
+//
+//    xhr.open("POST", url, true);
+//    xhr.setRequestHeader("Content-Type", "application/json");
+//
+//    var data = JSON.stringify({"origin": originInput.value, "destination": destinationInput.value});
+//    xhr.send(data);
+//}
 

@@ -23,6 +23,7 @@
             <label th:for="startingLocation">Starting Location:
                 <input type="text" th:field="${trip.startingLocation}" id="originInput" th:value="${trip.startingLocation}" placeholder="starting from...">
             </label>
+            <p class="error" th:errors="${trip.startingLocation}"></p>
         </div>
 
         <br>
@@ -32,11 +33,13 @@
             <label th:for="endingLocation"> Destination:
                 <input type="text" th:field="${trip.endingLocation}" id="destinationInput" placeholder="traveling to..." th:value="${trip.endingLocation}">
             </label>
+            <p class="error" th:errors="${trip.endingLocation}"></p>
         </div>
 
+        <input type="submit" value="Submit!" id="submit-button"/>
     </form>
-    <input type="submit" value="Submit!" id="submit-button" />
-<!--    <button id="submit-button">Submit!</button>-->
+
+
 
 </div>
 
