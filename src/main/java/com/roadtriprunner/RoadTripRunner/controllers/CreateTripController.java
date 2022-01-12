@@ -47,7 +47,7 @@ public class CreateTripController {
     @Autowired
     UserRepository userRepository;
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
 
 
 
