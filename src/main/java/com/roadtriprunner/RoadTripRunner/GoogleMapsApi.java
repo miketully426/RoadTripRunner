@@ -1,7 +1,10 @@
 package com.roadtriprunner.RoadTripRunner;
 
+
 import com.google.maps.GeoApiContext;
 import com.google.maps.StaticMapsRequest;
+
+
 
 public class GoogleMapsApi {
 
@@ -12,5 +15,6 @@ public class GoogleMapsApi {
         map.center("Kansas City, MO");
         map.zoom(4);
     }
+
 
 }

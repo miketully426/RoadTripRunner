@@ -55,7 +55,7 @@ public class CreateTripController {
     @Autowired
     UserRepository userRepository;
 
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -129,19 +129,22 @@ public class CreateTripController {
         Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
         System.out.println(trip.toString());
         tripRepository.save(trip);
-        //must call api method LAST, calling it effectively ends the method
+
         callAPIForLatLng(trip.getStartingLocation());
         callAPIForLatLng(trip.getEndingLocation());
+        //must call context.shutdown last to end connection to API
+        context.shutdown();
         return "redirect:";
     }
 
 
     public void callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {
+
         GeocodingResult[] results = GeocodingApi.geocode(context,
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(results[0].geometry.location));
-        context.shutdown();
+//        context.shutdown();
     }
 
 }
