@@ -19,7 +19,7 @@ function initMap() {
 
 
     const onChangeHandler = function () {
-        calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer);
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
@@ -87,7 +87,7 @@ function initMap() {
         });
 }
 
-    function calculateAndDisplayRouteAndBoundary(directionsService, directionsRenderer) {
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         var request = {
             origin: document.getElementById("originInput").value,
             destination: document.getElementById("destinationInput").value,
@@ -100,11 +100,10 @@ function initMap() {
             findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
         })
             .catch((e) => {
-            console.log(e)
-            //window.alert("Directions request failed due to " + status);
+            window.alert("Directions request failed due to " + status);
             })
     }
-}  //end of InitMap
+}
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     var request = {
@@ -147,9 +146,7 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
       });
       allCircles.push(waypointCircle);
      }
-     //take each park at a time and see if it is in the circle
-     //helper variable
-     //flag variable
+
      let parksInCircles = [];
 
      for (park of nationalParks) {
@@ -167,5 +164,4 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
          park.setMap(null);
          }
      }
-
-} //end of findPointsOfInterest
+}
