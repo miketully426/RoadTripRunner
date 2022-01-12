@@ -46,7 +46,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model, HttpServletRequest request) {
+    public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "register";
@@ -91,24 +91,25 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:/planATrip";
+        return "redirect:/landing";
     }
 
-    @GetMapping("/")
-    public String renderLoginForm(Model model, User theUser) {
+    @GetMapping("/login")
+    public String renderLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Login");
-        return "index";
-}
+        return "login";
+    }
 
-    @PostMapping("/")
+
+    @PostMapping("/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
                                    Model model, User theUser) throws IOException, ScriptException, NoSuchMethodException {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            return "index";
+            return "login";
         }
 
         User user = userRepository.findByUsername(loginFormDTO.getUsername());
@@ -116,7 +117,7 @@ public class AuthenticationController {
         if (user == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Log In");
-            return "index";
+            return "login";
         }
 
         String password = loginFormDTO.getPassword();
@@ -124,20 +125,34 @@ public class AuthenticationController {
         if (!user.isPasswordMatching(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
-            return "index";
+            return "login";
         }
 
         model.addAttribute("logout", "Logout");
         setUserInSession(request.getSession(), user);
         model.addAttribute("loggedInUser", user);
 
-        return "redirect:/planATrip";
+        return "redirect:/landing";
+    }
+
+    @GetMapping("/")
+    public String renderIndexPage(Model model, HttpServletRequest request) {
+        User theUser = getUserFromSession(request.getSession());
+        model.addAttribute("loggedInUser", theUser);
+        return "index";
+    }
+
+    @GetMapping("/landing")
+    public String renderLandingPage(Model model, HttpServletRequest request) {
+        User theUser = getUserFromSession(request.getSession());
+        model.addAttribute("loggedInUser", theUser);
+        return "landing";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, Model model, User theUser){
+    public String logout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:";
+        return "redirect:/";
     }
 
 }
