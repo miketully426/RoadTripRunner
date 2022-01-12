@@ -158,7 +158,7 @@ public class CreateTripController {
     public void callNationalParkAPI() {
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create("https://developer.nps.gov/api/v1/parks?limit=500&api_key=" + natParkApiKey)).build();
-    Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
+    client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
             .thenApply(HttpResponse::body)
             .thenAccept(System.out::println)
             .join();
