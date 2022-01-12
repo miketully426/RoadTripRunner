@@ -10,6 +10,7 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.GeocodingResult;
+import com.roadtriprunner.RoadTripRunner.GoogleMapsApi;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
@@ -33,8 +34,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 @RequestMapping("/")
@@ -43,55 +46,35 @@ public class CreateTripController {
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
 
+    @Value("${natParkApiKey}")
+    private String natParkApiKey;
+
     @Autowired
     TripRepository tripRepository;
 
     @Autowired
     UserRepository userRepository;
 
+    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
+
     ObjectMapper mapper = new ObjectMapper();
 
 //    "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"
 
-
     //FOR NATIONAL PARKS API:
-//
-//    String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=600";
-//    Httpheader = {"Authorization":"yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"};
 
+    public void getNationalParks() {
+        HttpClient client = HttpClient.newBuilder().build();
+        String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=600&api_key=" + natParkApiKey;
 
-
-
-//            endpoint = "https://developer.nps.gov/api/v1/parks?limit=600"
-//            HEADERS = {"Authorization":"INSERT-API-KEY-HERE"}
-//            req = urllib.request.Request(endpoint,headers=HEADERS)
-//
-//            # Execute request and parse response
-//            response = urllib.request.urlopen(req).read()
-//            data = json.loads(response.decode('utf-8'))
-//
-//            # Prepare and execute output
-//            for park in data["data"]:
-//            print(park["fullName"])
-
-//    public JSONObject sendPostForNationalParks() {
-//        HttpClient httpClient = HttpClient.newBuilder().build();
-//        HttpRequest request = new HttpRequest() {}
-//
-//        request.addHeader("content-type", "application/json");
-//        request.addHeader("Authorization", "Bearer " + this.Access_Token);
-//        request.setEntity(params);
-//
-//            HttpResponse response = httpClient.execute(request);
-//
-//            System.out.println("API Resonse :"+result.toString());
-//            jsonObject = new JSONObject(result.toString());
-//
-//    }
-
-
-
-    GeoApiContext context = new GeoApiContext.Builder().apiKey("API KEY").build();
+        HttpRequest nationalParkRequest = HttpRequest.newBuilder()
+                .uri(URI.create(nationalParkUrl))
+                .timeout(Duration.ofMinutes(2))
+                .build();
+        CompletableFuture<Void> response = client.sendAsync(nationalParkRequest, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(System.out::println);
+    }
 
 
 
@@ -121,6 +104,8 @@ public class CreateTripController {
 //        model.addAttribute("trip", new Trip());
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
+
+//        getNationalParks();
         return "planATrip";
     }
 
@@ -140,11 +125,13 @@ public class CreateTripController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-        callAPIForLatLng(directionsDTO.getStartingLocation());
-        callAPIForLatLng(directionsDTO.getEndingLocation());
-//        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
-//        System.out.println(trip.toString());
-//        tripRepository.save(trip);
+
+        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+        System.out.println(trip.toString());
+        tripRepository.save(trip);
+        //must call api method LAST, calling it effectively ends the method
+        callAPIForLatLng(trip.getStartingLocation());
+        callAPIForLatLng(trip.getEndingLocation());
         return "redirect:";
     }
 
