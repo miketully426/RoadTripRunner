@@ -1,25 +1,16 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.GeocodingResult;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.DirectionsDTO;
 import lombok.SneakyThrows;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,9 +22,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
-import java.time.Duration;
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @Controller
@@ -42,6 +32,9 @@ public class CreateTripController {
 
     @Value("${gmapsApiKey}")
     private String gmapsApiKey;
+
+    @Value("${natParkApiKey}")
+    private String natParkApiKey;
 
     @Autowired
     TripRepository tripRepository;
@@ -121,6 +114,7 @@ public class CreateTripController {
 //        model.addAttribute("trip", new Trip());
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
+        callNationalParkAPI();
         return "planATrip";
     }
 
@@ -140,35 +134,45 @@ public class CreateTripController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "index";
         }
-        callAPIForLatLng(directionsDTO.getStartingLocation());
-        callAPIForLatLng(directionsDTO.getEndingLocation());
-<<<<<<< HEAD
-//        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
-        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
-        System.out.println(trip.toString());
-        tripRepository.save(trip);
-=======
+//        callAPIForLatLng(directionsDTO.getStartingLocation());
+//        callAPIForLatLng(directionsDTO.getEndingLocation());
+////        System.out.println("The starting location is " + startingLocation + " and the ending location is " + endingLocation);
 //        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
 //        System.out.println(trip.toString());
 //        tripRepository.save(trip);
->>>>>>> parent of ce18e5c (trying to build off of Emily's branch and make the API call return a String)
+//        Trip trip = new Trip(directionsDTO.getStartingLocation(), directionsDTO.getEndingLocation());
+//        System.out.println(trip.toString());
+//        tripRepository.save(trip);
         return "redirect:";
     }
 
-
+/*
     public void callAPIForLatLng(String address) throws IOException, InterruptedException, ApiException {
         GeocodingResult[] results = GeocodingApi.geocode(context,
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-<<<<<<< HEAD
-//        String location = gson.toJson(results[0].geometry.location);
         System.out.println(gson.toJson(results[0].geometry.location));
         context.shutdown();
-//        return location;
-=======
-        System.out.println(gson.toJson(results[0].geometry.location));
-        context.shutdown();
->>>>>>> parent of ce18e5c (trying to build off of Emily's branch and make the API call return a String)
+    }*/
+
+    public void callNationalParkAPI() {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest apiRequest = HttpRequest.newBuilder().uri(URI.create("https://developer.nps.gov/api/v1/parks?limit=500&api_key=" + natParkApiKey)).build();
+    Void httpResponse = client.sendAsync(apiRequest, HttpResponse.BodyHandlers.ofString())
+            .thenApply(HttpResponse::body)
+            .thenAccept(System.out::println)
+            .join();
+//            .thenApply(CreateTripController::parse)
     }
 
+    /* parse method doesn't work because the response body is not converted to JSONArray?
+    public static String parse(String responseBody) {
+        JSONArray locations = new JSONArray(responseBody);
+        for (int i = 0; i < locations.length(); i++){
+            JSONObject location = locations.getJSONObject(i);
+            String name = location.getString("name");
+            System.out.println(name);
+        }
+        return null;
+    }*/
 }
