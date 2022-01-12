@@ -164,4 +164,5 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
          park.setMap(null);
          }
      }
-}
+
+} //end of findPointsOfInterest
