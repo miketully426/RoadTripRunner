@@ -1,26 +1,19 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.GeocodingResult;
-import com.roadtriprunner.RoadTripRunner.GoogleMapsApi;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.DirectionsDTO;
-import lombok.SneakyThrows;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -32,7 +25,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -57,11 +49,7 @@ public class CreateTripController {
 
     GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyDH10rziyorFJcwhqYFPCxO61ExsmdLp20").build();
 
-    ObjectMapper mapper = new ObjectMapper();
 
-//    "https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=yRmHcolzaKy9VCZB55w4d4s2Km33ssxixl36mPuo"
-
-    //FOR NATIONAL PARKS API:
 
     public void getNationalParks() {
         HttpClient client = HttpClient.newBuilder().build();
@@ -75,11 +63,6 @@ public class CreateTripController {
                 .thenApply(HttpResponse::body)
                 .thenAccept(System.out::println);
     }
-
-
-
-
-//    String address = "Owensboro, KY"; //sample address
 
 
     public User getUserFromSession(HttpSession session) {
@@ -97,25 +80,16 @@ public class CreateTripController {
         return user.get();
     }
 
-    @SneakyThrows
+
     @GetMapping("/planATrip")
-    public String renderPlanATripPage(Model model, HttpServletRequest request, DirectionsDTO directionsDTO) throws IOException, InterruptedException, ApiException {
+    public String renderPlanATripPage(Model model, HttpServletRequest request, DirectionsDTO directionsDTO) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
-//        model.addAttribute("trip", new Trip());
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
-
-//        getNationalParks();
+        getNationalParks();
         return "planATrip";
     }
 
-
-
-//    //annotations here...? responsebody, requestmapping -- value at origin?
-//    public void renderTripRequest(DirectionsDTO directionsDTO) throws IOException, InterruptedException, ApiException {
-//        DirectionsApiRequest request = new DirectionsApiRequest(context);
-//        DirectionsResult route = request.origin(directionsDTO.getStartingLocation()).destination(directionsDTO.getEndingLocation()).await();
-//    }
 
 
     @PostMapping("/planATrip")
@@ -144,7 +118,6 @@ public class CreateTripController {
                 address).await();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(results[0].geometry.location));
-//        context.shutdown();
     }
 
 }
