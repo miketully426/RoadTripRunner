@@ -16,6 +16,7 @@ function initMap() {
 
     directionsRenderer.setMap(map);
     getAutocompleteData();
+    getLatLongFromParks();
 
 
     const onChangeHandler = function () {
@@ -165,4 +166,24 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
          }
      }
 
-} //end of findPointsOfInterest
+}
+
+function getParksFromNPS(theUrl){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+let parksArr = [];
+function getLatLongFromParks(){
+
+let parks = (getParksFromNPS("https://developer.nps.gov/api/v1/parks?api_key=q2PWN3kvAjbmK7xf6SLQKlkY63rIvp5h2F3bDnmg&limit=465"));
+//for (let i = 0; i < parks.length; i++){
+//        let park = parks[i];
+//
+//       }
+       return park[0];
+
+}
+
