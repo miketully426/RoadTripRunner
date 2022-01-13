@@ -11,12 +11,14 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
+//import com.roadtriprunner.RoadTripRunner.ConvertJsonToCsv;
 import com.roadtriprunner.RoadTripRunner.data.TripRepository;
 import com.roadtriprunner.RoadTripRunner.data.UserRepository;
 import com.roadtriprunner.RoadTripRunner.models.Trip;
 import com.roadtriprunner.RoadTripRunner.models.User;
 import com.roadtriprunner.RoadTripRunner.models.dto.DirectionsDTO;
 import lombok.SneakyThrows;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -57,7 +60,7 @@ public class CreateTripController {
 
 
     @SneakyThrows
-    public void getNationalParks() {
+    public String getNationalParks() {
         HttpClient client = HttpClient.newBuilder().build();
         String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=600&api_key=" + natParkApiKey;
 
@@ -65,25 +68,15 @@ public class CreateTripController {
                 .uri(URI.create(nationalParkUrl))
                 .timeout(Duration.ofMinutes(2))
                 .build();
-        client.sendAsync(nationalParkRequest, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(CreateTripController::convertJsonToCSV())
-//                .thenAccept(System.out::println);
+        HttpResponse<String> response = client.send(nationalParkRequest, HttpResponse.BodyHandlers.ofString());
+//        System.out.println(response.body());
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        ConvertJsonToCsv.convertJsonToCSV(gson.toJson(response.body()));
+        String jsonString = gson.toJson(response.body());
+        System.out.println(jsonString);
+        return jsonString;
     }
 
-    @SneakyThrows
-    public static void convertJsonToCSV() throws IOException {
-        JsonNode jsonTree = new ObjectMapper().readTree(new File("src/main/resources/nationalParks.json"));
-        CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
-        JsonNode firstObject = jsonTree.elements().next();
-        firstObject.fieldNames().forEachRemaining(fieldName -> {csvSchemaBuilder.addColumn(fieldName);} );
-        CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
-
-        CsvMapper csvMapper = new CsvMapper();
-        csvMapper.writerFor(JsonNode.class)
-                .with(csvSchema)
-                .writeValue(new File("src/main/resources/nationalParks.csv"), jsonTree);
-    }
 
 
     public User getUserFromSession(HttpSession session) {

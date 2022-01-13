@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.json:json:20211205'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.1'
 	implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+	implementation 'org.apache.commons:commons-csv:1.5'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
