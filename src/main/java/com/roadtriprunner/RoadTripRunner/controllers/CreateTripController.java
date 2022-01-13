@@ -1,6 +1,7 @@
 package com.roadtriprunner.RoadTripRunner.controllers;
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -60,21 +61,45 @@ public class CreateTripController {
 
 
     @SneakyThrows
-    public String getNationalParks() {
+    public void getNationalParks() {
         HttpClient client = HttpClient.newBuilder().build();
-        String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=600&api_key=" + natParkApiKey;
+        String nationalParkUrl = "https://developer.nps.gov/api/v1/parks?limit=50&api_key=" + natParkApiKey;
 
         HttpRequest nationalParkRequest = HttpRequest.newBuilder()
                 .uri(URI.create(nationalParkUrl))
                 .timeout(Duration.ofMinutes(2))
                 .build();
         HttpResponse<String> response = client.send(nationalParkRequest, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        ConvertJsonToCsv.convertJsonToCSV(gson.toJson(response.body()));
-        String jsonString = gson.toJson(response.body());
-        System.out.println(jsonString);
-        return jsonString;
+        System.out.println(response.body());
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        String jsonString = gson.toJson(response.body());
+//        convertJsonToCSV(jsonString);
+//        System.out.println(jsonString);
+        convertJsonToCSV(response.body());
+    }
+
+
+    public static void convertJsonToCSV(String json) throws IOException {
+    JsonNode jsonNode = new ObjectMapper().readTree(json);
+        System.out.println(jsonNode);
+    CsvSchema.Builder builder = CsvSchema.builder()
+            .addColumn("url")
+            .addColumn("fullName")
+            .addColumn("description")
+            .addColumn("latitude")
+            .addColumn("longitude")
+            .addColumn("directionsInfo")
+            .addColumn("directionsUrl")
+            .addColumn("weatherInfo")
+            .addColumn("designation");
+    jsonNode.elements().next().fieldNames().forEachRemaining(f -> builder.addColumn(f));
+
+    CsvSchema csvSchema = builder.build().withHeader();
+    CsvMapper csvMapper = new CsvMapper();
+    csvMapper.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
+    csvMapper.writerFor(JsonNode.class)
+            .with(csvSchema)
+            .writeValue(new File("src/main/resources/nationalParks.csv"), jsonNode);
     }
 
 
@@ -135,3 +160,11 @@ public class CreateTripController {
     }
 
 }
+//    JsonNode firstObject = jsonTree.elements().next();
+//    firstObject.fieldNames().forEachRemaining(fieldName -> {csvSchemaBuilder.addColumn(fieldName);} );
+//            CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
+//
+//    CsvMapper csvMapper = new CsvMapper();
+//    csvMapper.writerFor(JsonNode.class)
+//        .with(csvSchema)
+//        .writeValue(new File("src/main/resources/nationalParks.csv"), jsonTree);
