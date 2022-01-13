@@ -166,10 +166,8 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
      }
 document.querySelector("#reset-button").addEventListener("click", function(){
 
-    allCircles = null;
-    waypoints = null;
-    allCircles.push(waypointCircle);
-
+    location.reload();
+    console.log("reset button clicked");
 
 });
 }
