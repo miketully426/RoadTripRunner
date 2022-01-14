@@ -2,6 +2,7 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
+let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
 function initMap() {
 
@@ -23,21 +24,23 @@ function initMap() {
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
+    let nationalParksObject = nationalParksRequest(parkUrl);
+    console.log("National Parks Object" + nationalParksObject);
 
-    let request = {
-        query: "'US national park'",
-    };
-
-    let nationalParks = [];
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, (results, status) => {
-        let jsonString = JSON.stringify(results);
-        let jsonObject = JSON.parse(jsonString);
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            //&& if it is in the circles
-            nationalParks = displayMarkerAndInfoWindow(jsonObject);
-        }
-    });
+//    let request = {
+//        query: "'US national park'",
+//    };
+//
+//    let nationalParks = [];
+//    service = new google.maps.places.PlacesService(map);
+//    service.textSearch(request, (results, status) => {
+//        let jsonString = JSON.stringify(results);
+//        let jsonObject = JSON.parse(jsonString);
+//        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+//            //&& if it is in the circles
+//            nationalParks = displayMarkerAndInfoWindow(jsonObject);
+//        }
+//    });
 
     function displayMarkerAndInfoWindow(places) {
         let markers = []
