@@ -2,7 +2,7 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
-let natParkData;
+let natParkDataArray =[];
 
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
@@ -11,6 +11,7 @@ async function getNationalParkData() {
     natParkData = await response.json();
     console.log(natParkData.data[0].fullName);
 }
+
 
 function initMap() {
 
