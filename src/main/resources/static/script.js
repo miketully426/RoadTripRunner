@@ -100,27 +100,9 @@ function initMap() {
             findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
         })
             .catch((e) => {
-            window.alert("Directions request failed due to " + status);
+            window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location.");
             })
     }
-}
-
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    var request = {
-        origin: document.getElementById("originInput").value,
-        destination: document.getElementById("destinationInput").value,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-    }
-    directionsService.route(request)
-    .then((response) => {
-        directionsRenderer.setDirections(response);
-
-    })
-    .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
-}
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
@@ -133,8 +115,8 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
     }
     let allCircles = []
     for(const waypoint of waypoints) {
-      var waypointLatLng = new google.maps.LatLng(waypoint[0], waypoint[1])
-      var waypointCircle = new google.maps.Circle({
+      var waypointLatLng = new google.maps.LatLng(waypoint[0], waypoint[1]) //gets lat long of waypoints
+      var waypointCircle = new google.maps.Circle({ //sets the waypoint center
          strokeColor: "#add8e6",
               strokeOpacity: 0,
               strokeWeight: 0,
@@ -142,19 +124,22 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
               fillOpacity: 0.35,
               map,
               center: waypointLatLng,
-              radius: 160000,
+              radius: 160000, //100 miles
       });
-      allCircles.push(waypointCircle);
+      allCircles.push(waypointCircle); //all circles pushed into allcircles array
      }
 
      let parksInCircles = [];
 
      for (park of nationalParks) {
         let withinBounds = false;
-         for (waypointCircle of allCircles){
+         for (waypointCircle of allCircles){ //if the distance between the park's lat/long and the circle's center is less than the circle's radius then the park is in the circle
+//         .getPosition is a googleMaps method call that returns LatLng object
+//we will need something different to get position of national park when using the natParkAPI
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
                 console.log('=> is in searchArea');
                 withinBounds = true;
+//                NEW CODE: if withinBounds = true then setMarker
             } else {
                 console.log('=> is NOT in searchArea');
             }
