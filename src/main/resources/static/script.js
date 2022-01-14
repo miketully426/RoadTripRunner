@@ -27,19 +27,19 @@ function initMap() {
     let nationalParksObject = nationalParksRequest(parkUrl);
     console.log("National Parks Object" + nationalParksObject);
 
-//    let request = {
-//        query: "'US national park'",
-//    };
-//
-//    let nationalParks = [];
-//    service = new google.maps.places.PlacesService(map);
-//    service.textSearch(request, (results, status) => {
-//        let jsonString = JSON.stringify(results);
-//        let jsonObject = JSON.parse(jsonString);
-//        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-//            nationalParks = displayMarkerAndInfoWindow(jsonObject);
-//        }
-//    });
+    let request = {
+        query: "'US national park'",
+    };
+
+    let nationalParks = [];
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, (results, status) => {
+        let jsonString = JSON.stringify(results);
+        let jsonObject = JSON.parse(jsonString);
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+            nationalParks = displayMarkerAndInfoWindow(jsonObject);
+        }
+    });
 
     function displayMarkerAndInfoWindow(places) {
         let markers = []
