@@ -2,7 +2,15 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
+let natParkData;
+
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
+
+async function getNationalParkData() {
+    let response = await fetch(parkUrl);
+    natParkData = await response.json();
+    console.log(natParkData.data[0].fullName);
+}
 
 function initMap() {
 
@@ -17,25 +25,24 @@ function initMap() {
 
     directionsRenderer.setMap(map);
     getAutocompleteData();
-
+    getNationalParkData();
+//    displayMarkerAndInfoWindow(natParkData);
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
-    let nationalParksObject = nationalParksRequest(parkUrl);
-    console.log("National Parks Object" + nationalParksObject);
 
 //    let request = {
 //        query: "'US national park'",
 //    };
 //
-//    let nationalParks = [];
+    let nationalParks = [];
 //    service = new google.maps.places.PlacesService(map);
 //    service.textSearch(request, (results, status) => {
-//        let jsonString = JSON.stringify(results);
-//        let jsonObject = JSON.parse(jsonString);
+////        let jsonString = JSON.stringify(results);
+////        let jsonObject = JSON.parse(jsonString);
 //        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
 //            //&& if it is in the circles
 //            nationalParks = displayMarkerAndInfoWindow(jsonObject);
@@ -91,21 +98,22 @@ function initMap() {
 }
 
     function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-        var request = {
-            origin: document.getElementById("originInput").value,
-            destination: document.getElementById("destinationInput").value,
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.IMPERIAL
-        }
-    directionsService.route(request)
-       .then((response) => {
-            directionsRenderer.setDirections(response);
-            findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
-        })
-            .catch((e) => {
-            window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location.");
+            var request = {
+                origin: document.getElementById("originInput").value,
+                destination: document.getElementById("destinationInput").value,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+            }
+        directionsService.route(request)
+           .then((response) => {
+                directionsRenderer.setDirections(response);
+                findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
             })
-    }
+           .catch((e) => {
+                console.log(e);
+                window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location.");
+           })
+        }
 }
 
 function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
@@ -140,17 +148,13 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
 //         .getPosition is a googleMaps method call that returns LatLng object
 //we will need something different to get position of national park when using the natParkAPI
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
-                console.log('=> is in searchArea');
                 withinBounds = true;
 //                NEW CODE: if withinBounds = true then setMarker
-            } else {
-                console.log('=> is NOT in searchArea');
             }
          }
          if(withinBounds == false){
-         console.log("removing park")
          park.setMap(null);
          }
      }
 
-} //end of findPointsOfInterest
+}
