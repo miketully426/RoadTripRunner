@@ -24,7 +24,9 @@ function initMap() {
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
-    nationalParksRequest(parkUrl)
+    let nationalParksObject = nationalParksRequest(parkUrl);
+    console.log("National Parks Object" + nationalParksObject);
+
 //    let request = {
 //        query: "'US national park'",
 //    };
@@ -161,7 +163,12 @@ function nationalParksRequest(parkUrl){
       };
 
       fetch("https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error))
+
+      .then(response => response.text())
+        //.then(response => response.json())
+//      .then(result => JSON.parse(JSON.stringify(result)))
+//     //console.log(result);
+       //.then(result => console.log(result))
+       .catch(error => console.log('error', error))
 }
+
