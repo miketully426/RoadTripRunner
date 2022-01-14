@@ -33,26 +33,17 @@ function nationalParksRequest() {
     for (let i = 0; i < jsonParks.data.length; i++) {
         allParks.push(jsonParks.data[i]);
     }
-
 }
 
 nationalParksRequest();
 console.log(allParks[0].latLong);
-//console.log(jsonParks);
-//console.log(jsonParks.data[0]);
 
 
-//nationalParksRequest();
-//console.log(parksData[0]);
-//console.log(parksData);
 
 
-//    let properties = parksData[0].latLong.split(', ');
-//    let latLong = {
-//                    lat: properties[0],
-//                    lng: properties[1]
-//                  };
-//    console.log(latLong);
+
+
+
 
 
 
@@ -67,7 +58,7 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
-    displayMarkerAndInfoWindow(parksData);
+    displayMarkerAndInfoWindow(allParks);
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
@@ -97,19 +88,20 @@ function initMap() {
 
     function displayMarkerAndInfoWindow(places) {
         let markers = [];
-
-
-
-
         for (let i = 0; i < places.length; i++) {
+//        var latLongObject = {
+//                                lat: places[i].latitude,
+//                                lng: places[i].longitude
+//                            }
             const marker = new google.maps.Marker({
                 map: map,
-                position: places[i].latLong,
+                position: { lat: parseFloat(places[i].latitude), lng: parseFloat(places[i].longitude) },
                 title: places[i].fullName,
             });
             markers.push(marker);
             let infoWindowDefaultText = "point of interest";
-//            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
+            let infoWindowMarkerText = "<b>"+`${places[i].fullName}`+"</b>" + "<br>" + `${places[i].description}` +
+                                        "<br>" + `${places[i].directionsUrl}` + "<br>" + `${places[i].designation}`;
 
             marker.addListener("click", () => {
                 infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
