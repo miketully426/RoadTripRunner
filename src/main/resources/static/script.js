@@ -2,6 +2,7 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
+let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux"
 
 function initMap() {
 
@@ -23,21 +24,20 @@ function initMap() {
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
-
-    let request = {
-        query: "'US national park'",
-    };
-
-    let nationalParks = [];
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, (results, status) => {
-        let jsonString = JSON.stringify(results);
-        let jsonObject = JSON.parse(jsonString);
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            //&& if it is in the circles
-            nationalParks = displayMarkerAndInfoWindow(jsonObject);
-        }
-    });
+    nationalParksRequest(parkUrl)
+//    let request = {
+//        query: "'US national park'",
+//    };
+//
+//    let nationalParks = [];
+//    service = new google.maps.places.PlacesService(map);
+//    service.textSearch(request, (results, status) => {
+//        let jsonString = JSON.stringify(results);
+//        let jsonObject = JSON.parse(jsonString);
+//        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+//            nationalParks = displayMarkerAndInfoWindow(jsonObject);
+//        }
+//    });
 
     function displayMarkerAndInfoWindow(places) {
         let markers = []
@@ -100,27 +100,10 @@ function initMap() {
             findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks)
         })
             .catch((e) => {
-            window.alert("Directions request failed due to " + status);
+            console.log(e);
+            window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location.");
             })
     }
-}
-
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    var request = {
-        origin: document.getElementById("originInput").value,
-        destination: document.getElementById("destinationInput").value,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-    }
-    directionsService.route(request)
-    .then((response) => {
-        directionsRenderer.setDirections(response);
-
-    })
-    .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
-}
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
@@ -165,4 +148,20 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
          }
      }
 
-} //end of findPointsOfInterest
+}//end of findPointsOfInterest
+
+function nationalParksRequest(parkUrl){
+      var myHeaders = new Headers();
+      myHeaders.append("x-api-key", "ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux");
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch("https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+}
