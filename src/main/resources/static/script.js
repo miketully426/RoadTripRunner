@@ -158,19 +158,24 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
     }
 
 }//end of findPointsOfInterest
+let allParks = [];
+var nationalParksObject;
 
-function nationalParksRequest(parkUrl){
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux");
+function nationalParksRequest(){
 
     var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
+        method: 'GET',
+        headers: {'Accept': 'application/json'},
+        redirect: 'follow'
     };
 
     fetch("https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error))
+    .then(response => response.json())
+    .then(data => nationalParksObject = data)
+    }
+//    .then(return nationalParksObject));
 }
+
+console.log(nationalParksRequest());
+
+function findNationalParksInWaypoints(request, )
