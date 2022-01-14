@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
     <head th:replace="fragments :: head"></head>
     <body>
-        <header th:replace="fragments :: pageHeader"></header>
+        <header th:replace="fragments :: notLoggedInPageHeader"></header>
         <h1>Register</h1>
         <main class="flex-container">
             <form id="registration-form" method="post">
@@ -23,7 +23,7 @@
                     <input class="input" placeholder="Verify Password" th:field="${registerFormDTO.verifyPassword}" type="password" />
                 </div>
 
-                <input type="submit" value="Register" />
+                <input class="black-btn" type="submit" value="Register" />
             </form>
         </main>
     <footer th:replace="fragments :: footer"></footer>

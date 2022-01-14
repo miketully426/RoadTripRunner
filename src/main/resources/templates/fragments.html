@@ -8,23 +8,22 @@
     <title>RoadTrip Runner</title>
 </head>
 <body>
-    <div th:fragment = "pageHeader" class="wrapper">
+    <div th:fragment = "loggedInPageHeader" class="wrapper">
+        <a id="login" th:href="@{/logout}">Logout</a>
+        <p id="welcome" th:text="'Welcome, ' + ${loggedInUser.getUsername} + '!'"></p>
 
-        <div class="header">
-            <div th:switch="${loggedInUser != null}">
-                <div th:case="${true}">
-                    <a  id="login" th:href="@{/logout}">Logout</a>
-                    <p id="welcome" th:text="'Welcome, ' + ${loggedInUser.getUsername} + '!'"></p>
-                </div>
-                <a th:case="*" id="login" th:href="@{/}">Login</a>
-            </div>
-
+        <a th:href="@{/landing}">
             <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
-            <br>
-            <br>
-            <a th:href = "@{/trips}" id="headerLink">Your Saved Trips</a>
-            <a th:href = "@{/planATrip}" id="headerLink">Plan a Trip</a>
-        </div>
+        </a>
+            <br><br>
+        <a th:href = "@{/trips}" id="headerLink">My Saved Trips</a>
+        <a th:href = "@{/planATrip}" id="headerLink">Plan a Trip</a>
+    </div>
+
+    <div th:fragment = "notLoggedInPageHeader" class="wrapper">
+        <a id="login" th:href="@{/login}">Login</a>
+        <a id="login" th:href="@{/register}">Register</a>
+        <img id="titleImg" th:src="@{/logo.png}" alt="RoadTrip Runner"/>
     </div>
 
 <footer th:fragment="footer">
