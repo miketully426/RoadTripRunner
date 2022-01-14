@@ -174,7 +174,7 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
                 console.log('=> is in searchArea');
                 withinBounds = true;
-                parksInCircles.push(park);
+//                parksInCircles.push(park);
             }
             else {
                 console.log('=> is NOT in searchArea');
