@@ -5,24 +5,54 @@ let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
 
-let parksData = [];
+//var parksData = [];
+//
+//function nationalParksRequest() {
+//    var request = new XMLHttpRequest();
+//    request.open('GET', parkUrl);
+//    request.responseType = 'json';
+//    request.send();
+//
+//    request.onload = function () {
+//
+////        const allParks = request.response;
+////        JSON.parse(JSON.stringify(allParks));
+//        for (let i = 0; i < allParks.data.length; i++) {
+//            parksData.push(allParks.data[i]);
+//        }
+//    }
+//}
+
+var allParks = [];
 
 function nationalParksRequest() {
-    let request = new XMLHttpRequest();
-    request.open('GET', parkUrl);
-    request.responseType = 'json';
-    request.send();
-
-    request.onload = function () {
-        const allParks = request.response;
-        for (let i = 0; i < allParks.data.length; i++) {
-            parksData.push(allParks.data[i]);
-        }
-
+    var request = new XMLHttpRequest();
+    request.open('GET', parkUrl, false);
+    request.send(null);
+    var jsonParks = JSON.parse(request.responseText);
+    for (let i = 0; i < jsonParks.data.length; i++) {
+        allParks.push(jsonParks.data[i]);
     }
+
 }
+
 nationalParksRequest();
+console.log(allParks[0].latLong);
+//console.log(jsonParks);
+//console.log(jsonParks.data[0]);
+
+
+//nationalParksRequest();
+//console.log(parksData[0]);
 //console.log(parksData);
+
+
+//    let properties = parksData[0].latLong.split(', ');
+//    let latLong = {
+//                    lat: properties[0],
+//                    lng: properties[1]
+//                  };
+//    console.log(latLong);
 
 
 
@@ -37,6 +67,7 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
+    displayMarkerAndInfoWindow(parksData);
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
@@ -61,17 +92,24 @@ function initMap() {
 //    });
 
 
+
+
+
     function displayMarkerAndInfoWindow(places) {
         let markers = [];
+
+
+
+
         for (let i = 0; i < places.length; i++) {
             const marker = new google.maps.Marker({
                 map: map,
-                position: places[i].geometry.location,
-                title: places[i].name,
+                position: places[i].latLong,
+                title: places[i].fullName,
             });
             markers.push(marker);
             let infoWindowDefaultText = "point of interest";
-            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
+//            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
 
             marker.addListener("click", () => {
                 infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
