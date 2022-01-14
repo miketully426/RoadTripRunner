@@ -5,24 +5,6 @@ let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
 
-//var parksData = [];
-//
-//function nationalParksRequest() {
-//    var request = new XMLHttpRequest();
-//    request.open('GET', parkUrl);
-//    request.responseType = 'json';
-//    request.send();
-//
-//    request.onload = function () {
-//
-////        const allParks = request.response;
-////        JSON.parse(JSON.stringify(allParks));
-//        for (let i = 0; i < allParks.data.length; i++) {
-//            parksData.push(allParks.data[i]);
-//        }
-//    }
-//}
-
 var allParks = [];
 
 function nationalParksRequest() {
@@ -36,14 +18,15 @@ function nationalParksRequest() {
 }
 
 nationalParksRequest();
-console.log(allParks[0].latLong);
 
 
+//ATTEMPT TO ADD IN ANOTHER KEY/VALUE PAIR TO EACH PARK, WITH VALUE OF OBJECT LAT/LONG
 
-
-
-
-
+//for (let i = 0; i < allParks.length; i++) {
+//    allParks[i].latLng = { lat: parseFloat(allParks[i].latitude), lng: parseFloat(allParks[i].longitude) };
+//}
+//console.log(allParks.latLng[0]);
+//console.log(allParks.latLng[1]);
 
 
 
@@ -73,7 +56,7 @@ function initMap() {
 //    };
 
     let nationalParks = [];
-    service = new google.maps.places.PlacesService(map);
+//    service = new google.maps.places.PlacesService(map);
 //    service.textSearch(request, (results, status) => {
 //        let jsonString = JSON.stringify(results);
 //        let jsonObject = JSON.parse(jsonString);
@@ -84,15 +67,9 @@ function initMap() {
 
 
 
-
-
     function displayMarkerAndInfoWindow(places) {
         let markers = [];
         for (let i = 0; i < places.length; i++) {
-//        var latLongObject = {
-//                                lat: places[i].latitude,
-//                                lng: places[i].longitude
-//                            }
             const marker = new google.maps.Marker({
                 map: map,
                 position: { lat: parseFloat(places[i].latitude), lng: parseFloat(places[i].longitude) },
@@ -167,7 +144,7 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
     let decodedWaypoints = decode(encodedWaypoints);
     let waypoints = [];
 
-    for (let i = 0; i < decodedWaypoints.length; i+=15) {
+    for (let i = 0; i < decodedWaypoints.length; i+=10) {
         waypoints.push(decodedWaypoints[i]);
     }
 
@@ -197,6 +174,7 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
                 console.log('=> is in searchArea');
                 withinBounds = true;
+                parksInCircles.push(park);
             }
             else {
                 console.log('=> is NOT in searchArea');
@@ -206,8 +184,11 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
             console.log("removing park")
             park.setMap(null);
         }
+        console.log(parksInCircles);
     }
 
-}//end of findPointsOfInterest
+}
+
+
 
 
