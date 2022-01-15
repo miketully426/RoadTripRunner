@@ -24,6 +24,12 @@ function initMap() {
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
+      document.querySelector("#reset-button").addEventListener("click", function(){
+
+                 location.reload();
+                 console.log("reset button clicked");
+                 });
+
 
     let request = {
         query: "'US national park'",
@@ -107,4 +113,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         directionsRenderer.setDirections(response);
     })
     .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
+
+
 }
