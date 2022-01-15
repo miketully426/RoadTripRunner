@@ -41,30 +41,18 @@ function initMap() {
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
+    let nationalParks = [];
     displayMarkerAndInfoWindow(allParks);
     directionsRenderer.setMap(map);
     getAutocompleteData();
+    nationalParks = displayMarkerAndInfoWindow(allParks);
+
 
     const onChangeHandler = function () {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
-
-//    let request = {
-//        query: "'US national park'",
-//    };
-
-    let nationalParks = [];
-//    service = new google.maps.places.PlacesService(map);
-//    service.textSearch(request, (results, status) => {
-//        let jsonString = JSON.stringify(results);
-//        let jsonObject = JSON.parse(jsonString);
-//        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-//            nationalParks = displayMarkerAndInfoWindow(jsonObject);
-//        }
-//    });
-
 
 
     function displayMarkerAndInfoWindow(places) {
@@ -139,12 +127,14 @@ function initMap() {
 }
 
 
+
+
 function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
 
     let decodedWaypoints = decode(encodedWaypoints);
     let waypoints = [];
 
-    for (let i = 0; i < decodedWaypoints.length; i+=10) {
+    for (let i = 0; i < decodedWaypoints.length; i+=15) {
         waypoints.push(decodedWaypoints[i]);
     }
 
@@ -166,29 +156,34 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
     }
 
 
-    let parksInCircles = [];
+//    let parksInCircles = [];
 
     for (park of nationalParks) {
-    let withinBounds = false;
+        let withinBounds = false;
         for (waypointCircle of allCircles) {
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
-                console.log('=> is in searchArea');
+//                parksInCircles.push(park);
+//                console.log('=> is in searchArea');
                 withinBounds = true;
+
 //                parksInCircles.push(park);
             }
             else {
-                console.log('=> is NOT in searchArea');
+//                console.log('=> is NOT in searchArea');
             }
         }
         if (withinBounds == false){
-            console.log("removing park")
+//            console.log("removing park")
             park.setMap(null);
         }
-        console.log(parksInCircles);
     }
+
 
 }
 
 
 
-
+//function returnGeometry(park) {
+//    let geometry = { lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) };
+//    return geometry;
+//}
