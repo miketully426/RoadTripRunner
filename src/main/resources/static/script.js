@@ -2,18 +2,19 @@ var map;
 let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
-let natParkDataArray =[];
+let natParkData;
 
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
 async function getNationalParkData() {
     let response = await fetch(parkUrl);
     natParkData = await response.json();
-    console.log(natParkData.data[0].fullName);
+    console.log(natParkData.data[0]);
 }
 
 
 function initMap() {
+    getNationalParkData();
 
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -26,7 +27,6 @@ function initMap() {
 
     directionsRenderer.setMap(map);
     getAutocompleteData();
-    getNationalParkData();
 //    displayMarkerAndInfoWindow(natParkData);
 
     const onChangeHandler = function () {
@@ -55,12 +55,12 @@ function initMap() {
         for (let i = 0; i < places.length; i++) {
             const marker = new google.maps.Marker({
                 map: map,
-                position: places[i].geometry.location,
-                title: places[i].name,
+                position: places.data[i].latLong,
+                title: places.data[i].name,
             });
             markers.push(marker);
             let infoWindowDefaultText = "point of interest";
-            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
+//            let infoWindowMarkerText = "<b>"+`${places[i].name}`+"</b>" + "<br>" + `${places[i].formatted_address}` + "<br>" + `User Rating: ${places[i].rating}`;
 
             marker.addListener("click", () => {
                 infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
