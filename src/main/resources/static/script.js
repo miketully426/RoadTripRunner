@@ -25,14 +25,12 @@ function initMap() {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const infoWindow = new google.maps.InfoWindow();
-    let parksInCircles = [];
 
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: centerZoom,
         center: { lat: centerLatitude, lng: centerLongitude },
     });
 
-    let nationalParks = [];
     directionsRenderer.setMap(map);
     getAutocompleteData();
 
