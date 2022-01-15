@@ -4,6 +4,7 @@ let centerLongitude = -97.65;
 let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 let allParks = [];
+let nationalParksWithinRoute = [];
 
 function nationalParksRequest() {
     var request = new XMLHttpRequest();
@@ -128,6 +129,9 @@ function initMap() {
             for (waypointCircle of allCircles) {
                 if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
                     displayMarkerAndInfoWindow(allParks[i]);
+                    if (!nationalParksWithinRoute.includes(allParks[i].fullName)) {
+                        nationalParksWithinRoute.push(allParks[i].fullName);
+                    }
                 }
             }
         }
