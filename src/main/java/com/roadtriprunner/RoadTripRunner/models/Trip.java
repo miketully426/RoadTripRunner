@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -31,4 +31,6 @@ public class Trip  extends AbstractEntity {
 
     public Trip() {};
 
+    ArrayList<String> itinerary = new ArrayList<>();
+//itinerary[0] = startingLocation, [1] = endingLocation, .push() other names of locations
 }
