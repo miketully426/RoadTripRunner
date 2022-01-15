@@ -5,7 +5,7 @@ let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 
 
-var allParks = [];
+let allParks = [];
 
 function nationalParksRequest() {
     var request = new XMLHttpRequest();
@@ -22,11 +22,11 @@ nationalParksRequest();
 
 //ATTEMPT TO ADD IN ANOTHER KEY/VALUE PAIR TO EACH PARK, WITH VALUE OF OBJECT LAT/LONG
 
-//for (let i = 0; i < allParks.length; i++) {
-//    allParks[i].latLng = { lat: parseFloat(allParks[i].latitude), lng: parseFloat(allParks[i].longitude) };
-//}
-//console.log(allParks.latLng[0]);
-//console.log(allParks.latLng[1]);
+for (let i = 0; i < allParks.length; i++) {
+    allParks[i].latLng = { lat: parseFloat(allParks[i].latitude), lng: parseFloat(allParks[i].longitude) };
+}
+console.log(allParks[0].latLng);
+console.log(allParks[1].latLng);
 
 
 
@@ -60,7 +60,7 @@ function initMap() {
         for (let i = 0; i < places.length; i++) {
             const marker = new google.maps.Marker({
                 map: map,
-                position: { lat: parseFloat(places[i].latitude), lng: parseFloat(places[i].longitude) },
+                position: places[i].latLng,
                 title: places[i].fullName,
             });
             markers.push(marker);
@@ -129,7 +129,7 @@ function initMap() {
 
 
 
-function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
+function findPointsOfInterest (encodedWaypoints, map, nationalParksArray) {
 
     let decodedWaypoints = decode(encodedWaypoints);
     let waypoints = [];
@@ -154,16 +154,16 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
 
         allCircles.push(waypointCircle);
     }
-
-
 //    let parksInCircles = [];
 
-    for (park of nationalParks) {
+    console.log(nationalParksArray[0].getPosition());
+
+    for (park of nationalParksArray) {
         let withinBounds = false;
         for (waypointCircle of allCircles) {
             if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
 //                parksInCircles.push(park);
-//                console.log('=> is in searchArea');
+                console.log('=> is in searchArea');
                 withinBounds = true;
 
 //                parksInCircles.push(park);
@@ -173,17 +173,15 @@ function findPointsOfInterest (encodedWaypoints, map, nationalParks) {
             }
         }
         if (withinBounds == false){
-//            console.log("removing park")
+            console.log("removing park")
             park.setMap(null);
         }
     }
-
-
 }
 
 
 
-//function returnGeometry(park) {
-//    let geometry = { lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) };
-//    return geometry;
-//}
+function returnGeometry(park) {
+    var geometry = { lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) };
+    return geometry;
+}
