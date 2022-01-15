@@ -31,9 +31,4 @@ public class Trip  extends AbstractEntity {
 
     public Trip() {};
 
-//    @Min(0)
-//    @Max(150)
-//    private Integer detourRadius;
-
-
 }

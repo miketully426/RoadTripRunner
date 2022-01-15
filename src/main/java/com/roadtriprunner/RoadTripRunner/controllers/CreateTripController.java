@@ -58,20 +58,21 @@ public class CreateTripController {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
         User theUser = getUserFromSession(request.getSession());
         model.addAttribute("loggedInUser", theUser);
+        model.addAttribute("trip", new Trip());
         return "planATrip";
     }
 
     @PostMapping("/planATrip")
     public String processRouteForm(@ModelAttribute @Valid Trip newTrip, Errors errors, Model model, RouteDTO routeDTO, HttpServletRequest request) {
         model.addAttribute("gmapsApiKey", gmapsApiKey);
+        User theUser = getUserFromSession(request.getSession());
+        model.addAttribute("loggedInUser", theUser);
         if (errors.hasErrors()) {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "landing";
         }
         Trip trip = new Trip(routeDTO.getStartingLocation(), routeDTO.getEndingLocation());
         tripRepository.save(trip);
-        User theUser = getUserFromSession(request.getSession());
-        model.addAttribute("loggedInUser", theUser);
         return "redirect:";
     }
 

@@ -7,7 +7,7 @@
     <h1>Plan Your Trip Here</h1>
     <main class="flex-container">
         <div class="directions">
-            <form>
+            <form method="post">
                 <div>
                     <label>Starting Location:
                         <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
@@ -24,10 +24,16 @@
                     </label>
                     <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
+
+                <div>
+                     <label th:for="tripName"> Name your trip:
+                         <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
+                     </label>
+                </div>
                 <input type="submit" value="Save Trip"/>
             </form>
             <div>
-                <button class="submit" id="submit-button">Submit!</button>
+                <button class="submit" id="submit-button">Display route</button>
             </div>
 
         </div>
