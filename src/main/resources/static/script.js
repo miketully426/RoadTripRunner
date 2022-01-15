@@ -3,8 +3,6 @@ let centerLatitude = 37.85;
 let centerLongitude = -97.65;
 let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
-
-
 let allParks = [];
 
 function nationalParksRequest() {
@@ -18,17 +16,9 @@ function nationalParksRequest() {
 }
 
 nationalParksRequest();
-
-
-//ATTEMPT TO ADD IN ANOTHER KEY/VALUE PAIR TO EACH PARK, WITH VALUE OF OBJECT LAT/LONG
-
 for (let i = 0; i < allParks.length; i++) {
     allParks[i].latLng = { lat: parseFloat(allParks[i].latitude), lng: parseFloat(allParks[i].longitude) };
 }
-console.log(allParks[0].latLng);
-console.log(allParks[1].latLng);
-
-
 
 function initMap() {
 
@@ -45,57 +35,44 @@ function initMap() {
     let nationalParks = [];
     directionsRenderer.setMap(map);
     getAutocompleteData();
-//    nationalParks = displayMarkerAndInfoWindow(allParks); could put this back in
-
 
     const onChangeHandler = function () {
-        displayMarkerAndInfoWindow(parksInCircles);
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
 
+    function displayMarkerAndInfoWindow(place) {
+      let marker = new google.maps.Marker({
+        map: map,
+        position: place.latLng,
+        title: place.fullName,
+      });
+      let infoWindowDefaultText = "point of interest";
+      let infoWindowMarkerText = "<b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
+      "<br>" + `${place.directionsUrl}` + "<br>" + `${place.designation}`;
 
-    function displayMarkerAndInfoWindow(places) {
-        let markers = [];
-        for (let i = 0; i < places.length; i++) {
-            const marker = new google.maps.Marker({
-                map: map,
-                position: places[i].latLng,
-                title: places[i].fullName,
-            });
-            markers.push(marker);
-            let infoWindowDefaultText = "point of interest";
-            let infoWindowMarkerText = "<b>"+`${places[i].fullName}`+"</b>" + "<br>" + `${places[i].description}` +
-                                        "<br>" + `${places[i].directionsUrl}` + "<br>" + `${places[i].designation}`;
-
-            marker.addListener("click", () => {
-                infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
-                infoWindow.open({
-                    anchor: marker,
-                    map,
-                });
-            });
-        }
-        return markers;
+      marker.addListener("click", () => {
+        infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
+        infoWindow.open({
+            anchor: marker,
+            map,
+        });
+      });
+      return marker;
     }
 
     function getAutocompleteData() {
-
         autocompleteRequest =
         {
             componentRestrictions: {'country': ['us']},
             fields: ['geometry', 'name', 'formatted_address']
         }
 
-
         var originInput = document.getElementById("originInput");
         var origin = new google.maps.places.Autocomplete(originInput, autocompleteRequest);
-
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
-
-
 
         google.maps.event.addDomListener(originInput, "keydown", function(event) {
             if (event.keyCode === 13){
@@ -110,7 +87,6 @@ function initMap() {
         });
     }
 
-
     function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         var request = {
             origin: document.getElementById("originInput").value,
@@ -122,19 +98,16 @@ function initMap() {
         .then((response) => {
             directionsRenderer.setDirections(response);
             findPointsOfInterest(response.routes[0].overview_polyline, map);
-            //allParks could be nationalParks (see above)
         })
         .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
     }
 
-
-    //could possibly remove nationalParksArray parameter and replace below with allParks
     function findPointsOfInterest (encodedWaypoints, map) {
 
         let decodedWaypoints = decode(encodedWaypoints);
         let waypoints = [];
 
-        for (let i = 0; i < decodedWaypoints.length; i+=15) {
+        for (let i = 0; i < decodedWaypoints.length; i+=8) {
             waypoints.push(decodedWaypoints[i]);
         }
 
@@ -151,43 +124,15 @@ function initMap() {
                     center: waypointLatLng,
                     radius: 160000,
             });
-
             allCircles.push(waypointCircle);
         }
 
-
-//        console.log(nationalParksArray[0].getPosition());
-
         for (let i = 0; i < allParks.length; i++) {
-            let withinBounds;
-//            console.log(nationalParksArray[0]);
             for (waypointCircle of allCircles) {
                 if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
-                //part.latLng could be park.getPosition() if markers are rendered first
-                    parksInCircles.push(allParks[i]);
-                    console.log(allParks[i].fullName + '=> is in searchArea');
-                    withinBounds = true;
-                }
-                else if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) > waypointCircle.getRadius()) {
-                    withinBounds = false;
-    //                console.log('=> is NOT in searchArea');
-                }
-                else {
-                console.log("nothing above worked");
+                    displayMarkerAndInfoWindow(allParks[i]);
                 }
             }
         }
     }
-}
-
-
-
-
-
-
-
-
-function returnGeometry(park) {
-    var geometry = { lat: parseFloat(park.latitude), lng: parseFloat(park.longitude) };
-    return geometry;
 }
