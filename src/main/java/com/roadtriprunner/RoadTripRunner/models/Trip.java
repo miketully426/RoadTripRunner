@@ -24,10 +24,16 @@ public class Trip  extends AbstractEntity {
     @NotNull
     private String endingLocation;
 
+    public Trip (String startingLocation, String endingLocation) {
+        this.endingLocation = endingLocation;
+        this.startingLocation = startingLocation;
+    }
 
-    @Min(0)
-    @Max(150)
-    private Integer detourRadius;
+    public Trip() {};
+
+//    @Min(0)
+//    @Max(150)
+//    private Integer detourRadius;
 
 
 }
