@@ -48,7 +48,7 @@ function initMap() {
       });
       let infoWindowDefaultText = "point of interest";
       let infoWindowMarkerText = "<b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
-      "<br>" + `${place.directionsUrl}` + "<br>" + `${place.designation}`;
+      "<br>" + "<a href=" + `${place.directionsUrl}` + "/><br>" + `${place.designation}`;
 
       marker.addListener("click", () => {
         infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
