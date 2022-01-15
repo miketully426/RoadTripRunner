@@ -10,13 +10,6 @@
             <form method="post">
 
                 <div>
-                    <label th:for="tripName"> Name your trip:
-                        <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
-                    </label>
-                </div>
-                <br>
-                <br>
-                <div>
                     <label>Starting Location:
                         <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
                     </label>
@@ -33,10 +26,30 @@
                 <br>
                 <br>
                 <div>
-                    <label>National Parks To Add To Route</label>
+                    <label><b>Possible stops to add to route:</b></label>
+                    <p>Add one, add all three, it's up to you!</p>
+
+
+                        <label>First Stop:
+                            <input class="input" type="text" th:field="${trip.stopOne}" th:value="${trip.stopOne}" placeholder="add your stop here!">
+                        </label>
+                        <br>
+                        <label>Second Stop:
+                            <input class="input" type="text" th:field="${trip.stopTwo}" th:value="${trip.stopTwo}" placeholder="add your stop here!">
+                        </label>
+                        <br>
+                        <label>Third Stop:
+                            <input class="input" type="text" th:field="${trip.stopThree}" th:value="${trip.stopThree}" placeholder="add your stop here!">
+                        </label>
 
                 </div>
-
+                <br>
+                <br>
+                <div>
+                    <label th:for="tripName"> <b>Name your trip:</b>
+                        <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
+                    </label>
+                </div>
 
                 <input type="submit" value="Save Trip"/>
             </form>

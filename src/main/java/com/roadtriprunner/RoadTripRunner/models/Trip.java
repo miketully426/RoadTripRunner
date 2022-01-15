@@ -14,14 +14,13 @@ import java.util.List;
 @Data
 public class Trip  extends AbstractEntity {
 
+
     private String tripName;
 
     @NotBlank(message = "Starting location is required.")
-    @NotNull
     private String startingLocation;
 
     @NotBlank(message="Ending location is required.")
-    @NotNull
     private String endingLocation;
 
     public Trip (String startingLocation, String endingLocation) {
@@ -29,8 +28,21 @@ public class Trip  extends AbstractEntity {
         this.startingLocation = startingLocation;
     }
 
+    public Trip(String tripName, String startingLocation, String endingLocation, String stopOne, String stopTwo, String stopThree) {
+        this.tripName = tripName;
+        this.startingLocation = startingLocation;
+        this.endingLocation = endingLocation;
+        this.stopOne = stopOne;
+        this.stopTwo = stopTwo;
+        this.stopThree = stopThree;
+    }
+
     public Trip() {};
 
-    ArrayList<String> itinerary = new ArrayList<>();
-//itinerary[0] = startingLocation, [1] = endingLocation, .push() other names of locations
+    private String stopOne;
+
+    private String stopTwo;
+
+    private String stopThree;
+
 }

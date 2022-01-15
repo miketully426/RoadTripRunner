@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Optional;
 
 
@@ -71,7 +70,7 @@ public class CreateTripController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "landing";
         }
-        Trip trip = new Trip(routeDTO.getStartingLocation(), routeDTO.getEndingLocation());
+        Trip trip = new Trip(newTrip.getTripName(), routeDTO.getStartingLocation(), routeDTO.getEndingLocation(), newTrip.getStopOne(), newTrip.getStopTwo(), newTrip.getStopThree());
         tripRepository.save(trip);
         return "redirect:";
     }
