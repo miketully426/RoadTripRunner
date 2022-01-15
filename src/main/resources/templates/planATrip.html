@@ -8,33 +8,35 @@
     <main class="flex-container">
         <div class="directions">
             <form method="post">
+
+                <div>
+                    <label th:for="tripName"> Name your trip:
+                        <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
+                    </label>
+                </div>
+                <br>
+                <br>
                 <div>
                     <label>Starting Location:
                         <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
                     </label>
                     <p class="error" th:errors="${routeDTO.startingLocation}"></p>
                 </div>
-
                 <br>
                 <br>
-
                 <div>
                     <label> Destination:
                         <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="traveling to...">
                     </label>
                     <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
-
+                <br>
+                <br>
                 <div>
-                     <label th:for="tripName"> Name your trip:
-                         <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
-                     </label>
+                    <label>National Parks To Add To Route</label>
+
                 </div>
 
-<!--                <div>-->
-<!--                    <label>National Parks Within Bounds of Route</label>-->
-<!--                    <input th:each = "park : ${nationalParksWithinRoute}" type="checkbox">-->
-<!--                </div>-->
 
                 <input type="submit" value="Save Trip"/>
             </form>
