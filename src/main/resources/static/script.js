@@ -4,7 +4,7 @@ let centerLongitude = -97.65;
 let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 let allParks = [];
-let nationalParksWithinRoute = [];
+let nationalParksWithinBoundsOfRoute = [];
 
 function nationalParksRequest() {
     var request = new XMLHttpRequest();
@@ -48,8 +48,8 @@ function initMap() {
         title: place.fullName,
       });
       let infoWindowDefaultText = "point of interest";
-      let infoWindowMarkerText = "<b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
-      "<br>" + "<a href=" + `${place.directionsUrl}` + "/><br>" + `${place.designation}`;
+      let infoWindowMarkerText = "<img src =" + `${place.images[0].url}` + " width='500'><br><br><b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
+      "<br><br>Park Designation: " + `${place.designation}` + "<br><a href=" + `${place.directionsUrl}` + "/>" + `${place.directionsUrl}` ;
 
       marker.addListener("click", () => {
         infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
@@ -129,8 +129,8 @@ function initMap() {
             for (waypointCircle of allCircles) {
                 if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
                     displayMarkerAndInfoWindow(allParks[i]);
-                    if (!nationalParksWithinRoute.includes(allParks[i].fullName)) {
-                        nationalParksWithinRoute.push(allParks[i].fullName);
+                    if (!nationalParksWithinBoundsOfRoute.includes(allParks[i].fullName)) {
+                        nationalParksWithinBoundsOfRoute.push(allParks[i].fullName);
                     }
                 }
             }
