@@ -35,6 +35,7 @@ function initMap() {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const infoWindow = new google.maps.InfoWindow();
+    let parksInCircles = [];
 
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: centerZoom,
@@ -42,13 +43,13 @@ function initMap() {
     });
 
     let nationalParks = [];
-    displayMarkerAndInfoWindow(allParks);
     directionsRenderer.setMap(map);
     getAutocompleteData();
-    nationalParks = displayMarkerAndInfoWindow(allParks);
+//    nationalParks = displayMarkerAndInfoWindow(allParks); could put this back in
 
 
     const onChangeHandler = function () {
+        displayMarkerAndInfoWindow(parksInCircles);
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     };
 
@@ -120,64 +121,69 @@ function initMap() {
         directionsService.route(request)
         .then((response) => {
             directionsRenderer.setDirections(response);
-            findPointsOfInterest(response.routes[0].overview_polyline, map, nationalParks);
+            findPointsOfInterest(response.routes[0].overview_polyline, map);
+            //allParks could be nationalParks (see above)
         })
         .catch((e) => window.alert("Sorry, we could not calculate driving directions for these locations. Please try a different location."));
     }
+
+
+    //could possibly remove nationalParksArray parameter and replace below with allParks
+    function findPointsOfInterest (encodedWaypoints, map) {
+
+        let decodedWaypoints = decode(encodedWaypoints);
+        let waypoints = [];
+
+        for (let i = 0; i < decodedWaypoints.length; i+=15) {
+            waypoints.push(decodedWaypoints[i]);
+        }
+
+        let allCircles = [];
+        for(const waypoint of waypoints) {
+            var waypointLatLng = new google.maps.LatLng(waypoint[0], waypoint[1])
+            var waypointCircle = new google.maps.Circle({
+                strokeColor: "#add8e6",
+                    strokeOpacity: 0,
+                    strokeWeight: 0,
+                    fillColor: "#add8e6",
+                    fillOpacity: 0.35,
+                    map,
+                    center: waypointLatLng,
+                    radius: 160000,
+            });
+
+            allCircles.push(waypointCircle);
+        }
+
+
+//        console.log(nationalParksArray[0].getPosition());
+
+        for (let i = 0; i < allParks.length; i++) {
+            let withinBounds;
+//            console.log(nationalParksArray[0]);
+            for (waypointCircle of allCircles) {
+                if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
+                //part.latLng could be park.getPosition() if markers are rendered first
+                    parksInCircles.push(allParks[i]);
+                    console.log(allParks[i].fullName + '=> is in searchArea');
+                    withinBounds = true;
+                }
+                else if (google.maps.geometry.spherical.computeDistanceBetween(allParks[i].latLng, waypointCircle.getCenter()) > waypointCircle.getRadius()) {
+                    withinBounds = false;
+    //                console.log('=> is NOT in searchArea');
+                }
+                else {
+                console.log("nothing above worked");
+                }
+            }
+        }
+    }
 }
 
 
 
 
-function findPointsOfInterest (encodedWaypoints, map, nationalParksArray) {
 
-    let decodedWaypoints = decode(encodedWaypoints);
-    let waypoints = [];
-
-    for (let i = 0; i < decodedWaypoints.length; i+=15) {
-        waypoints.push(decodedWaypoints[i]);
-    }
-
-    let allCircles = [];
-    for(const waypoint of waypoints) {
-        var waypointLatLng = new google.maps.LatLng(waypoint[0], waypoint[1])
-        var waypointCircle = new google.maps.Circle({
-            strokeColor: "#add8e6",
-                strokeOpacity: 0,
-                strokeWeight: 0,
-                fillColor: "#add8e6",
-                fillOpacity: 0.35,
-                map,
-                center: waypointLatLng,
-                radius: 160000,
-        });
-
-        allCircles.push(waypointCircle);
-    }
-//    let parksInCircles = [];
-
-    console.log(nationalParksArray[0].getPosition());
-
-    for (park of nationalParksArray) {
-        let withinBounds = false;
-        for (waypointCircle of allCircles) {
-            if (google.maps.geometry.spherical.computeDistanceBetween(park.getPosition(), waypointCircle.getCenter()) <= waypointCircle.getRadius()) {
-//                parksInCircles.push(park);
-                console.log('=> is in searchArea');
-                withinBounds = true;
-
-//                parksInCircles.push(park);
-            }
-            else {
-//                console.log('=> is NOT in searchArea');
-            }
-        }
-        if (withinBounds == false){
-            console.log("removing park")
-            park.setMap(null);
-        }
-    }
-}
 
 
 
