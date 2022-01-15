@@ -61,6 +61,14 @@ function initMap() {
       return marker;
     }
 
+    function stopEnterFromSubmittingForm(elementId) {
+        google.maps.event.addDomListener(elementId, "keydown", function(event) {
+            if (event.keyCode === 13){
+                event.preventDefault();
+            }
+        });
+    }
+
     function getAutocompleteData() {
         autocompleteRequest =
         {
@@ -73,17 +81,16 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-        google.maps.event.addDomListener(originInput, "keydown", function(event) {
-            if (event.keyCode === 13){
-                event.preventDefault();
-            }
-        });
+        new google.maps.places.Autocomplete(document.getElementById("stopOne"), autocompleteRequest);
+        new google.maps.places.Autocomplete(document.getElementById("stopTwo"), autocompleteRequest);
+        new google.maps.places.Autocomplete(document.getElementById("stopThree"), autocompleteRequest);
 
-        google.maps.event.addDomListener(destinationInput, "keydown", function(event) {
-            if (event.keyCode === 13){
-                event.preventDefault();
-            }
-        });
+
+        stopEnterFromSubmittingForm(originInput);
+        stopEnterFromSubmittingForm(destinationInput);
+        stopEnterFromSubmittingForm(document.getElementById("stopOne"));
+        stopEnterFromSubmittingForm(document.getElementById("stopTwo"));
+        stopEnterFromSubmittingForm(document.getElementById("stopThree"));
     }
 
     function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -134,3 +141,4 @@ function initMap() {
         }
     }
 }
+
