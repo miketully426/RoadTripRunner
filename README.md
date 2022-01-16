@@ -4,17 +4,16 @@
 RoadTrip Runner provides users with the tools to create carefully-curated and memorable road trips. Authorized users interact with a clear and easy-to-use interface in which users enter their starting and ending locations, and then the application renders a map with those locations as well as all National Parks along their route. Users can select National Parks to add to their trip and then save the trip for future reference. RoadTrip Runner allows the everyday user, young or old, to plan their ideal National Park tour.
 
 ## Features
-1. **Authentication and Authorization**: 
-Individuals must register with the app, using a complex password, and their login information is saved to the database. Users login to utilize the app. <br>
+1. **Authentication and Authorization**: Individuals must register with the app, using a complex password, and their login information is saved to the database. Users login to utilize the app.
 
 
-2. **Autocomplete**: When planning a trip, users will be aided by the Google Maps Autocomplete API when entering in starting locations, destinations, and choosing National Parks to add to their trip.    
+2. **Autocomplete**: When planning a trip, users are aided by the Google Maps Autocomplete API when entering in starting locations, destinations, and choosing National Parks to add to their trip.    
 
 
-3. **Informative and Interactive Map**: When planning a trip, users see an interactive map that displays the starting and ending locations, the most efficient driving pathway connecting the two locations, and all National Parks within 100 miles of their route. Each National Park is pinned with a marker and a comprehensive information window to assist the user in determining which National Park would be best suited for them. Both the Google Maps API and the National Park Service API feed into the map, so the information is guaranteed to be up-to-date at all times. 
+3. **Informative and Interactive Map**: When planning a trip, users see an interactive map that displays the starting and ending locations, the most efficient driving pathway connecting the two locations, and all National Parks within 100 miles of their route. Each National Park is pinned with a marker and a comprehensive information window to assist the user in determining which National Park(s) would be best suited for them. Both the Google Maps API and the National Park Service API feed into the map, so the information is guaranteed to be up-to-date at all times. 
 
 
-4. **Trip Repository**: Users may save their trips, which links the user to the trip within the database, and then the user may view the trip at a future point.
+4. **Trip Repository**: Users may save their trips, thereby linking the user to the trip within our database. The user may view their named trip at a future point.
 
 
 5. **Demo Video**: Guests and users can view a demonstration video that details the features of the app.
