@@ -15,4 +15,8 @@ public class RouteDTO {
     @NotNull
     private String endingLocation;
 
+    @NotBlank(message="Please name your trip to save it!")
+    @NotNull
+    private String tripName;
+
 }

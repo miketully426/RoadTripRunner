@@ -47,8 +47,9 @@
                 <br>
                 <div>
                     <label th:for="tripName"> <b>Name your trip:</b>
-                        <input type="text" th:field="${trip.tripName}" id="tripName" th:value="${trip.tripName}">
+                        <input type="text" th:field="${routeDTO.tripName}" id="tripName" th:value="${routeDTO.tripName}">
                     </label>
+                    <p class="error" th:errors="${routeDTO.tripName}"></p>
                 </div>
 
                 <input type="submit" value="Save Trip"/>

@@ -71,7 +71,7 @@ public class CreateTripController {
             model.addAttribute("title", "Enter Your Starting and Ending Locations");
             return "/planATrip";
         }
-        Trip trip = new Trip(newTrip.getTripName(), routeDTO.getStartingLocation(), routeDTO.getEndingLocation(), newTrip.getStopOne(), newTrip.getStopTwo(), newTrip.getStopThree());
+        Trip trip = new Trip(routeDTO.getTripName(), routeDTO.getStartingLocation(), routeDTO.getEndingLocation(), newTrip.getStopOne(), newTrip.getStopTwo(), newTrip.getStopThree());
         tripRepository.save(trip);
         return "redirect:";
     }
