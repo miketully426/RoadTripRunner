@@ -6,6 +6,7 @@ const natParkApiKey = "ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key="+natParkApiKey;
 let allParks = [];
 
+
 function nationalParksRequest() {
     var request = new XMLHttpRequest();
     request.open('GET', parkUrl, false);
