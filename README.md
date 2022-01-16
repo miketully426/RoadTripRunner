@@ -1,7 +1,7 @@
 # RoadTrip Runner
 
 ## Description
-RoadTrip Runner is an app designed for the everyday user, young or old, to plan their ideal National Park tour.  Users interact with an easy-to-use interface that shows their starting and ending locations, along with all National Parks along their route. Users can select National Parks to add to their trip, and then save the trip for future reference. RoadTrip Runner provides our users with the tools to create carefully-curated and memorable road trips.
+RoadTrip Runner provides users with the tools to create carefully-curated and memorable road trips. Authorized users interact with a clear and easy-to-use interface in which users enter their starting and ending locations, and then the application renders a map with those locations as well as all National Parks along their route. Users can select National Parks to add to their trip and then save the trip for future reference. RoadTrip Runner allows the everyday user, young or old, to plan their ideal National Park tour.
 
 ## Features
 1. **Authentication and Authorization**: 
