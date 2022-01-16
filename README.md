@@ -23,7 +23,11 @@ Individuals must register with the app, using a complex password, and their logi
 ## Future Development
 * Restructure the coding approach to use more of the Java Client for Google Maps Services.
 * Have the user add National Parks to their trip in an easier way. Ideas include clicking on the marker or on checkboxes of options.
-* Use the Google Places API or other APIs to include other possible locations to add to the user's route.
+* Use the Google Places API or other APIs to include other possible locations to add to the user's route. Filter locations by price point, category, etc.
+* Allow the user to suggest possible locations to be included in the location database for other users to select. Incorporate administration access to approve these user suggested places.
+* Have the user have the ability to choose the detour radius.
+* Have an itinerary page that easily allows the user to print the trip.
+* Style the project with Angular rather than Thymeleaf.
 
 ## Authors and Acknowledgment
 |Authors   |Acknowledgment   |
