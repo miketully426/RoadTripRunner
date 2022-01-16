@@ -1,24 +1,33 @@
 # RoadTrip Runner
 
-### Description
-RoadTrip Runner is an app designed for the everyday user, young or old, to plan their ideal National Park tour.  Users interact with an easy-to-use interface that shows their starting and ending locations, along with all National Parks along their route. Users can select National Parks to add to their trip, and then save the trip for future reference. This will provide our users with a carefully-curated road trip that will be one to remember!
+## Description
+RoadTrip Runner is an app designed for the everyday user, young or old, to plan their ideal National Park tour.  Users interact with an easy-to-use interface that shows their starting and ending locations, along with all National Parks along their route. Users can select National Parks to add to their trip, and then save the trip for future reference. RoadTrip Runner provides our users with the tools to create carefully-curated and memorable road trips.
 
-### Features
-* Authentication and Authorization: Individuals must register with the app, using a complex password, and their login information is saved to the database. Users login to utilize the app.
-* Autocomplete: When planning a trip, users will be aided by the Google Maps Autocomplete API when entering in starting locations, destinations, and choosing National Parks to add to their trip.    
-* Informative and Interactive Map: When planning a trip, users see an interactive map that displays the starting and ending locations, the most efficient driving pathway connecting the two locations, and all National Parks within 100 miles of their route. Each National Park is pinned with a marker and a comprehensive information window to assist the user in determining which National Park would be best suited for them. Both the Google Maps API and the National Park Service API feed into the map, so the information is guaranteed to be up-to-date at all times. 
-* Trip Repository: Users may save their trips, which links the user to the trip within the database, and then the user may view the trip at a future point.
-* Demo Video: Guests and users can view a demonstration video that details the features of the app.
+## Features
+###Authentication and Authorization
+Individuals must register with the app, using a complex password, and their login information is saved to the database. Users login to utilize the app.
 
-### Selected Images and Usage
+###Autocomplete
+When planning a trip, users will be aided by the Google Maps Autocomplete API when entering in starting locations, destinations, and choosing National Parks to add to their trip.    
+
+###Informative and Interactive Map
+When planning a trip, users see an interactive map that displays the starting and ending locations, the most efficient driving pathway connecting the two locations, and all National Parks within 100 miles of their route. Each National Park is pinned with a marker and a comprehensive information window to assist the user in determining which National Park would be best suited for them. Both the Google Maps API and the National Park Service API feed into the map, so the information is guaranteed to be up-to-date at all times. 
+
+###Trip Repository
+Users may save their trips, which links the user to the trip within the database, and then the user may view the trip at a future point.
+
+###Demo Video
+Guests and users can view a demonstration video that details the features of the app.
+
+## Selected Images and Usage
 
 
-### Future Development
+## Future Development
 * Restructure the coding approach to use more of the Java Client for Google Maps Services.
 * Have the user add National Parks to their trip in an easier way. Ideas include clicking on the marker or on checkboxes of options.
 * Use the Google Places API or other APIs to include other possible locations to add to the user's route.
 
-### Authors and Acknowledgment
+## Authors and Acknowledgment
 |Authors   |Acknowledgment   |
 |---|---|
 |  Emily Gerst |  [Google Maps Platform](https://developers.google.com/maps) |
