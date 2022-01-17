@@ -5,75 +5,67 @@
 <header th:replace="fragments :: loggedInPageHeader"></header>
 
 
-<h1>Plan Your Trip Here</h1>
-<div id="map-buttons">
-    <button class="submit" id="submit-button">Display route</button>
-    <button class="submit" id="reset-button">Reset map</button>
-</div>
-
-
 <main class="flex-container">
     <div class="directions">
         <form method="post">
-
-            <div>
-                <label>Starting Location:
-                    <br>
-                    <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
-                </label>
-                <p class="error" th:errors="${routeDTO.startingLocation}"></p>
+            <div class="start-end-destination">
+                <div>
+                    <label>Starting Location
+                        <br>
+                        <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
+                    </label>
+                    <p class="error" th:errors="${routeDTO.startingLocation}"></p>
+                </div>
+                <br>
+                <div>
+                    <label> Destination
+                        <br>
+                        <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="traveling to...">
+                    </label>
+                    <p class="error" th:errors="${routeDTO.endingLocation}"></p>
+                </div>
             </div>
-            <br>
-            <div>
-                <label> Destination:
-                    <br>
-                    <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="traveling to...">
-                </label>
-                <p class="error" th:errors="${routeDTO.endingLocation}"></p>
+
+            <div id="map-buttons">
+                <button class="submit" id="submit-button">Display Route</button>
+                <button class="submit" id="reset-button">Reset Map</button>
             </div>
 
-
             <br>
             <br>
-            <div>
-                <label><b>Possible National Parks to add to route:</b></label>
+            <div class="possible-stops">
+                <label><b>Possible National Parks to add to route</b></label>
                 <p>Add one, add all three, it's up to you!</p>
                 <br>
 
-                <label>First Stop:
+                <label>First Stop
                     <br>
-                    <input class="input" id="stopOne" type="text" th:field="${trip.stopOne}" th:value="${trip.stopOne}" placeholder="Add your stop here!">
+                    <input class="input" id="stopOne" type="text" th:field="${trip.stopOne}" th:value="${trip.stopOne}">
                 </label>
                 <br>
-                <label>Second Stop:
+                <label>Second Stop
                     <br>
-                    <input class="input" id="stopTwo" type="text" th:field="${trip.stopTwo}" th:value="${trip.stopTwo}" placeholder="Add your stop here!">
+                    <input class="input" id="stopTwo" type="text" th:field="${trip.stopTwo}" th:value="${trip.stopTwo}">
                 </label>
                 <br>
-                <label>Third Stop:
+                <label>Third Stop
                     <br>
-                    <input class="input" id="stopThree" type="text" th:field="${trip.stopThree}" th:value="${trip.stopThree}" placeholder="Add your stop here!">
+                    <input class="input" id="stopThree" type="text" th:field="${trip.stopThree}" th:value="${trip.stopThree}">
                 </label>
 
             </div>
             <br>
             <br>
             <div>
-                <label th:for="tripName"> <b>Name Your Trip:</b>
-                    <input class="input" type="text" th:field="${routeDTO.tripName}" id="tripName" th:value="${routeDTO.tripName}" placeholder="Trip Name">
+                <label th:for="tripName"> Trip Name
+                    <br>
+                    <input class="input" type="text" th:field="${routeDTO.tripName}" id="tripName" th:value="${routeDTO.tripName}">
                 </label>
                 <p class="error" th:errors="${routeDTO.tripName}"></p>
             </div>
 
-            <input class="submit" type="submit" value="Save Trip"/>
+            <input class="submit" type="submit" value="Save"/>
         </form>
-
-
-
-
-
-
-
     </div>
     <div id="map"></div>
 </main>
