@@ -7,6 +7,11 @@
 
 <main class="flex-container">
     <div class="directions">
+
+        <div id="map-buttons">
+            <button class="submit" id="submit-button">Display Route</button>
+            <button class="submit" id="reset-button">Reset Map</button>
+        </div>
         <form method="post">
             <div class="start-end-destination">
                 <div>
@@ -24,11 +29,6 @@
                     </label>
                     <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
-            </div>
-
-            <div id="map-buttons">
-                <button class="submit" id="submit-button">Display Route</button>
-                <button class="submit" id="reset-button">Reset Map</button>
             </div>
 
             <br>
