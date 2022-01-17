@@ -12,6 +12,7 @@
             <button class="submit" id="submit-button">Display Route</button>
             <button class="submit" id="reset-button">Reset Map</button>
         </div>
+        <div class="directions-position">
         <form method="post">
             <div class="start-end-destination">
                 <div>
@@ -30,7 +31,7 @@
                     <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
             </div>
-
+            <br>
             <br>
             <br>
             <div class="possible-stops">
@@ -66,6 +67,7 @@
 
             <input class="submit" type="submit" value="Save"/>
         </form>
+        </div>
     </div>
     <div id="map"></div>
 </main>

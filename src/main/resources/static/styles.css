@@ -109,7 +109,9 @@ iframe {
 }
 
 #map-buttons{
-
+  margin-top: 190px;
+  position: absolute;
+  z-index: 1;
 }
 .header-right{
   margin-top: 20px;
@@ -152,6 +154,10 @@ h1 {
   margin-top: 80px;
   height: 90%;
   width: 100%;
+}
+
+#directions-position{
+  position: absolute;
 }
 
 .column-right{
