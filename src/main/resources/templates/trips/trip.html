@@ -11,13 +11,15 @@
         <h3 id="trip-name" th:text="${trip.tripName}"></h3>
         <br>
         <div class="itinerary-stops">
-            <h5>Starting: ➡️ </h5>
+            <h5>🚗️ Starting: </h5>
             <p th:text="${trip.startingLocation}"></p>
             <br>
             <h5>Stops: </h5>
-            <p th:text="${trip.stopOne}"></p>
-            <p th:text="${trip.stopTwo}"></p>
-            <p th:text="${trip.stopThree}"></p>
+            <ul>
+                <li th:text="${trip.stopOne}"></li>
+                <li th:text="${trip.stopTwo}"></li>
+                <li th:text="${trip.stopThree}"></li>
+            </ul>
             <br>
             <h5>🚩 Destination: </h5>
             <p th:text="${trip.endingLocation}"></p>
