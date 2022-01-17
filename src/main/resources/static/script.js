@@ -5,6 +5,7 @@ let centerZoom = 4;
 let parkUrl = "https://developer.nps.gov/api/v1/parks?limit=465&api_key=ljfsoa6TcSZddUPBiKFw450uW1FKOU0N03N6Tsux";
 let allParks = [];
 
+
 function nationalParksRequest() {
     var request = new XMLHttpRequest();
     request.open('GET', parkUrl, false);
@@ -53,8 +54,8 @@ function initMap() {
         title: place.fullName,
       });
       let infoWindowDefaultText = "point of interest";
-      let infoWindowMarkerText = "<b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
-      "<br>" + `${place.directionsUrl}` + "<br>" + `${place.designation}`;
+      let infoWindowMarkerText = "<img src =" + `${place.images[0].url}` + " width='500'><br><br><b>"+`${place.fullName}`+"</b>" + "<br>" + `${place.description}` +
+      "<br><br>Park Designation: " + `${place.designation}` + "<br><a href=" + `${place.directionsUrl}` + "/>" + `${place.directionsUrl}` ;
 
       marker.addListener("click", () => {
         infoWindow.setContent(infoWindowMarkerText || infoWindowDefaultText);
@@ -64,6 +65,14 @@ function initMap() {
         });
       });
       return marker;
+    }
+
+    function stopEnterFromSubmittingForm(elementId) {
+        google.maps.event.addDomListener(elementId, "keydown", function(event) {
+            if (event.keyCode === 13){
+                event.preventDefault();
+            }
+        });
     }
 
     function getAutocompleteData() {
@@ -78,17 +87,16 @@ function initMap() {
         var destinationInput = document.getElementById("destinationInput");
         var destination = new google.maps.places.Autocomplete(destinationInput, autocompleteRequest);
 
-        google.maps.event.addDomListener(originInput, "keydown", function(event) {
-            if (event.keyCode === 13){
-                event.preventDefault();
-            }
-        });
+        new google.maps.places.Autocomplete(document.getElementById("stopOne"), autocompleteRequest);
+        new google.maps.places.Autocomplete(document.getElementById("stopTwo"), autocompleteRequest);
+        new google.maps.places.Autocomplete(document.getElementById("stopThree"), autocompleteRequest);
 
-        google.maps.event.addDomListener(destinationInput, "keydown", function(event) {
-            if (event.keyCode === 13){
-                event.preventDefault();
-            }
-        });
+
+        stopEnterFromSubmittingForm(originInput);
+        stopEnterFromSubmittingForm(destinationInput);
+        stopEnterFromSubmittingForm(document.getElementById("stopOne"));
+        stopEnterFromSubmittingForm(document.getElementById("stopTwo"));
+        stopEnterFromSubmittingForm(document.getElementById("stopThree"));
     }
 
     function calculateAndDisplayRoute(directionsService, directionsRenderer) {
@@ -140,3 +148,4 @@ function initMap() {
     }
 
 }
+

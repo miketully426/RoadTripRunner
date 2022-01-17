@@ -12,7 +12,12 @@
         <div class="itinerary-stops">
             <h5>Starting: </h5>
             <p th:text="${trip.startingLocation}"></p>
+            <br>
             <h5>Stops: </h5>
+            <p th:text="${trip.stopOne}"></p>
+            <p th:text="${trip.stopTwo}"></p>
+            <p th:text="${trip.stopThree}"></p>
+            <br>
             <h5>Destination: </h5>
             <p th:text="${trip.endingLocation}"></p>
         </div>

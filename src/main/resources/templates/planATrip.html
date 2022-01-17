@@ -7,24 +7,61 @@
     <h1>Plan Your Trip Here</h1>
     <main class="flex-container">
         <div class="directions">
-            <form>
+            <form method="post">
+
                 <div>
                     <label>Starting Location:
-                        <input class="input" type="text" id="originInput" placeholder="starting from...">
+                        <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
                     </label>
+                    <p class="error" th:errors="${routeDTO.startingLocation}"></p>
                 </div>
-
                 <br>
                 <br>
-
                 <div>
                     <label> Destination:
-                        <input class="input" type="text" id="destinationInput" placeholder="traveling to...">
+                        <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="traveling to...">
                     </label>
+                    <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
+                <br>
+                <br>
+                <div>
+                    <label><b>Possible stops to add to route:</b></label>
+                    <p>Add one, add all three, it's up to you!</p>
+
+
+                        <label>First Stop:
+                            <input class="input" id="stopOne" type="text" th:field="${trip.stopOne}" th:value="${trip.stopOne}" placeholder="add your stop here!">
+                        </label>
+                        <br>
+                        <label>Second Stop:
+                            <input class="input" id="stopTwo" type="text" th:field="${trip.stopTwo}" th:value="${trip.stopTwo}" placeholder="add your stop here!">
+                        </label>
+                        <br>
+                        <label>Third Stop:
+                            <input class="input" id="stopThree" type="text" th:field="${trip.stopThree}" th:value="${trip.stopThree}" placeholder="add your stop here!">
+                        </label>
+
+                </div>
+                <br>
+                <br>
+                <div>
+                    <label th:for="tripName"> <b>Name your trip:</b>
+                        <input type="text" th:field="${routeDTO.tripName}" id="tripName" th:value="${routeDTO.tripName}">
+                    </label>
+                    <p class="error" th:errors="${routeDTO.tripName}"></p>
+                </div>
+
+                <input type="submit" value="Save Trip"/>
             </form>
-            <button class="submit" id="submit-button">Submit!</button>
+
+            <div>
+                <button class="submit" id="submit-button">Display route</button>
+            </div>
+          <div>
             <button class="submit" id="reset-button">Reset map</button>
+          </div>
+
 
         </div>
         <div id="map"></div>
