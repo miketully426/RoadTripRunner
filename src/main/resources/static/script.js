@@ -40,6 +40,12 @@ function initMap() {
     };
 
     document.querySelector("#submit-button").addEventListener("click", onChangeHandler);
+      document.querySelector("#reset-button").addEventListener("click", function(){
+
+                 location.reload();
+                 console.log("reset button clicked");
+                 });
+
 
     function displayMarkerAndInfoWindow(place) {
       let marker = new google.maps.Marker({
@@ -140,5 +146,6 @@ function initMap() {
             }
         }
     }
+
 }
 
