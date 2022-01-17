@@ -6,17 +6,12 @@
 
         <br>
         <br>
+        <h1>My Saved Trips</h1>
 
         <table class="all-trips">
-            <thead>
-            <tr>
-                <th>Trip Name</th>
-            </tr>
-            </thead>
 
             <tr th:each="trip : ${trips}">
-                <td th:text="${trip.tripName}"></td>
-                <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
+                <td><a class="trip-card" th:text="${trip.tripName}" th:href=" '/trips/trip?tripId=' + ${trip.id} "></a></td>
             </tr>
         </table>
 
