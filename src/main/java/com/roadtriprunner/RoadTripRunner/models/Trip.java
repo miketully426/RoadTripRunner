@@ -3,7 +3,9 @@ package com.roadtriprunner.RoadTripRunner.models;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @EqualsAndHashCode(callSuper = true)
@@ -19,6 +21,15 @@ public class Trip  extends AbstractEntity {
 
     @NotBlank(message="Ending location is required.")
     private String endingLocation;
+
+    private String stopOne;
+
+    private String stopTwo;
+
+    private String stopThree;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     public Trip (String startingLocation, String endingLocation) {
         this.endingLocation = endingLocation;
@@ -36,10 +47,11 @@ public class Trip  extends AbstractEntity {
 
     public Trip() {};
 
-    private String stopOne;
+    public User getUser() {
+        return user;
+    }
 
-    private String stopTwo;
-
-    private String stopThree;
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
