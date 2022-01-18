@@ -7,7 +7,7 @@
         <br>
         <br>
         <h1>My Saved Trips</h1>
-        <div class="all-trips">
+        <div class="flex-container">
             <div th:each="trip : ${trips}">
                 <a class="trip-card" th:text="${trip.tripName}" th:href=" '/trips/trip?tripId=' + ${trip.id} "></a>
             </div>
