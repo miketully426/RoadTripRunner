@@ -36,13 +36,14 @@ public class Trip  extends AbstractEntity {
         this.startingLocation = startingLocation;
     }
 
-    public Trip(String tripName, String startingLocation, String endingLocation, String stopOne, String stopTwo, String stopThree) {
+    public Trip(String tripName, String startingLocation, String endingLocation, String stopOne, String stopTwo, String stopThree, User user) {
         this.tripName = tripName;
         this.startingLocation = startingLocation;
         this.endingLocation = endingLocation;
         this.stopOne = stopOne;
         this.stopTwo = stopTwo;
         this.stopThree = stopThree;
+        this.user = user;
     }
 
     public Trip() {};

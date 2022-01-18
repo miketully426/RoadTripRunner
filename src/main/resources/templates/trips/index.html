@@ -13,12 +13,12 @@
                 <th>Trip Name</th>
             </tr>
             </thead>
-
             <tr th:each="trip : ${trips}">
                 <td th:text="${trip.tripName}"></td>
                 <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
             </tr>
         </table>
+        <p th:text="${noTrips}"></p>
 
         <footer th:replace="fragments :: footer"></footer>
     </body>
