@@ -18,7 +18,7 @@
                 <div>
                     <label>Starting Location
                         <br>
-                        <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="starting from...">
+                        <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="Starting from...">
                     </label>
                     <p class="error" th:errors="${routeDTO.startingLocation}"></p>
                 </div>
@@ -26,7 +26,7 @@
                 <div>
                     <label> Destination
                         <br>
-                        <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="traveling to...">
+                        <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="Traveling to...">
                     </label>
                     <p class="error" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
@@ -60,7 +60,7 @@
             <div>
                 <label th:for="tripName"> Trip Name
                     <br>
-                    <input class="input" type="text" th:field="${routeDTO.tripName}" id="tripName" th:value="${routeDTO.tripName}">
+                    <input class="input" type="text" th:field="${routeDTO.tripName}" id="tripName" placeholder="Enter a trip name" th:value="${routeDTO.tripName}">
                 </label>
                 <p class="error" th:errors="${routeDTO.tripName}"></p>
             </div>
