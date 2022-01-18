@@ -4,10 +4,13 @@ import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -32,6 +35,9 @@ public class User extends AbstractEntity {
 
     private String pwHash;
 
+    @OneToMany(mappedBy = "user")
+    private final List<Trip> trips = new ArrayList<>();
+
 
     public User(String name, String email, String username, String password) {
         this.name = name;
@@ -52,4 +58,7 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public List<Trip> getTrips() {
+        return trips;
+    }
 }
