@@ -12,14 +12,6 @@
                 <a class="trip-card" th:text="${trip.tripName}" th:href=" '/trips/trip?tripId=' + ${trip.id} "></a>
             </div>
         </div>
-
-<!--        <table >-->
-
-<!--            <tr th:each="trip : ${trips}">-->
-<!--                <td><a class="trip-card" th:text="${trip.tripName}" th:href=" '/trips/trip?tripId=' + ${trip.id} "></a></td>-->
-<!--            </tr>-->
-<!--        </table>-->
-
         <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>
