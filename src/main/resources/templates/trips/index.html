@@ -6,20 +6,12 @@
 
         <br>
         <br>
-
-        <table class="all-trips">
-            <thead>
-            <tr>
-                <th>Trip Name</th>
-            </tr>
-            </thead>
-
-            <tr th:each="trip : ${trips}">
-                <td th:text="${trip.tripName}"></td>
-                <td><a th:href=" '/trips/trip?tripId=' + ${trip.id} ">View Trip</a></td>
-            </tr>
-        </table>
-
+        <h1>My Saved Trips</h1>
+        <div class="flex-container">
+            <div th:each="trip : ${trips}">
+                <a class="trip-card" th:text="${trip.tripName}" th:href=" '/trips/trip?tripId=' + ${trip.id} "></a>
+            </div>
+        </div>
         <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

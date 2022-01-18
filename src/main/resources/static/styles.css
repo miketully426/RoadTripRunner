@@ -1,91 +1,32 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Outfit', sans-serif;
 }
-
-.wrapper {
-  width: 100%;
+body {
+  min-height: 100vh;
 }
-
-#titleImg {
-  width: 400px;
+footer {
+  margin-top: auto;
+  text-align: center;
 }
-
-#headerLink {
-  border: solid 2px black;
-  background-color: black;
-  font-size: 25px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  padding: 7px 15px 7px 15px;
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
+h1 {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
 }
-
-#headerLink: hover{
-  font-weight:bold;
-  text-decoration:underline;
-}
-
-#login {
-  color: black;
-  float: right;
-  padding: 5px 25px;
-  visibility: visible;
-}
-
-#welcome {
-  color: black;
-  float: right;
-  padding: 5px 25px;
-  visibility: visible;
-}
-
-
-#login:hover{
-  font-weight: bold;
-}
-
+html,
+ body {
+  height: 100%;
+  margin: 20px;
+  padding: 0;
+ }
 iframe {
   margin: 20px;
   float: left;
 }
-
-#home-form {
-  margin: 20px;
-  float: left;
-}
-
-.home-submit {
-  font-size: 20px;
-  background-color: black;
-  color: white;
-  padding: 15px 40px 15px 40px;
-  border: solid 2px black;
-  border-radius: 3px;
-}
-
-#login-form {
-  flex: 1;
-  flex-direction: column;
-  margin: 60px;
-  text-align: left;
-  height: 100%
-}
-
-.form-link {
-  color: black;
-  text-align: center;
-}
-
-.submit {
-  font-size: 15px;
-  background-color: black;
-  color: white;
-  padding: 5px 20px 5px 20px;
-  border: solid 2px black;
-  border-radius: 3px;
+ul {
+  list-style-position: inside;
 }
 .black-btn {
   font-size: 15px;
@@ -107,23 +48,38 @@ iframe {
   border-radius: 3px;
   width: 100%;
 }
-
-.header-right{
-  margin-top: 20px;
+.button-div{
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  margin-top: 80px;
+  height: 90%;
+  width: 100%;
+}
+.column-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  margin-left: 20px;
 }
 
-
-body {
-  min-height: 100vh;
+.demo-box{
+  flex: 2;
 }
-h1 {
+
+.directions {
+  flex: 1;
+  flex-direction: column;
+  text-align: left;
   margin-top: 20px;
-  text-align: center;
+}
+.errors {
+  color: red;
 }
 .flex-container {
+  margin-top: 20px;
   min-height: 90vh;
   display:flex;
   flex-direction: row;
@@ -139,64 +95,104 @@ h1 {
   margin-top: 20px;
   height: 100%;
 }
-
-.button-div{
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  align-items: center;
-  margin-top: 80px;
-  height: 90%;
-  width: 100%;
-}
-
-.column-right{
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  align-items: stretch;
-  margin-left: 20px;
-}
-
-.errors {
-  color: red;
-}
-footer {
-  margin-top: auto;
+.form-link {
+  color: black;
   text-align: center;
 }
-
-#map {
+.header-right{
   margin-top: 20px;
-  flex:2
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
-
-#main-box {
-  margin-top:  2rem;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 20px;
-  padding: 0;
+.home-submit {
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  padding: 15px 40px 15px 40px;
+  border: solid 2px black;
+  border-radius: 3px;
 }
 .input {
   width: 75%;
   padding: 10px;
   margin:10px 0;
 }
-
-.demo-box{
-  flex: 2;
-}
-
-.directions {
-  flex: 1;
-  flex-direction: column;
+.itinerary-text{
   text-align: left;
+ }
+.possible-stops{
   margin-top: 20px;
 }
+.submit {
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  padding: 5px 20px 5px 20px;
+  border: solid 2px black;
+  border-radius: 3px;
+}
+.trip-card{
+  margin: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  text-align: center;
+  font-size: 25px;
+}
+.wrapper {
+  width: 100%;
+}
+#directions-position{
+  position: absolute;
+}
+#headerLink {
+  border: solid 2px black;
+  background-color: black;
+  font-size: 25px;
+  margin-bottom: 20px;
+  padding: 7px 15px 7px 15px;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+#headerLink: hover{
+  font-weight:bold;
+  text-decoration:underline;
+}
+#home-form {
+  margin: 20px;
+  float: left;
+}
+#login {
+  color: black;
+  float: right;
+  padding: 5px 25px;
+  visibility: visible;
+}
+#login-form {
+  flex: 1;
+  flex-direction: column;
+  margin: 60px;
+  text-align: left;
+  height: 100%
+ }
+#login:hover{
+  font-weight: bold;
+}
+#main-box {
+  margin-top:  2rem;
+}
+#map {
+  margin-top: 20px;
+  flex:2
+}
+#map-buttons{
+  margin-top: 225px;
+  position: absolute;
+  z-index: 1;
+ }
 #registration-form {
   flex: 1;
   flex-direction: column;
@@ -208,8 +204,21 @@ body {
   width: 75%
   align-items: center;
 }
-
+#trip-name{
+  text-transform: capitalize;
+  font-size: 50px;
+}
 #registration-div {
   display: flex;
   width: 78px;
 }
+#titleImg {
+  width: 400px;
+}
+#welcome {
+  color: black;
+  float: right;
+  padding: 5px 25px;
+  visibility: visible;
+}
+
