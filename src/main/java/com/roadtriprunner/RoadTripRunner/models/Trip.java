@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class Trip  extends AbstractEntity {
 
-
+    @NotBlank(message = "Trip name is required to save your trip.")
     private String tripName;
 
     @NotBlank(message = "Starting location is required.")
