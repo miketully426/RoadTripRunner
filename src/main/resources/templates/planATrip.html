@@ -20,7 +20,7 @@
                         <br>
                         <input class="input" type="text" id="originInput" th:field="${routeDTO.startingLocation}" th:value="${routeDTO.startingLocation}" placeholder="Starting from...">
                     </label>
-                    <p class="error" th:errors="${routeDTO.startingLocation}"></p>
+                    <p class="errors" th:errors="${routeDTO.startingLocation}"></p>
                 </div>
                 <br>
                 <div>
@@ -28,7 +28,7 @@
                         <br>
                         <input class="input" type="text" id="destinationInput" th:field="${routeDTO.endingLocation}" th:value="${routeDTO.endingLocation}" placeholder="Traveling to...">
                     </label>
-                    <p class="error" th:errors="${routeDTO.endingLocation}"></p>
+                    <p class="errors" th:errors="${routeDTO.endingLocation}"></p>
                 </div>
             </div>
             <br>
@@ -62,7 +62,7 @@
                     <br>
                     <input class="input" type="text" th:field="${routeDTO.tripName}" id="tripName" placeholder="Enter a trip name" th:value="${routeDTO.tripName}">
                 </label>
-                <p class="error" th:errors="${routeDTO.tripName}"></p>
+                <p class="errors" th:errors="${routeDTO.tripName}"></p>
             </div>
 
             <input class="submit" type="submit" value="Save"/>
