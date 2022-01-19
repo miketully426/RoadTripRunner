@@ -49,7 +49,7 @@ public class TripController {
         model.addAttribute("loggedInUser", theUser);
         List<Trip> result = theUser.getTrips();
         if (result.isEmpty()) {
-            model.addAttribute("noTrips", "No trips to display. Head over to Plan A Trip to save your first adventure!");
+            model.addAttribute("noTrips", "No trips to display. Head over to Plan a Trip to save your first adventure!");
         } else {
             model.addAttribute("trips", theUser.getTrips());
         }
